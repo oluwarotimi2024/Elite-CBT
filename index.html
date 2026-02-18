@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ELITE CBT MASTER | SOT</title>
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3426/3426653.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root { --sot-blue: #000b18; --sot-accent: #00d4ff; --sot-gold: #FFD700; --glass: rgba(255, 255, 255, 0.98); --sot-green: #2ecc71; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070') no-repeat center center fixed; background-size: cover; overflow-x: hidden; }
         
-        /* AUTH PAGE */
         #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--sot-blue); z-index: 10000; display: flex; justify-content: center; align-items: center; color: white; }
         
-        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--sot-blue); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; transition: opacity 0.8s ease; pointer-events: none; }
-        .splash-icon { width: 100px; height: 100px; background: var(--sot-gold); border-radius: 20px; display: flex; justify-content: center; align-items: center; font-size: 3rem; color: var(--sot-blue); font-weight: bold; }
+        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--sot-blue); z-index: 9999; display: none; flex-direction: column; justify-content: center; align-items: center; color: white; transition: opacity 0.8s ease; }
+        .splash-icon { width: 120px; height: 120px; background: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; border: 4px solid var(--sot-gold); }
+        .splash-icon img { width: 100%; height: 100%; object-fit: cover; }
         
         .overlay { background: rgba(0, 11, 24, 0.75); min-height: 100vh; width: 100%; display: flex; flex-direction: column; }
         .app-header { background: rgba(0, 11, 24, 0.95); padding: 20px; text-align: center; border-bottom: 3px solid var(--sot-accent); }
@@ -35,15 +36,11 @@
         .feature-item { text-align: center; font-size: 0.65rem; font-weight: bold; color: var(--sot-blue); }
         .feature-item img { width: 35px; height: 35px; margin-bottom: 5px; }
 
-        /* CALCULATOR */
         #calc-box { position: fixed; bottom: 100px; right: 20px; width: 200px; background: #222; padding: 10px; border-radius: 10px; display: none; z-index: 2000; border: 2px solid var(--sot-accent); }
         #calc-display { width: 100%; background: #000; color: #0f0; border: none; padding: 10px; text-align: right; margin-bottom: 5px; }
         .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
         .cbtn { padding: 8px; background: #444; color: white; border: none; cursor: pointer; border-radius: 4px; font-size: 0.8rem; }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 3px solid var(--sot-accent); z-index: 1000; }
         .nav-item { font-weight: bold; color: #333; cursor: pointer; text-align: center; font-size: 0.8rem; }
         .option-btn { width: 100%; padding: 15px; margin: 5px 0; border: 1px solid #ddd; border-radius: 10px; cursor: pointer; text-align: left; background: white; transition: 0.3s; }
@@ -54,9 +51,11 @@
 <body>
 
 <div id="splash">
-    <div class="splash-icon">SOT</div>
-    <h1 style="margin-top: 20px; letter-spacing: 2px;">ELITE CBT MASTER</h1>
-    <p style="color: var(--sot-gold);">POWERED BY OLUWAROTIMI SUNDAY TEMITOPE</p>
+    <div class="splash-icon">
+        <img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" alt="App Icon">
+    </div>
+    <h1 style="margin-top: 20px; letter-spacing: 2px; text-align: center;">WELCOME TO CBT ELITE</h1>
+    <p style="color: var(--sot-gold); font-weight: bold; margin-top: 10px;">POWERED BY OLUWAROTIMI</p>
 </div>
 
 <div id="auth-overlay">
@@ -66,13 +65,13 @@
             <input type="text" id="user-id" placeholder="Username">
             <input type="password" id="user-pass" placeholder="Password">
             <button class="btn btn-blue" onclick="handleAuth('login')">LOGIN</button>
-            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem;" onclick="toggleAuth(true)">Don't have an account? Sign Up</p>
+            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem; margin-top:10px;" onclick="toggleAuth(true)">Don't have an account? Sign Up</p>
         </div>
         <div id="signup-form" style="display:none;">
             <input type="text" id="reg-user" placeholder="Create Username">
             <input type="password" id="reg-pass" placeholder="Create Password">
             <button class="btn btn-gold" onclick="handleAuth('signup')">CREATE ACCOUNT</button>
-            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem;" onclick="toggleAuth(false)">Back to Login</p>
+            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem; margin-top:10px;" onclick="toggleAuth(false)">Back to Login</p>
         </div>
     </div>
 </div>
@@ -100,93 +99,16 @@
             </div>
         </div>
 
-        <div id="page-dept" class="page">
-            <div class="card">
-                <h2 style="text-align: center; margin-bottom: 20px;">SELECT CLASS</h2>
-                <button class="btn btn-blue" onclick="loadSubjects('Science')">SCIENCE</button>
-                <button class="btn btn-blue" onclick="loadSubjects('Art')">ART</button>
-                <button class="btn btn-blue" onclick="loadSubjects('Commercial')">COMMERCIAL</button>
-            </div>
-        </div>
-
-        <div id="page-subs" class="page">
-            <div class="card" style="text-align:center;">
-                <h2 id="dept-title" style="color: var(--sot-blue); margin-bottom:15px;"></h2>
-                <div id="sub-list"></div>
-                <button class="btn" style="background:#666; color:white;" onclick="goHome()">BACK</button>
-            </div>
-        </div>
-
-        <div id="page-exam" class="page">
-            <div class="card" style="padding:0; overflow:hidden;">
-                <div style="background:var(--sot-blue); color:white; padding:15px; display:flex; justify-content:space-between;">
-                    <span id="label-sub"></span>
-                    <span id="timer" style="color:var(--sot-gold);">05:00</span>
-                </div>
-                <div style="padding:20px;">
-                    <h3 id="q-text" style="margin-bottom:20px; min-height:50px;"></h3>
-                    <div id="opt-container"></div>
-                    <div style="display:flex; justify-content: space-between; margin-top:20px;">
-                        <button class="btn btn-nav" style="width:30%; background:#eee" onclick="prevQ()">PREV</button>
-                        <button class="btn btn-nav" style="width:30%; background:red; color:white;" onclick="finishExam()">SUBMIT</button>
-                        <button class="btn btn-nav" style="width:30%; background:var(--sot-blue); color:white;" onclick="nextQ()">NEXT</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="page-result" class="page">
-            <div class="card" style="text-align:center;">
-                <h2>EXAM RESULT</h2>
-                <h1 id="score-raw" style="font-size:3.5rem;"></h1>
-                <p id="score-percent" style="color:var(--sot-green); font-weight:bold; font-size:1.2rem; margin-bottom:20px;"></p>
-                <button class="btn btn-blue" style="background:var(--sot-green);" onclick="generatePDF()">PRINT RESULT</button>
-                <button class="btn btn-blue" onclick="location.reload()">LOGOUT</button>
-            </div>
-        </div>
-
-        <div id="page-admin" class="page">
-            <div class="card">
-                <h2>Admin Management</h2>
-                <div style="background:#eee; padding:15px; border-radius:10px; margin-bottom:20px;">
-                    <h3>Add Question</h3>
-                    <select id="adm-dept"><option value="Science">Science</option><option value="Art">Art</option><option value="Commercial">Commercial</option></select>
-                    <input type="text" id="adm-sub" placeholder="Subject Name">
-                    <textarea id="adm-q" placeholder="The Question"></textarea>
-                    <input type="text" id="adm-o1" placeholder="Correct Answer">
-                    <input type="text" id="adm-o2" placeholder="Wrong Option 1">
-                    <input type="text" id="adm-o3" placeholder="Wrong Option 2">
-                    <input type="text" id="adm-o4" placeholder="Wrong Option 3">
-                    <button class="btn btn-blue" onclick="saveNewQuestion()">SAVE QUESTION</button>
-                </div>
-                <button class="btn" style="background:red; color:white;" onclick="clearLogs()">WIPE ALL RECORDS</button>
-                <button class="btn" style="background:#666; color:white; margin-top:20px;" onclick="goHome()">BACK TO HOME</button>
-            </div>
-        </div>
-
-        <div id="page-games" class="page">
-            <div class="card">
-                <h2 style="text-align: center;">General QUIZ</h2>
-                <p id="t-text" style="margin: 20px 0; font-size: 1.1rem; text-align: center;"></p>
-                <div id="t-box"></div>
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button class="btn btn-gold" onclick="prevQUIZ()">PREV</button>
-                    <button class="btn btn-blue" onclick="nextQUIZ()">NEXT</button>
-                </div>
-            </div>
-        </div>
+        <div id="page-dept" class="page"><div class="card"><h2 style="text-align:center; margin-bottom:20px;">SELECT CLASS</h2><button class="btn btn-blue" onclick="loadSubjects('Science')">SCIENCE</button><button class="btn btn-blue" onclick="loadSubjects('Art')">ART</button><button class="btn btn-blue" onclick="loadSubjects('Commercial')">COMMERCIAL</button></div></div>
+        <div id="page-subs" class="page"><div class="card" style="text-align:center;"><h2 id="dept-title"></h2><div id="sub-list"></div><button class="btn" style="background:#666; color:white;" onclick="goHome()">BACK</button></div></div>
+        <div id="page-exam" class="page"><div class="card" style="padding:0; overflow:hidden;"><div style="background:var(--sot-blue); color:white; padding:15px; display:flex; justify-content:space-between;"><span id="label-sub"></span><span id="timer" style="color:var(--sot-gold);">05:00</span></div><div style="padding:20px;"><h3 id="q-text" style="margin-bottom:20px;"></h3><div id="opt-container"></div><div style="display:flex; justify-content: space-between; margin-top:20px;"><button class="btn btn-nav" style="width:30%; background:#eee" onclick="prevQ()">PREV</button><button class="btn btn-nav" style="width:30%; background:red; color:white;" onclick="finishExam()">SUBMIT</button><button class="btn btn-nav" style="width:30%; background:var(--sot-blue); color:white;" onclick="nextQ()">NEXT</button></div></div></div></div>
+        <div id="page-result" class="page"><div class="card" style="text-align:center;"><h2>EXAM RESULT</h2><h1 id="score-raw" style="font-size:3.5rem;"></h1><p id="score-percent"></p><button class="btn btn-blue" style="background:var(--sot-green);" onclick="generatePDF()">PRINT RESULT</button><button class="btn btn-blue" onclick="location.reload()">LOGOUT</button></div></div>
+        <div id="page-admin" class="page"><div class="card"><h2>Admin Management</h2><div style="background:#eee; padding:15px; border-radius:10px; margin-bottom:20px;"><h3>Add Question</h3><select id="adm-dept"><option value="Science">Science</option><option value="Art">Art</option><option value="Commercial">Commercial</option></select><input type="text" id="adm-sub" placeholder="Subject Name"><textarea id="adm-q" placeholder="The Question"></textarea><input type="text" id="adm-o1" placeholder="Correct Answer"><input type="text" id="adm-o2" placeholder="Wrong Option 1"><input type="text" id="adm-o3" placeholder="Wrong Option 2"><input type="text" id="adm-o4" placeholder="Wrong Option 3"><button class="btn btn-blue" onclick="saveNewQuestion()">SAVE QUESTION</button></div><button class="btn" style="background:red; color:white;" onclick="clearLogs()">WIPE ALL RECORDS</button><button class="btn" style="background:#666; color:white; margin-top:20px;" onclick="goHome()">BACK TO HOME</button></div></div>
+        <div id="page-games" class="page"><div class="card"><h2 style="text-align:center;">General QUIZ</h2><p id="t-text" style="text-align:center;"></p><div id="t-box"></div><div style="display:flex; gap:10px; margin-top:20px;"><button class="btn btn-gold" onclick="prevQUIZ()">PREV</button><button class="btn btn-blue" onclick="nextQUIZ()">NEXT</button></div></div></div>
     </div>
 
     <button onclick="toggleCalc()" style="position:fixed; bottom:100px; left:20px; border-radius:50%; width:50px; height:50px; background:var(--sot-gold); border:none; font-weight:bold; z-index:2001; cursor:pointer;">CALC</button>
-    <div id="calc-box">
-        <input type="text" id="calc-display" readonly>
-        <div class="calc-grid">
-            <button class="cbtn" onclick="calcIn('7')">7</button><button class="cbtn" onclick="calcIn('8')">8</button><button class="cbtn" onclick="calcIn('9')">9</button><button class="cbtn" onclick="calcIn('/')">/</button>
-            <button class="cbtn" onclick="calcIn('4')">4</button><button class="cbtn" onclick="calcIn('5')">5</button><button class="cbtn" onclick="calcIn('6')">6</button><button class="cbtn" onclick="calcIn('*')">*</button>
-            <button class="cbtn" onclick="calcIn('1')">1</button><button class="cbtn" onclick="calcIn('2')">2</button><button class="cbtn" onclick="calcIn('3')">3</button><button class="cbtn" onclick="calcIn('-')">-</button>
-            <button class="cbtn" onclick="calcIn('0')">0</button><button class="cbtn" onclick="calcClear()">C</button><button class="cbtn" onclick="calcSolve()">=</button><button class="cbtn" onclick="calcIn('+')">+</button>
-        </div>
-    </div>
+    <div id="calc-box"><input type="text" id="calc-display" readonly><div class="calc-grid"><button class="cbtn" onclick="calcIn('7')">7</button><button class="cbtn" onclick="calcIn('8')">8</button><button class="cbtn" onclick="calcIn('9')">9</button><button class="cbtn" onclick="calcIn('/')">/</button><button class="cbtn" onclick="calcIn('4')">4</button><button class="cbtn" onclick="calcIn('5')">5</button><button class="cbtn" onclick="calcIn('6')">6</button><button class="cbtn" onclick="calcIn('*')">*</button><button class="cbtn" onclick="calcIn('1')">1</button><button class="cbtn" onclick="calcIn('2')">2</button><button class="cbtn" onclick="calcIn('3')">3</button><button class="cbtn" onclick="calcIn('-')">-</button><button class="cbtn" onclick="calcIn('0')">0</button><button class="cbtn" onclick="calcClear()">C</button><button class="cbtn" onclick="calcSolve()">=</button><button class="cbtn" onclick="calcIn('+')">+</button></div></div>
 
     <nav class="bottom-nav">
         <div class="nav-item" onclick="goHome()">HOME</div>
@@ -196,17 +118,9 @@
     </nav>
 </div>
 
-<div id="sot-slip" style="display:none; padding:50px; text-align:center; background: white;">
-    <h1>SOT ELITE TUTORIALS</h1>
-    <hr>
-    <h2 id="slip-name"></h2>
-    <h3 id="slip-sub"></h3>
-    <h1 id="slip-score" style="font-size: 3rem; color:blue;"></h1>
-    <p>Authentication Verified. Date: 2026</p>
-</div>
+<div id="sot-slip" style="display:none; padding:50px; text-align:center; background: white;"><h1>SOT ELITE TUTORIALS</h1><hr><h2 id="slip-name"></h2><h3 id="slip-sub"></h3><h1 id="slip-score" style="font-size: 3rem; color:blue;"></h1><p>Date: 2026</p></div>
 
 <script>
-    // AUTH LOGIC
     let currentUser = null;
     function toggleAuth(isSignup) {
         document.getElementById('login-form').style.display = isSignup ? 'none' : 'block';
@@ -230,19 +144,18 @@
                 currentUser = u;
                 document.getElementById('welcome-text').innerText = "Active: " + u;
                 document.getElementById('auth-overlay').style.display = 'none';
-                startSplash();
+                
+                // TRIGGER SPLASH SCREEN AFTER LOGIN
+                const splash = document.getElementById('splash');
+                splash.style.display = 'flex';
+                setTimeout(() => { 
+                    splash.style.opacity = '0'; 
+                    setTimeout(()=>splash.style.display='none', 800); 
+                }, 3000);
             } else { alert("Invalid Credentials"); }
         }
     }
 
-    function startSplash() {
-        setTimeout(() => { 
-            document.getElementById('splash').style.opacity = '0'; 
-            setTimeout(()=>document.getElementById('splash').style.display='none', 800); 
-        }, 2000);
-    }
-
-    // CBT LOGIC
     let qBank = JSON.parse(localStorage.getItem('sot_qbank')) || {
         'Science': {'Biology': [{q:"Study of life?", a:"Biology", o:["Biology","Physics","Law","Art"]}]},
         'Art': {'Government': [{q:"Who is head of state?", a:"President", o:["President","King","Oba","Chief"]}]},
@@ -252,110 +165,35 @@
     let QUIZBank = [{q:"Who created this app?", a:"SOT", o:["SOT","Anon","Robot","Alien"]}];
     let currentDept='', currentSub='', currentIdx=0, score=0, tIdx=0, timeLeft=300, timerInterval;
 
-    function switchTab(id) { 
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page')); 
-        document.getElementById(id).classList.add('active-page'); 
-    }
+    function switchTab(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page')); document.getElementById(id).classList.add('active-page'); }
     function goHome() { clearInterval(timerInterval); switchTab('page-home'); }
     function startPortal() { switchTab('page-dept'); }
-    
     function loadSubjects(dept) {
         currentDept = dept; document.getElementById('dept-title').innerText = dept;
         let html = '';
-        for(let sub in qBank[dept]) {
-            html += `<button class="btn btn-blue" onclick="startExam('${sub}')">${sub}</button>`;
-        }
+        for(let sub in qBank[dept]) { html += `<button class="btn btn-blue" onclick="startExam('${sub}')">${sub}</button>`; }
         document.getElementById('sub-list').innerHTML = html;
         switchTab('page-subs');
     }
-
-    function startExam(sub) {
-        currentSub = sub; currentIdx = 0; score = 0; timeLeft = 300;
-        document.getElementById('label-sub').innerText = sub;
-        switchTab('page-exam'); startTimer(); showQuestion();
-    }
-
-    function startTimer() {
-        clearInterval(timerInterval);
-        timerInterval = setInterval(() => {
-            timeLeft--;
-            let m = Math.floor(timeLeft/60), s = timeLeft%60;
-            document.getElementById('timer').innerText = `${m}:${s<10?'0':''}${s}`;
-            if(timeLeft <= 0) finishExam();
-        }, 1000);
-    }
-
-    function showQuestion() {
-        let q = qBank[currentDept][currentSub][currentIdx];
-        document.getElementById('q-text').innerText = (currentIdx+1) + ". " + q.q;
-        document.getElementById('opt-container').innerHTML = q.o.map(opt => 
-            `<button class="option-btn" onclick="checkAns('${opt}', this)">${opt}</button>`
-        ).join('');
-    }
-
-    function checkAns(ans, btn) {
-        document.querySelectorAll('.option-btn').forEach(b => b.style.background = 'white');
-        btn.style.background = 'var(--sot-gold)';
-        btn.dataset.selected = ans;
-    }
-
-    function nextQ() {
-        let sel = document.querySelector('.option-btn[style*="rgb(255, 215, 0)"]');
-        if(sel && sel.innerText === qBank[currentDept][currentSub][currentIdx].a) score++;
-        if(currentIdx < qBank[currentDept][currentSub].length - 1) { currentIdx++; showQuestion(); }
-    }
-
+    function startExam(sub) { currentSub = sub; currentIdx = 0; score = 0; timeLeft = 300; document.getElementById('label-sub').innerText = sub; switchTab('page-exam'); startTimer(); showQuestion(); }
+    function startTimer() { clearInterval(timerInterval); timerInterval = setInterval(() => { timeLeft--; let m = Math.floor(timeLeft/60), s = timeLeft%60; document.getElementById('timer').innerText = `${m}:${s<10?'0':''}${s}`; if(timeLeft <= 0) finishExam(); }, 1000); }
+    function showQuestion() { let q = qBank[currentDept][currentSub][currentIdx]; document.getElementById('q-text').innerText = (currentIdx+1) + ". " + q.q; document.getElementById('opt-container').innerHTML = q.o.map(opt => `<button class="option-btn" onclick="checkAns('${opt}', this)">${opt}</button>`).join(''); }
+    function checkAns(ans, btn) { document.querySelectorAll('.option-btn').forEach(b => b.style.background = 'white'); btn.style.background = 'var(--sot-gold)'; btn.dataset.selected = ans; }
+    function nextQ() { let sel = document.querySelector('.option-btn[style*="rgb(255, 215, 0)"]'); if(sel && sel.innerText === qBank[currentDept][currentSub][currentIdx].a) score++; if(currentIdx < qBank[currentDept][currentSub].length - 1) { currentIdx++; showQuestion(); } }
     function prevQ() { if(currentIdx > 0) { currentIdx--; showQuestion(); } }
-
-    function finishExam() {
-        clearInterval(timerInterval);
-        document.getElementById('score-raw').innerText = score + "/" + qBank[currentDept][currentSub].length;
-        let logs = JSON.parse(localStorage.getItem('sot_final_logs') || "[]");
-        logs.push({name: currentUser, sub: currentSub, score: score});
-        localStorage.setItem('sot_final_logs', JSON.stringify(logs));
-        switchTab('page-result');
-    }
-
-    function saveNewQuestion() {
-        const d = document.getElementById('adm-dept').value;
-        const s = document.getElementById('adm-sub').value;
-        const q = document.getElementById('adm-q').value;
-        const a = document.getElementById('adm-o1').value;
-        const opts = [a, document.getElementById('adm-o2').value, document.getElementById('adm-o3').value, document.getElementById('adm-o4').value];
-        
-        if(!s || !q || !a) return alert("Missing data");
-        if(!qBank[d][s]) qBank[d][s] = [];
-        qBank[d][s].push({q, a, o: opts});
-        localStorage.setItem('sot_qbank', JSON.stringify(qBank));
-        alert("Question Added!");
-    }
-
+    function finishExam() { clearInterval(timerInterval); document.getElementById('score-raw').innerText = score + "/" + qBank[currentDept][currentSub].length; let logs = JSON.parse(localStorage.getItem('sot_final_logs') || "[]"); logs.push({name: currentUser, sub: currentSub, score: score}); localStorage.setItem('sot_final_logs', JSON.stringify(logs)); switchTab('page-result'); }
+    function saveNewQuestion() { const d = document.getElementById('adm-dept').value; const s = document.getElementById('adm-sub').value; const q = document.getElementById('adm-q').value; const a = document.getElementById('adm-o1').value; const opts = [a, document.getElementById('adm-o2').value, document.getElementById('adm-o3').value, document.getElementById('adm-o4').value]; if(!s || !q || !a) return alert("Missing data"); if(!qBank[d][s]) qBank[d][s] = []; qBank[d][s].push({q, a, o: opts}); localStorage.setItem('sot_qbank', JSON.stringify(qBank)); alert("Question Added!"); }
     function checkAdmin() { if(prompt("ADMIN PIN:") === "2026") switchTab('page-admin'); }
     function clearLogs() { if(confirm("Delete records?")) localStorage.removeItem('sot_final_logs'); }
-
-    // QUIZ
     function openQUIZ() { tIdx=0; switchTab('page-games'); renderQUIZ(); }
-    function renderQUIZ() {
-        document.getElementById('t-text').innerText = QUIZBank[tIdx].q;
-        document.getElementById('t-box').innerHTML = QUIZBank[tIdx].o.map(o => `<button class="option-btn" onclick="this.style.background='var(--sot-gold)'">${o}</button>`).join('');
-    }
+    function renderQUIZ() { document.getElementById('t-text').innerText = QUIZBank[tIdx].q; document.getElementById('t-box').innerHTML = QUIZBank[tIdx].o.map(o => `<button class="option-btn" onclick="this.style.background='var(--sot-gold)'">${o}</button>`).join(''); }
     function nextQUIZ() { if(tIdx < QUIZBank.length-1) { tIdx++; renderQUIZ(); } }
     function prevQUIZ() { if(tIdx > 0) { tIdx--; renderQUIZ(); } }
-
-    // CALCULATOR FUNCTIONS
     function toggleCalc() { let c = document.getElementById('calc-box'); c.style.display = (c.style.display==='block')?'none':'block'; }
     function calcIn(v) { document.getElementById('calc-display').value += v; }
     function calcClear() { document.getElementById('calc-display').value = ''; }
     function calcSolve() { try { let d = document.getElementById('calc-display'); d.value = eval(d.value); } catch(e) { alert("Error"); } }
-
-    function generatePDF() {
-        document.getElementById('slip-name').innerText = "Student: " + currentUser;
-        document.getElementById('slip-sub').innerText = "Subject: " + currentSub;
-        document.getElementById('slip-score').innerText = score;
-        const el = document.getElementById('sot-slip');
-        el.style.display = 'block';
-        html2pdf().from(el).save().then(()=>el.style.display='none');
-    }
+    function generatePDF() { document.getElementById('slip-name').innerText = "Student: " + currentUser; document.getElementById('slip-sub').innerText = "Subject: " + currentSub; document.getElementById('slip-score').innerText = score; const el = document.getElementById('sot-slip'); el.style.display = 'block'; html2pdf().from(el).save().then(()=>el.style.display='none'); }
 </script>
 </body>
 </html>
