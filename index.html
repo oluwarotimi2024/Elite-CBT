@@ -8,62 +8,52 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root { 
-            --sot-blue: #000b18; 
-            --sot-accent: #00d4ff; 
+            --sot-blue: #002D62; 
             --sot-gold: #FFD700; 
-            --glass: rgba(255, 255, 255, 0.08);
-            --grad: linear-gradient(135deg, #001f3f 0%, #000814 100%);
+            --sot-light: #f4f7f6;
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
         body { 
-            background: var(--grad); 
-            color: white; 
+            background-color: var(--sot-light); 
             min-height: 100vh; 
-            background-attachment: fixed;
             display: flex;
             flex-direction: column;
+            justify-content: center; /* Centers content vertically */
+            align-items: center; /* Centers content horizontally */
         }
 
         .app-header { 
-            background: rgba(0, 11, 24, 0.8); 
-            backdrop-filter: blur(10px);
+            background: var(--sot-blue); 
             color: white; 
-            padding: 15px; 
+            padding: 20px; 
             text-align: center; 
-            border-bottom: 2px solid var(--sot-accent); 
-            position: sticky;
+            border-bottom: 5px solid var(--sot-gold); 
+            width: 100%;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        .profile-circle { 
-            width: 60px; height: 60px; 
-            border-radius: 50%; 
-            border: 2px solid var(--sot-accent); 
-            margin: 0 auto 5px; 
-            overflow: hidden; 
-            background: #fff; 
-            box-shadow: 0 0 15px var(--sot-accent);
+        .page { 
+            display: none; 
+            width: 100%; 
+            padding: 20px; 
+            margin-top: 120px; /* Space for fixed header */
+            margin-bottom: 80px; /* Space for footer */
         }
-
-        .profile-circle img { width: 100%; height: 100%; object-fit: cover; }
-
-        .page { display: none; padding: 20px; animation: fadeIn 0.4s ease-out; }
-        .active-page { display: block; }
+        
+        .active-page { display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.4s; }
 
         .card { 
-            background: var(--glass); 
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 25px; 
+            background: white; 
+            padding: 30px; 
             border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
             width: 100%; 
-            max-width: 600px; 
-            margin: auto; 
+            max-width: 500px; 
+            border-top: 4px solid var(--sot-blue);
         }
 
         .btn { 
@@ -71,321 +61,140 @@
             padding: 15px; 
             margin: 10px 0; 
             border: none; 
-            border-radius: 12px; 
+            border-radius: 10px; 
             font-weight: bold; 
             cursor: pointer; 
             transition: 0.3s;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        .btn-blue { 
-            background: linear-gradient(90deg, var(--sot-accent), #0072ff); 
-            color: white; 
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
-        }
-
-        .btn-blue:active { transform: scale(0.98); }
-
-        .btn-red { background: #d32f2f; color: white; padding: 5px 10px; width: auto; font-size: 0.7rem; border-radius: 5px; }
+        .btn-blue { background: var(--sot-blue); color: white; }
+        .btn-blue:hover { background: #001a3a; transform: translateY(-2px); }
         
-        .btn-nav { width: 32%; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-nav { width: 32%; background: #e0e0e0; color: #333; }
+        .btn-red { background: #d32f2f; color: white; }
 
         .option { 
             display: block; 
             padding: 15px; 
             margin: 10px 0; 
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1); 
-            border-radius: 12px; 
+            border: 2px solid #eee; 
+            border-radius: 10px; 
             cursor: pointer; 
             transition: 0.2s;
         }
 
-        .option.selected { 
-            border-color: var(--sot-accent); 
-            background: rgba(0, 212, 255, 0.15); 
-            box-shadow: inset 0 0 10px rgba(0, 212, 255, 0.2);
-        }
+        .option.selected { border-color: var(--sot-blue); background: #eef3ff; font-weight: bold; }
 
         input, select, textarea { 
-            width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; 
-            border: 1px solid rgba(255,255,255,0.2); 
-            background: rgba(0,0,0,0.3); 
-            color: white; 
+            width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; 
+            border: 1px solid #ccc; font-size: 1rem;
         }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.8rem; color: #ccc; }
-        th, td { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px; text-align: left; }
-        th { color: var(--sot-accent); }
-
         .sot-footer { 
-            background: rgba(0,0,0,0.5); 
-            color: rgba(255,255,255,0.6); 
+            background: var(--sot-blue); 
+            color: white; 
             text-align: center; 
             padding: 15px; 
-            margin-top: auto;
-            font-size: 0.75rem; 
+            position: fixed; 
+            bottom: 0; 
+            width: 100%; 
+            border-top: 3px solid var(--sot-gold);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
         }
 
         @keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
+
+        /* Printout Styling */
+        #sot-slip { padding: 40px; color: black; background: white; border: 5px double var(--sot-blue); }
     </style>
 </head>
 <body>
 
 <header class="app-header">
-    <div class="profile-circle"><img src="profile.jpg" alt="SOT"></div>
-    <h2 style="font-size: 1.2rem; letter-spacing: 2px;">ELITE CBT MASTER</h2>
+    <h1>SOT JAMB MASTER</h1>
 </header>
 
 <div id="page-login" class="page active-page">
     <div class="card" style="text-align:center;">
-        <h3 style="margin-bottom: 15px; color: var(--sot-accent);">CANDIDATE LOGIN</h3>
-        <input type="text" id="std-name" placeholder="Enter Full Name">
-        <button class="btn btn-blue" onclick="navDept('science')">SCIENCE CLASS</button>
-        <button class="btn btn-blue" onclick="navDept('art')">ART CLASS</button>
-        <button class="btn btn-blue" onclick="navDept('commercial')">COMMERCIAL CLASS</button>
-        <p onclick="showAdmin()" style="margin-top:20px; font-size:0.7rem; color:var(--sot-accent); cursor:pointer; opacity: 0.7;">ADMIN PORTAL</p>
+        <h2 style="color: var(--sot-blue); margin-bottom: 20px;">Candidate Login</h2>
+        <input type="text" id="std-name" placeholder="Surname First (e.g., ADAMS John)">
+        <button class="btn btn-blue" onclick="navDept('science')">SCIENCE DEPT</button>
+        <button class="btn btn-blue" onclick="navDept('art')">ART DEPT</button>
+        <button class="btn btn-blue" onclick="navDept('commercial')">COMMERCIAL DEPT</button>
+        <p onclick="showAdmin()" style="margin-top:20px; font-size:0.75rem; color:gray; cursor:pointer;">ADMIN ACCESS</p>
     </div>
 </div>
 
 <div id="page-subs" class="page">
     <div class="card" style="text-align:center;">
-        <h2 id="dept-title" style="color: var(--sot-accent); margin-bottom:15px;"></h2>
+        <h2 id="dept-title" style="color: var(--sot-blue); margin-bottom:15px;"></h2>
         <div id="sub-list"></div>
-        <button class="btn" style="background:rgba(255,255,255,0.1); color:white;" onclick="goHome()">BACK</button>
+        <button class="btn" style="background:#666; color:white;" onclick="goHome()">BACK</button>
     </div>
 </div>
 
 <div id="page-exam" class="page">
-    <div class="card" style="padding:0; overflow:hidden;">
-        <div style="background:rgba(255,255,255,0.05); color:white; padding:15px; display:flex; justify-content:space-between; border-bottom: 1px solid rgba(255,255,255,0.1);">
-            <span id="label-sub" style="color: var(--sot-accent); font-weight: bold;"></span>
-            <span id="timer" style="color:#ff4d4d; font-weight: bold;">30:00</span>
+    <div class="card">
+        <div style="display:flex; justify-content:space-between; margin-bottom: 15px;">
+            <span id="label-sub" style="font-weight:bold; color:var(--sot-blue);"></span>
+            <span id="timer" style="color:red; font-weight:bold;">30:00</span>
         </div>
-        <div style="padding:20px;">
-            <h3 id="q-text" style="margin-bottom:20px; min-height:50px; line-height: 1.4;"></h3>
-            <div id="opt-container"></div>
-            <div style="display:flex; justify-content: space-between; margin-top:25px;">
-                <button class="btn btn-nav" onclick="prevQ()">PREV</button>
-                <button class="btn btn-nav" style="background:#ff4d4d; color:white; border:none;" onclick="confirmSubmit()">SUBMIT</button>
-                <button class="btn btn-nav" style="background:var(--sot-accent); color:var(--sot-blue); border:none;" onclick="nextQ()">NEXT</button>
-            </div>
+        <h3 id="q-text" style="margin-bottom:20px;"></h3>
+        <div id="opt-container"></div>
+        <div style="display:flex; justify-content: space-between; margin-top:20px;">
+            <button class="btn btn-nav" onclick="prevQ()">PREV</button>
+            <button class="btn btn-nav" style="background:red; color:white;" onclick="confirmSubmit()">SUBMIT</button>
+            <button class="btn btn-nav" style="background:var(--sot-blue); color:white;" onclick="nextQ()">NEXT</button>
         </div>
     </div>
 </div>
 
 <div id="page-result" class="page">
     <div class="card" style="text-align:center;">
-        <h2 style="color: var(--sot-accent);">EXAM COMPLETED</h2>
-        <h1 id="score-raw" style="font-size:4rem; margin: 10px 0;"></h1>
-        <p id="score-percent" style="color:#00ff88; font-weight:bold; font-size:1.2rem; margin-bottom:20px;"></p>
-        <button class="btn btn-blue" style="background:#1B5E20;" onclick="downloadResult()">PRINT SLIP & CORRECTIONS</button>
-        <button class="btn btn-blue" style="background: #444;" onclick="location.reload()">HOME</button>
+        <h2 style="color: var(--sot-blue);">EXAM RESULT</h2>
+        <h1 id="score-raw" style="font-size:4rem; margin: 15px 0;"></h1>
+        <p id="score-percent" style="font-weight:bold; font-size:1.2rem; color: green; margin-bottom:20px;"></p>
+        <button class="btn btn-blue" style="background:green;" onclick="downloadResult()">DOWNLOAD RESULT SLIP</button>
+        <button class="btn btn-blue" onclick="location.reload()">RESTART</button>
     </div>
 </div>
 
 <div id="page-admin" class="page">
     <div class="card">
-        <h2 style="color: var(--sot-accent);">Admin Management</h2>
-        <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:15px; margin:20px 0; border: 1px solid rgba(255,255,255,0.1);">
-            <h3 style="font-size: 0.9rem; margin-bottom: 10px;">ADD NEW QUESTION</h3>
-            <select id="adm-dept"><option value="science">Science</option><option value="art">Art</option><option value="commercial">Commercial</option></select>
-            <input type="text" id="adm-sub" placeholder="Subject Name">
-            <textarea id="adm-q" placeholder="The Question"></textarea>
-            <input type="text" id="adm-o1" placeholder="Correct Answer">
-            <input type="text" id="adm-o2" placeholder="Wrong Option 1">
-            <input type="text" id="adm-o3" placeholder="Wrong Option 2">
-            <input type="text" id="adm-o4" placeholder="Wrong Option 3">
-            <button class="btn btn-blue" onclick="addQuestion()">SAVE TO DATABASE</button>
-        </div>
-
-        <h3>Question List</h3>
-        <div style="max-height: 200px; overflow-y: auto; margin-bottom: 20px;">
-            <table id="q-manage-table"><thead><tr><th>Sub</th><th>Q</th><th>Action</th></tr></thead><tbody></tbody></table>
-        </div>
-
-        <h3>Student Scores</h3>
-        <div style="max-height: 150px; overflow-y: auto;">
-            <table id="score-table"><thead><tr><th>Name</th><th>Score</th><th>Action</th></tr></thead><tbody></tbody></table>
-        </div>
-        
-        <button class="btn" style="background:#666; color:white; margin-top:20px;" onclick="goHome()">EXIT ADMIN</button>
+        <h2 style="color: var(--sot-blue);">Admin Portal</h2>
+        <input type="text" id="adm-sub" placeholder="Subject Name">
+        <textarea id="adm-q" placeholder="Question"></textarea>
+        <input type="text" id="adm-o1" placeholder="Correct Answer">
+        <input type="text" id="adm-o2" placeholder="Wrong 1">
+        <button class="btn btn-blue" onclick="addQuestion()">SAVE QUESTION</button>
+        <button class="btn" style="background:#333; color:white;" onclick="goHome()">LOGOUT</button>
     </div>
 </div>
 
-<footer class="sot-footer">Elite CBT Engine &copy; 2026 | Powered by <strong>Oluwarotimi SOT</strong></footer>
+<footer class="sot-footer">
+    ELITE CBT ENGINE &copy; 2026 | DESIGNED BY <strong>OLUWAROTIMI SOT</strong>
+</footer>
 
-<div id="sot-slip" style="display:none; padding:40px; color: black; background: white; font-family: Arial;">
-    <center>
-        <h1 style="color: #002D62;">SOT JAMB MASTER</h1>
-        <p>Official Examination Result Slip</p>
-        <hr style="margin: 20px 0;">
-        <h2 id="slip-name"></h2>
-        <h3 id="slip-sub"></h3>
-        <h1 id="slip-score" style="font-size: 3rem;"></h1>
-    </center>
-    <div id="slip-corrections" style="margin-top:30px;"></div>
+<div id="sot-slip" style="display:none; text-align: center;">
+    <h1 style="color: #002D62; font-size: 28px;">SOT JAMB MASTER</h1>
+    <p>Official Performance Report</p>
+    <hr style="margin: 15px 0;">
+    <h2 id="slip-name" style="text-transform: uppercase;"></h2>
+    <h3 id="slip-sub"></h3>
+    <h1 id="slip-score" style="font-size: 50px; color: #002D62;"></h1>
+    <div id="slip-corrections" style="text-align: left; margin-top: 20px;"></div>
+    <hr style="margin: 20px 0;">
+    <p style="font-size: 12px; color: gray;">Verified by: <strong>Oluwarotimi SOT</strong> | Elite CBT System</p>
 </div>
 
 <script>
-// PWA Registration Logic
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').then(reg => {
-            console.log('Elite CBT: Offline Engine Ready');
-        }).catch(err => console.log('Offline Engine Failed', err));
-    });
-}
-
-const starter = {
-    science: [
-        {id: 1, s:"Biology", q:"What is the structural and functional unit of life?", o:["Cell","Tissue","Organ","System"], a:"Cell"},
-        {id: 2, s:"Mathematics", q:"Find the square root of 144.", o:["12","14","10","16"], a:"12"}
-    ],
-    art: [
-        {id: 3, s:"Government", q:"Nigeria became a republic in what year?", o:["1963","1960","1970","1999"], a:"1963"}
-    ],
-    commercial: [
-        {id: 4, s:"Economics", q:"Who is known as the Father of Economics?", o:["Adam Smith","Alfred Marshall","Karl Marx","John Locke"], a:"Adam Smith"}
-    ]
-};
-
-let qBank = JSON.parse(localStorage.getItem('sot_bank')) || starter;
-let studentLogs = JSON.parse(localStorage.getItem('sot_logs')) || [];
-let student = '', currentDept = '', examQuestions = [], answers = [], qIdx = 0, timer, timeLeft = 1800;
-
-function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-    document.getElementById(id).classList.add('active-page');
-    if(id === 'page-admin') updateAdminViews();
-}
-
-function navDept(d) {
-    student = document.getElementById('std-name').value;
-    if(!student) return alert("Please enter your name first!");
-    currentDept = d; 
-    showPage('page-subs');
-    document.getElementById('dept-title').innerText = d.toUpperCase() + " SUBJECTS";
-    const subs = { 
-        science: ["English", "Mathematics", "Physics", "Chemistry", "Biology"], 
-        art: ["English", "Government", "Literature", "CRS", "History"], 
-        commercial: ["English", "Economics", "Commerce", "Accounts", "Mathematics"] 
-    };
-    document.getElementById('sub-list').innerHTML = subs[d].map(s => `<button class="btn btn-blue" onclick="startExam('${s}')">${s}</button>`).join('');
-}
-
-function startExam(sub) {
-    let rawSet = qBank[currentDept].filter(q => q.s.toLowerCase() === sub.toLowerCase());
-    if(rawSet.length < 1) return alert("Admin: No questions found for " + sub);
-    
-    examQuestions = rawSet.sort(() => Math.random() - 0.5).slice(0, 30);
-    answers = Array(examQuestions.length).fill(null);
-    qIdx = 0; timeLeft = 1800;
-    showPage('page-exam'); 
-    renderQ();
-    clearInterval(timer); 
-    timer = setInterval(tick, 1000);
-}
-
-function renderQ() {
-    const q = examQuestions[qIdx];
-    document.getElementById('label-sub').innerText = `${q.s} | Q${qIdx + 1} of ${examQuestions.length}`;
-    document.getElementById('q-text').innerText = q.q;
-    document.getElementById('opt-container').innerHTML = q.o.map(opt => `
-        <div class="option ${answers[qIdx] === opt ? 'selected' : ''}" onclick="selectOption('${opt}')">
-            ${opt}
-        </div>
-    `).join('');
-}
-
-function selectOption(opt) {
-    answers[qIdx] = opt;
-    renderQ();
-}
-
-function nextQ() { if(qIdx < examQuestions.length - 1) { qIdx++; renderQ(); } }
-function prevQ() { if(qIdx > 0) { qIdx--; renderQ(); } }
-
-function tick() { 
-    timeLeft--; 
-    let m = Math.floor(timeLeft/60), s = timeLeft%60; 
-    document.getElementById('timer').innerText = `${m}:${s<10?'0'+s:s}`; 
-    if(timeLeft <= 0) submitFinal(); 
-}
-
-function confirmSubmit() { if(confirm("Are you sure you want to end this exam?")) submitFinal(); }
-
-function submitFinal() {
-    clearInterval(timer);
-    let score = 0;
-    examQuestions.forEach((q, i) => { if(answers[i] === q.a) score++; });
-    
-    studentLogs.push({ id: Date.now(), name: student, sub: examQuestions[0].s, score: score+"/"+examQuestions.length });
-    localStorage.setItem('sot_logs', JSON.stringify(studentLogs));
-    
-    showPage('page-result');
-    document.getElementById('score-raw').innerText = `${score} / ${examQuestions.length}`;
-    document.getElementById('score-percent').innerText = Math.round((score/examQuestions.length)*100) + "% SUCCESS RATE";
-}
-
-function addQuestion() {
-    const d = document.getElementById('adm-dept').value, s = document.getElementById('adm-sub').value, q = document.getElementById('adm-q').value, a = document.getElementById('adm-o1').value;
-    const options = [a, document.getElementById('adm-o2').value, document.getElementById('adm-o3').value, document.getElementById('adm-o4').value].sort(() => Math.random() - 0.5);
-    
-    if(!s || !q || !a) return alert("All fields are required!");
-    
-    qBank[d].push({ id: Date.now(), s, q, o: options, a });
-    localStorage.setItem('sot_bank', JSON.stringify(qBank));
-    updateAdminViews(); 
-    alert("Question saved to local storage!");
-}
-
-function deleteQ(dept, id) {
-    qBank[dept] = qBank[dept].filter(q => q.id !== id);
-    localStorage.setItem('sot_bank', JSON.stringify(qBank));
-    updateAdminViews();
-}
-
-function deleteLog(id) {
-    studentLogs = studentLogs.filter(l => l.id !== id);
-    localStorage.setItem('sot_logs', JSON.stringify(studentLogs));
-    updateAdminViews();
-}
-
-function updateAdminViews() {
-    document.querySelector('#score-table tbody').innerHTML = studentLogs.map(l => `
-        <tr><td>${l.name}</td><td>${l.score}</td><td><button class="btn-red" onclick="deleteLog(${l.id})">Del</button></td></tr>
-    `).join('');
-    
-    let qRows = "";
-    ["science","art","commercial"].forEach(d => {
-        qBank[d].forEach(q => { 
-            qRows += `<tr><td>${q.s}</td><td>${q.q.substring(0,25)}...</td><td><button class="btn-red" onclick="deleteQ('${d}', ${q.id})">Del</button></td></tr>`; 
-        });
-    });
-    document.querySelector('#q-manage-table tbody').innerHTML = qRows;
-}
-
-function downloadResult() {
-    document.getElementById('slip-name').innerText = "CANDIDATE: " + student.toUpperCase();
-    document.getElementById('slip-sub').innerText = "SUBJECT: " + examQuestions[0].s;
-    document.getElementById('slip-score').innerText = "SCORE: " + document.getElementById('score-raw').innerText;
-    document.getElementById('slip-corrections').innerHTML = examQuestions.map((q, i) => `
-        <div style="border-bottom:1px solid #ddd; padding:10px; font-size:12px;">
-            <b>Q${i+1}: ${q.q}</b><br>
-            Your Answer: <span style="color:${answers[i] === q.a ? 'green' : 'red'}">${answers[i] || 'None'}</span><br>
-            Correct Answer: <span style="color:green; font-weight:bold;">${q.a}</span>
-        </div>
-    `).join('');
-    
-    const el = document.getElementById('sot-slip'); 
-    el.style.display = 'block';
-    html2pdf().from(el).set({margin:0.5, filename: student+'_Elite_Result.pdf', image:{type:'jpeg', quality:0.98}}).save().then(()=>el.style.display='none');
-}
-
-function showAdmin() { if(prompt("Enter Admin PIN:") === '2026') showPage('page-admin'); }
-function goHome() { showPage('page-login'); }
+    // Copy your existing script logic here (navDept, startExam, renderQ, etc.)
+    // Ensure you include the PWA Registration at the bottom:
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js');
+    }
 </script>
 </body>
 </html>
