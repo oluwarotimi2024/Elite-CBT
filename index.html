@@ -8,57 +8,31 @@
     <style>
         :root { --sot-blue: #000b18; --sot-accent: #00d4ff; --sot-gold: #FFD700; --glass: rgba(255, 255, 255, 0.98); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        
-        body { 
-            background: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070') no-repeat center center fixed; 
-            background-size: cover;
-            overflow-x: hidden;
-        }
-
-        /* SPLASH SCREEN */
-        #splash {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--sot-blue); z-index: 9999; display: flex;
-            flex-direction: column; justify-content: center; align-items: center; color: white;
-            transition: opacity 0.8s ease;
-        }
-        .splash-icon {
-            width: 100px; height: 100px; background: var(--sot-gold);
-            border-radius: 20px; display: flex; justify-content: center;
-            align-items: center; font-size: 3rem; color: var(--sot-blue);
-            font-weight: bold; animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse { 0% {transform: scale(1.1);} 100% {transform: scale(1);} }
-
+        body { background: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070') no-repeat center center fixed; background-size: cover; overflow-x: hidden; }
+        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--sot-blue); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; transition: opacity 0.8s ease; }
+        .splash-icon { width: 100px; height: 100px; background: var(--sot-gold); border-radius: 20px; display: flex; justify-content: center; align-items: center; font-size: 3rem; color: var(--sot-blue); font-weight: bold; }
         .overlay { background: rgba(0, 11, 24, 0.75); min-height: 100vh; width: 100%; display: flex; flex-direction: column; }
         .app-header { background: rgba(0, 11, 24, 0.95); padding: 20px; text-align: center; border-bottom: 3px solid var(--sot-accent); }
         .profile-circle { width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--sot-gold); margin: 0 auto 10px; overflow: hidden; background: #fff; }
-
         .container { padding: 20px; max-width: 800px; margin: auto; width: 100%; flex: 1; padding-bottom: 120px; }
         .page { display: none; animation: fadeIn 0.5s; }
         .active-page { display: block; }
-
         .card { background: var(--glass); padding: 35px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); color: #333; margin-bottom: 20px; }
         .btn { width: 100%; padding: 18px; margin: 8px 0; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
         .btn-blue { background: linear-gradient(90deg, #001f3f, #0072ff); color: white; }
         .btn-gold { background: var(--sot-gold); color: #000; }
-        
         input, select { width: 100%; padding: 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #ccc; font-size: 1rem; }
-        .option-btn { background: #f0f2f5; text-align: left; padding: 15px; border: 1px solid #ddd; margin-bottom: 8px; border-radius: 10px; cursor: pointer; width: 100%; transition: 0.2s; }
-        .option-btn:hover { background: var(--sot-accent); color: white; }
-
-        /* Admin Styles */
+        .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px; }
+        .feature-item { text-align: center; font-size: 0.65rem; font-weight: bold; color: var(--sot-blue); }
+        .feature-item img { width: 40px; height: 40px; margin-bottom: 8px; object-fit: contain; }
         .log-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
-        .log-table th { background: var(--sot-blue); color: white; padding: 12px; text-align: left; }
-        .log-table td { padding: 12px; border-bottom: 1px solid #ddd; }
-        .action-btn { padding: 5px 10px; border-radius: 5px; cursor: pointer; border: none; font-size: 0.7rem; font-weight: bold; margin-right: 5px; }
+        .log-table th { background: var(--sot-blue); color: white; padding: 12px; }
+        .log-table td { padding: 10px; border-bottom: 1px solid #ddd; text-align: center; }
+        .action-btn { padding: 6px 12px; border-radius: 8px; border: none; font-size: 0.7rem; font-weight: bold; cursor: pointer; margin: 2px; }
         .btn-edit { background: #e3f2fd; color: #1976d2; }
         .btn-del { background: #ffebee; color: #c62828; }
-
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 18px 0; border-top: 3px solid var(--sot-accent); z-index: 1000; }
-        .nav-item { font-weight: bold; color: #333; cursor: pointer; font-size: 0.9rem; }
-
-        #sot-slip { display: none; padding: 50px; background: white; color: black; text-align: center; }
+        .nav-item { font-weight: bold; color: #333; cursor: pointer; }
         @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
     </style>
 </head>
@@ -66,31 +40,37 @@
 
 <div id="splash">
     <div class="splash-icon">SOT</div>
-    <h1 style="margin-top: 20px; letter-spacing: 2px;">WELCOME TO ELITE CBT</h1>
-    <p style="color: var(--sot-gold); margin-top: 10px;">Powered by Oluwarotimi Sunday Temitope</p>
+    <h1 style="margin-top: 20px; letter-spacing: 2px;">ELITE MASTER</h1>
+    <p style="color: var(--sot-gold);">BY OLUWAROTIMI SUNDAY TEMITOPE</p>
 </div>
 
 <div class="overlay">
     <header class="app-header">
-        <div class="profile-circle"><img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" alt="SOT" width="100%"></div>
-        <h2 style="color: white; letter-spacing: 1px;">ELITE MASTER </h2>
+        <div class="profile-circle"><img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" width="100%"></div>
+        <h2 style="color: white;">ELITE CBT MASTER </h2>
     </header>
 
     <div class="container">
         <div id="page-home" class="page active-page">
             <div class="card">
-                <h2 style="text-align: center; color: var(--sot-blue); margin-bottom: 20px;">STUDENT LOGIN</h2>
+                <h2 style="text-align: center; color: var(--sot-blue); margin-bottom: 20px;">STUDENT TERMINAL</h2>
                 <input type="text" id="std-name" placeholder="Full Name">
                 <input type="number" id="std-phone" placeholder="Phone Number">
-                <button class="btn btn-blue" onclick="startPortal()"> START CBT EXAMINATION</button>
-                <button class="btn btn-gold" onclick="openTrivia()">PLAY QUIZ</button>
-                <p style="text-align: center; font-size: 0.75rem; margin-top: 20px;">Powered by Oluwarotimi Sunday Temitope</p>
+                <button class="btn btn-blue" onclick="startPortal()">ENTER PORTAL</button>
+                <button class="btn btn-gold" onclick="openQUIZ()">PRACTICE QUIZ</button>
+                <div class="feature-grid">
+                    <div class="feature-item"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991108.png" alt="security"><br>SECURE</div>
+                    <div class="feature-item"><img src="https://cdn-icons-png.flaticon.com/512/9356/9356230.png" alt="fast"><br>FAST</div>
+                    <div class="feature-item"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="stats"><br>ANALYTICS</div>
+                    <div class="feature-item"><img src="https://cdn-icons-png.flaticon.com/512/4433/4433057.png" alt="cert"><br>CERTIFIED</div>
+                </div>
+                <p style="text-align: center; font-size: 0.7rem; margin-top: 20px; color: #888;">© 2026 Oluwarotimi Sunday Temitope</p>
             </div>
         </div>
 
         <div id="page-dept" class="page">
             <div class="card">
-                <h2 style="text-align: center; margin-bottom: 20px;">CHOOSE DEPARTMENT</h2>
+                <h2 style="text-align: center; margin-bottom: 20px;">SELECT FACULTY</h2>
                 <button class="btn btn-blue" onclick="loadSubjects('Science')">SCIENCE</button>
                 <button class="btn btn-blue" onclick="loadSubjects('Art')">ART</button>
                 <button class="btn btn-blue" onclick="loadSubjects('Commercial')">COMMERCIAL</button>
@@ -115,125 +95,89 @@
             </div>
         </div>
 
+        <div id="page-result" class="page">
+            <div class="card" style="text-align: center;">
+                <h2 style="color: green;">COMPLETED</h2>
+                <h1 id="res-score" style="font-size: 4rem; margin: 20px 0;"></h1>
+                <button class="btn btn-blue" onclick="generatePDF()">SAVE PDF SLIP</button>
+                <button class="btn btn-gold" onclick="location.reload()">LOGOUT</button>
+            </div>
+        </div>
+
+        <div id="page-admin" class="page">
+            <div class="card">
+                <h3>Add Questions</h3>
+                <select id="adm-dept"><option value="Science">Science</option><option value="Art">Art</option><option value="Commercial">Commercial</option></select>
+                <input type="text" id="adm-sub" placeholder="Subject">
+                <input type="text" id="adm-q" placeholder="Question">
+                <input type="text" id="adm-a" placeholder="Correct Answer">
+                <input type="text" id="adm-o" placeholder="Options (Option1, Option2...)">
+                <button class="btn btn-blue" onclick="saveNewQuestion()">UPDATE BANK</button>
+            </div>
+            <div class="card">
+                <h3>Student Records</h3>
+                <div style="overflow-x: auto;"><table class="log-table"><thead><tr><th>Student</th><th>Sub</th><th>Score</th><th>Action</th></tr></thead><tbody id="admin-table-body"></tbody></table></div>
+                <button class="btn btn-gold" style="margin-top: 15px; background: red; color: white;" onclick="clearLogs()">RESET RECORDS</button>
+            </div>
+        </div>
+
         <div id="page-games" class="page">
             <div class="card">
                 <h2 style="text-align: center;">General QUIZ</h2>
                 <p id="t-text" style="margin: 20px 0; font-size: 1.1rem; text-align: center;"></p>
                 <div id="t-box"></div>
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button class="btn btn-gold" onclick="prevTrivia()">PREVIOUS</button>
-                    <button class="btn btn-blue" onclick="nextTrivia()">NEXT</button>
+                    <button class="btn btn-gold" onclick="prevQUIZ()">PREVIOUS</button>
+                    <button class="btn btn-blue" onclick="nextQUIZ()">NEXT</button>
                 </div>
-                <button class="btn" style="background:#333; color:white;" onclick="goHome()">BACK HOME</button>
-            </div>
-        </div>
-<div id="page-lib" class="page">
-    <div class="card" style="padding:10px;">
-        <h3 style="margin:15px; color:var(--sot-blue); text-align:center;">Elite Library</h3>
-        <div class="item-row" onclick="openLesson('biology_cell')">
-            <b>Biology: Cell Theory</b> <span class="lock-badge">Premium</span>
-            <p style="font-size:0.75rem;">Basic units of life and their functions.</p>
-        </div>
-        <div class="item-row" onclick="openLesson('math_matrices')">
-            <b>Math: Matrices</b> <span class="lock-badge">Premium</span>
-            <p style="font-size:0.75rem;">Addition, Determinants, and Inverse.</p>
-        </div>
-        <div class="item-row" onclick="openLesson('english_concord')">
-            <b>English: Concord</b> <span class="lock-badge">Premium</span>
-            <p style="font-size:0.75rem;">Subject-Verb Agreement Rules.</p>
-        </div>
-    </div>
-</div>
-
-        <div id="page-result" class="page">
-            <div class="card" style="text-align: center;">
-                <h2 style="color: green;">EXAM FINISHED</h2>
-                <h1 id="res-score" style="font-size: 4rem; margin: 20px 0;"></h1>
-                <button class="btn btn-blue" onclick="generatePDF()">DOWNLOAD SLIP</button>
-                <button class="btn btn-gold" onclick="location.reload()">FINISH</button>
-            </div>
-            <button class="btn" style="background:#333; color:white;" onclick="goHome()">BACK HOME</button>
-        </div>
-         </div>
-
-        <div id="page-admin" class="page">
-            <div class="card">
-                <h3>+ Add New Question</h3>
-                <select id="adm-dept">
-                    <option value="Science">Science</option>
-                    <option value="Art">Art</option>
-                    <option value="Commercial">Commercial</option>
-                </select>
-                <input type="text" id="adm-sub" placeholder="Subject Name (e.g., Biology)">
-                <input type="text" id="adm-q" placeholder="The Question Text">
-                <input type="text" id="adm-a" placeholder="Correct Answer">
-                <input type="text" id="adm-o" placeholder="Options (separate with commas)">
-                <button class="btn btn-blue" onclick="saveNewQuestion()">SAVE QUESTION</button>
-            </div>
-
-            <div class="card">
-                <h3 style="margin-bottom: 15px;">Student Information & Results</h3>
-                <div style="overflow-x: auto;">
-                    <table class="log-table">
-                        <thead><tr><th>Student</th><th>Subject</th><th>Score</th><th>Actions</th></tr></thead>
-                        <tbody id="admin-table-body"></tbody>
-                    </table>
-                </div>
-                <button class="btn btn-gold" style="margin-top: 20px; background: #333; color: #fff;" onclick="localStorage.removeItem('sot_final_logs'); renderAdminLogs();">WIPE ALL RESULTS</button>
             </div>
         </div>
     </div>
 
     <nav class="bottom-nav">
         <div class="nav-item" onclick="goHome()">HOME</div>
-        <div class="nav-item" onclick="openTrivia()">QUIZ</div>
+        <div class="nav-item" onclick="openQUIZ()">QUIZ</div>
         <div class="nav-item" onclick="checkAdmin()">ADMIN</div>
     </nav>
 </div>
 
-<div id="sot-slip">
-    <img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" width="80">
-    <h1 style="color: #001f3f;">SOT ELITE TUTORIALS</h1>
-    <p>Official Performance Result</p>
-    <hr style="margin: 20px 0;">
+<div id="sot-slip" style="display:none; padding:50px; text-align:center;">
+    <h1>SOT ELITE TUTORIALS</h1>
     <h2 id="slip-name"></h2>
     <h3 id="slip-sub"></h3>
-    <h1 id="slip-score" style="font-size: 4rem; color: #0072ff; margin: 20px 0;"></h1>
-    <p>Date: <span id="slip-date"></span></p>
-    <br><br>
-    <p>__________________________</p>
-    <p><b>Oluwarotimi Sunday Temitope</b></p>
-    <p>Director, Elite Master</p>
+    <h1 id="slip-score" style="font-size: 3rem; color:blue;"></h1>
+    <p>Issued by Oluwarotimi Sunday Temitope</p>
 </div>
 
 <script>
-    // Splash
-    setTimeout(() => { document.getElementById('splash').style.opacity = '0'; setTimeout(()=>document.getElementById('splash').style.display='none', 800); }, 3000);
+    setTimeout(() => { 
+        document.getElementById('splash').style.opacity = '0'; 
+        setTimeout(()=>document.getElementById('splash').style.display='none', 800); 
+    }, 2500);
 
-    // Initial Questions
     let qBank = JSON.parse(localStorage.getItem('sot_qbank')) || {
-        'Science': {
-            'Biology': [{q:"Study of life?", a:"Biology", o:["Biology","Physics","Art","Law"]}, {q:"Unit of life?", a:"Cell", o:["Cell","Tissue","Organ","Atom"]}],
-            'Maths': [{q:"2+2?", a:"4", o:["4","5","6","2"]}]
-        },
-        'Art': { 'Government': [{q:"Who rules a Kingdom?", a:"King", o:["King","President","Governor"]}] },
-        'Commercial': { 'Economics': [{q:"What is Scarcity?", a:"Limited resources", o:["Limited resources","Unlimited money"]}] }
+        'Science': {'Biology': [{q:"Study of life?", a:"Biology", o:["Biology","Physics","Law"]}]},
+        'Art': {'Government': [{q:"Who is the head of state?", a:"President", o:["President","King"]}]},
+        'Commercial': {'Economics': [{q:"What is demand?", a:"Willingness to buy", o:["Willingness to buy","Selling"]}]}
     };
 
-    let triviaBank = [{q:"Who is SOT?", a:"Oluwarotimi Sunday Temitope", o:["Oluwarotimi Sunday Temitope","The President"]}];
-    
+    let QUIZBank = [{q:"Who created this app?", a:"SOT", o:["SOT","Anon"]}];
     let currentDept='', currentSub='', currentIdx=0, score=0, tIdx=0, timeLeft=300, timerInterval;
 
-    function switchTab(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page')); document.getElementById(id).classList.add('active-page'); }
-
-    function startPortal() {
-        if(!document.getElementById('std-name').value) return alert("Fill details!");
-        switchTab('page-dept');
+    function switchTab(id) { 
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page')); 
+        document.getElementById(id).classList.add('active-page'); 
     }
-
+    
+    function goHome() { clearInterval(timerInterval); switchTab('page-home'); }
+    
+    function startPortal() { 
+        if(!document.getElementById('std-name').value) return alert("Enter Name"); 
+        switchTab('page-dept'); 
+    }
+    
     function loadSubjects(dept) {
-        currentDept = dept;
-        document.getElementById('dept-title').innerText = dept + " Subjects";
+        currentDept = dept; document.getElementById('dept-title').innerText = dept;
         let html = '';
         for(let sub in qBank[dept]) html += `<button class="btn btn-blue" onclick="startExam('${sub}')">${sub}</button>`;
         document.getElementById('subject-list').innerHTML = html;
@@ -242,17 +186,14 @@
 
     function startExam(sub) {
         currentSub = sub; currentIdx = 0; score = 0; timeLeft = 300;
-        switchTab('page-exam');
-        startTimer();
-        showQuestion();
+        switchTab('page-exam'); startTimer(); showQuestion();
     }
 
     function startTimer() {
         clearInterval(timerInterval);
         timerInterval = setInterval(() => {
             timeLeft--;
-            let mins = Math.floor(timeLeft/60);
-            let secs = timeLeft%60;
+            let mins = Math.floor(timeLeft/60), secs = timeLeft%60;
             document.getElementById('timer').innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
             if(timeLeft <= 0) finishExam();
         }, 1000);
@@ -274,90 +215,62 @@
 
     function finishExam() {
         clearInterval(timerInterval);
-        const name = document.getElementById('std-name').value;
         let logs = JSON.parse(localStorage.getItem('sot_final_logs') || "[]");
-        logs.push({id: Date.now(), name, sub: currentSub, score: score + "/" + qBank[currentDept][currentSub].length});
+        logs.push({name: document.getElementById('std-name').value, sub: currentSub, score: score + "/" + qBank[currentDept][currentSub].length});
         localStorage.setItem('sot_final_logs', JSON.stringify(logs));
-        switchTab('page-result');
         document.getElementById('res-score').innerText = score;
+        switchTab('page-result');
     }
 
     function saveNewQuestion() {
-        const d = document.getElementById('adm-dept').value;
-        const s = document.getElementById('adm-sub').value;
-        const q = document.getElementById('adm-q').value;
-        const a = document.getElementById('adm-a').value;
-        const o = document.getElementById('adm-o').value.split(',');
-
-        if(!s || !q || !a || !o) return alert("Fill all question fields!");
-
+        const d = document.getElementById('adm-dept').value, s = document.getElementById('adm-sub').value, q = document.getElementById('adm-q').value, a = document.getElementById('adm-a').value, o = document.getElementById('adm-o').value.split(',');
+        if(!s || !q) return alert("Fill fields");
         if(!qBank[d][s]) qBank[d][s] = [];
         qBank[d][s].push({q, a, o});
         localStorage.setItem('sot_qbank', JSON.stringify(qBank));
-        alert("Question Added Successfully!");
+        alert("Success!");
     }
 
     function renderAdminLogs() {
         let logs = JSON.parse(localStorage.getItem('sot_final_logs') || "[]");
-        document.getElementById('admin-table-body').innerHTML = logs.map((l, index) => `
-            <tr>
-                <td>${l.name}</td>
-                <td>${l.sub}</td>
-                <td>${l.score}</td>
-                <td>
-                    <button class="action-btn btn-edit" onclick="editStudent(${index})">EDIT</button>
-                    <button class="action-btn btn-del" onclick="deleteLog(${index})">CLEAR</button>
-                </td>
-            </tr>
+        document.getElementById('admin-table-body').innerHTML = logs.map((l, i) => `
+            <tr><td>${l.name}</td><td>${l.sub}</td><td>${l.score}</td>
+            <td><button class="action-btn btn-edit" onclick="editStudent(${i})">EDIT</button>
+            <button class="action-btn btn-del" onclick="deleteLog(${i})">X</button></td></tr>
         `).join('');
     }
 
-    function editStudent(index) {
+    function editStudent(i) {
         let logs = JSON.parse(localStorage.getItem('sot_final_logs'));
-        let newName = prompt("Edit Student Name:", logs[index].name);
-        if(newName) {
-            logs[index].name = newName;
-            localStorage.setItem('sot_final_logs', JSON.stringify(logs));
-            renderAdminLogs();
-        }
+        let n = prompt("New Name:", logs[i].name);
+        if(n) { logs[i].name = n; localStorage.setItem('sot_final_logs', JSON.stringify(logs)); renderAdminLogs(); }
     }
 
-    function deleteLog(index) {
+    function deleteLog(i) {
         let logs = JSON.parse(localStorage.getItem('sot_final_logs'));
-        logs.splice(index, 1);
+        logs.splice(i, 1);
         localStorage.setItem('sot_final_logs', JSON.stringify(logs));
         renderAdminLogs();
     }
+
+    function clearLogs() { if(confirm("Wipe all records?")) { localStorage.removeItem('sot_final_logs'); renderAdminLogs(); } }
+    function checkAdmin() { if(prompt("PIN:") === "2026") { switchTab('page-admin'); renderAdminLogs(); } }
+    function openQUIZ() { tIdx=0; switchTab('page-games'); renderQUIZ(); }
+    function renderQUIZ() {
+        document.getElementById('t-text').innerText = QUIZBank[tIdx].q;
+        document.getElementById('t-box').innerHTML = QUIZBank[tIdx].o.map(o => `<button class="option-btn" onclick="this.style.background='gold'">${o}</button>`).join('');
+    }
+    function nextQUIZ() { if(tIdx < QUIZBank.length-1){ tIdx++; renderQUIZ(); } }
+    function prevQUIZ() { if(tIdx > 0){ tIdx--; renderQUIZ(); } }
 
     function generatePDF() {
         document.getElementById('slip-name').innerText = "Student: " + document.getElementById('std-name').value;
         document.getElementById('slip-sub').innerText = "Subject: " + currentSub;
         document.getElementById('slip-score').innerText = score;
-        document.getElementById('slip-date').innerText = new Date().toDateString();
         const el = document.getElementById('sot-slip');
         el.style.display = 'block';
         html2pdf().from(el).save().then(()=>el.style.display='none');
     }
-
-    function checkAdmin() {
-        if(prompt("PIN:") === "2026ELITE") {
-            switchTab('page-admin');
-            renderAdminLogs();
-        }
-    }
-
-    function goHome() { clearInterval(timerInterval); switchTab('page-home'); }
-    function openTrivia() { tIdx=0; switchTab('page-games'); renderTrivia(); }
-    function renderTrivia() {
-        document.getElementById('t-text').innerText = triviaBank[tIdx].q;
-        document.getElementById('t-box').innerHTML = triviaBank[tIdx].o.map(o => `<button class="option-btn" onclick="this.style.background='gold'">${o}</button>`).join('');
-    }
-    function nextTrivia() { if(tIdx < triviaBank.length-1){ tIdx++; renderTrivia(); } }
-    function prevTrivia() { if(tIdx > 0){ tIdx--; renderTrivia(); } }
-    }
-
-   </script>
+</script>
 </body>
 </html>
-
-
