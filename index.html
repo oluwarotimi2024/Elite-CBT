@@ -145,23 +145,6 @@
     </div>
 </div>
 
-<div id="page-calc" class="page">
-    <div class="card">
-        <h3>JAMB Calculator</h3>
-        <input type="text" id="calc-display" readonly style="width:100%; text-align:right; font-size:1.5rem; background:#f9f9f9; padding:10px; border:1px solid #ddd; border-radius:8px;">
-        <div class="calc-grid">
-            <button class="c-btn" onclick="calcPush('7')">7</button><button class="c-btn" onclick="calcPush('8')">8</button><button class="c-btn" onclick="calcPush('9')">9</button><button class="c-btn" onclick="calcPush('/')">/</button>
-            <button class="c-btn" onclick="calcPush('4')">4</button><button class="c-btn" onclick="calcPush('5')">5</button><button class="c-btn" onclick="calcPush('6')">6</button><button class="c-btn" onclick="calcPush('*')">x</button>
-            <button class="c-btn" onclick="calcPush('1')">1</button><button class="c-btn" onclick="calcPush('2')">2</button><button class="c-btn" onclick="calcPush('3')">3</button><button class="c-btn" onclick="calcPush('-')">-</button>
-            <button class="c-btn" onclick="calcPush('0')">0</button><button class="c-btn" onclick="calcClear()">C</button><button class="c-btn" onclick="calcSolve()">=</button><button class="c-btn" onclick="calcPush('+')">+</button>
-        </div>
-    </div>
-</div>
-
-<div id="lesson-modal">
-    <button class="btn" style="background:#333; color:white;" onclick="closeLesson()">CLOSE LESSON</button>
-    <div id="lesson-content" style="margin-top:20px; line-height:1.6;"></div>
-</div>
         <div id="page-result" class="page">
             <div class="card" style="text-align: center;">
                 <h2 style="color: green;">EXAM FINISHED</h2>
@@ -373,13 +356,8 @@
     function prevTrivia() { if(tIdx > 0){ tIdx--; renderTrivia(); } }
     }
 
-    let display = document.getElementById('calc-display');
-    function calcPush(v) { display.value += v; }
-    function calcClear() { display.value = ''; }
-    function calcSolve() { try { display.value = eval(display.value); } catch { display.value = 'Error'; } }
-
-    window.onload = checkLockStatus;
-</script>
+   </script>
 </body>
 </html>
+
 
