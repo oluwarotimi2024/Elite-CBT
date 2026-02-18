@@ -3,159 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOT ELITE MASTER | CBT & Admin</title>
+    <title>ELITE CBT & TUTORIAL CENTRE</title>
     <style>
-        :root { --sot-blue: #002D62; --sot-gold: #FFD700; --white: #ffffff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--white); }
+        :root { --sot-blue: #002D62; --sot-gold: #FFD700; --light-bg: #f4f7f9; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--light-bg); color: #333; }
 
-        /* Splash Screen */
+        /* --- UPGRADED SPLASH SCREEN --- */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--sot-blue); display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 3000;
+            justify-content: center; align-items: center; z-index: 5000; text-align: center;
+            color: white; padding: 20px;
         }
-        .pulse { animation: pulse 1.5s infinite; font-size: 3rem; color: var(--sot-gold); font-weight: bold; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .splash-logo { width: 100px; height: 100px; background: var(--sot-gold); border-radius: 20px; 
+                       display: flex; justify-content: center; align-items: center; font-size: 2.5rem; 
+                       color: var(--sot-blue); font-weight: 900; animation: bounce 2s infinite; }
+        
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-20px);} }
 
-        /* Layout */
-        .app-header { background: var(--sot-blue); color: white; padding: 15px; text-align: center; border-bottom: 5px solid var(--sot-gold); }
-        .container { padding: 20px; max-width: 600px; margin: auto; padding-bottom: 100px; }
-        .page { display: none; animation: fadeIn 0.4s; }
+        /* --- HERO & LANDING --- */
+        .hero { background: var(--sot-blue); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 30px 30px; }
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .f-card { background: white; padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .f-card i { font-size: 1.5rem; display: block; margin-bottom: 10px; }
+
+        /* --- PAGES --- */
+        .container { padding: 20px; padding-bottom: 120px; max-width: 600px; margin: auto; }
+        .page { display: none; animation: fadeIn 0.5s ease; }
         .active-page { display: block; }
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #eee; margin-bottom: 20px; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; }
 
-        /* Elements */
-        .btn { width: 100%; padding: 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; margin: 10px 0; }
+        /* --- BUTTONS & INPUTS --- */
+        .btn { width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; margin: 10px 0; transition: 0.3s; }
         .btn-blue { background: var(--sot-blue); color: white; }
-        .btn-gold { background: var(--sot-gold); color: var(--sot-blue); }
-        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; }
+        .btn-outline { background: transparent; border: 2px solid var(--sot-blue); color: var(--sot-blue); }
+        input, select { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; background: #fff; }
 
-        /* Admin Table */
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.8rem; }
-        th, td { border: 1px solid #eee; padding: 10px; text-align: left; }
-        th { background: #f8f9fa; }
+        /* --- BOTTOM NAV --- */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; 
+                      justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; z-index: 1000; }
+        .nav-item { font-size: 0.7rem; color: #888; cursor: pointer; text-align: center; font-weight: 600; }
+        .active-nav { color: var(--sot-blue); }
 
-        /* Hidden Payment Section */
-        #payment-area { display: none; background: #fff9e6; padding: 15px; border-radius: 10px; border: 1px dashed var(--sot-gold); margin-top: 10px; }
-
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 2px solid #f0f0f0; }
-        .nav-item { font-size: 0.7rem; color: #888; cursor: pointer; text-align: center; }
-        .active-nav { color: var(--sot-blue); font-weight: bold; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-<div id="splash"><div class="pulse">SOT</div></div>
+<div id="splash">
+    <div class="splash-logo">SOT</div>
+    <h1 style="margin-top:20px;">WELCOME TO ELITE CBT <br>& TUTORIAL CENTRE</h1>
+    <p style="margin-top:15px; font-size: 0.8rem; color: var(--sot-gold);">Powered by OLUWAROTIMI SUNDAY TEMITOPE</p>
+</div>
 
-<header class="app-header"><h1>SOT ELITE MASTER</h1></header>
+<div id="page-home" class="page active-page">
+    <div class="hero">
+        <h2>ELITE MASTER V3.0</h2>
+        <p>Excellence in every click.</p>
+    </div>
+    <div class="container">
+        <div class="feature-grid">
+            <div class="f-card" onclick="switchTab('page-cbt')">📝<br><b>CBT Exam</b></div>
+            <div class="f-card" onclick="switchTab('page-games')">🎮<br><b>Trivia</b></div>
+            <div class="f-card" onclick="switchTab('page-profile')">👤<br><b>Profile</b></div>
+            <div class="f-card" onclick="switchTab('page-admin')">⚙️<br><b>Admin</b></div>
+        </div>
+        <div class="card" style="margin-top:20px;">
+            <h3>Quick Start</h3>
+            <p style="font-size:0.8rem; color:gray;">Ready to test your knowledge?</p>
+            <button class="btn btn-blue" onclick="switchTab('page-cbt')">Enter Examination Hall</button>
+        </div>
+    </div>
+</div>
 
-<div class="container">
-    <div id="page-home" class="page active-page">
-        <div class="card" style="text-align:center;">
-            <h2>Candidate Login</h2>
-            <input type="text" id="username" placeholder="Enter Full Name">
-            <button class="btn btn-blue" onclick="startSession()">ACCESS CBT</button>
-            <button class="btn btn-gold" onclick="showPayment()">UPGRADE TO PREMIUM</button>
-            
-            <div id="payment-area">
-                <h4 style="color:var(--sot-blue);">Premium Activation</h4>
-                <p style="font-size:0.8rem;">Pay <b>₦2,000</b> to: <b>0123456789 | SOT Bank</b></p>
-                <small>Send proof to: 080XXXXXXXX</small>
+<div id="page-games" class="page">
+    <div class="container">
+        <div class="card">
+            <h2>Current Affairs Game</h2>
+            <p>Pick your difficulty level:</p>
+            <button class="btn btn-blue" onclick="startGame('easy')">Easy</button>
+            <button class="btn btn-blue" onclick="startGame('medium')">Medium</button>
+            <button class="btn btn-blue" onclick="startGame('hard')">Hard</button>
+            <button class="btn" style="background: #000; color: white;" onclick="startGame('harder')">Harder (Elite)</button>
+        </div>
+    </div>
+</div>
+
+<div id="page-profile" class="page">
+    <div class="container">
+        <div class="card">
+            <h3>Personal Information</h3>
+            <input type="text" id="p-name" placeholder="Full Name">
+            <input type="email" id="p-email" placeholder="Email Address">
+            <select id="p-skill">
+                <option value="">Select a Skill to Learn</option>
+                <option>Web Development</option>
+                <option>Graphic Design</option>
+                <option>Data Analysis</option>
+                <option>Digital Marketing</option>
+            </select>
+            <button class="btn btn-blue" onclick="saveProfile()">Update Profile</button>
+        </div>
+    </div>
+</div>
+
+<div id="page-cbt" class="page">
+    <div class="container">
+        <div class="card">
+            <h3>Choose Your Department</h3>
+            <div id="dept-selection">
+                <button class="btn btn-outline" onclick="loadSubjects('Science')">SCIENCE</button>
+                <button class="btn btn-outline" onclick="loadSubjects('Art')">ART</button>
+                <button class="btn btn-outline" onclick="loadSubjects('Commercial')">COMMERCIAL</button>
+            </div>
+            <div id="subject-selection" style="display:none;">
+                <h4 id="selected-dept"></h4>
+                <div id="sub-list"></div>
+                <button class="btn" onclick="document.getElementById('subject-selection').style.display='none'; document.getElementById('dept-selection').style.display='block';">Back</button>
             </div>
         </div>
     </div>
+</div>
 
-    <div id="page-cbt" class="page">
+<div id="page-admin" class="page">
+    <div class="container">
         <div class="card">
-            <h3>Examination Hall</h3>
-            <p id="welcome-msg"></p>
-            <button class="btn btn-blue" onclick="submitScore(85)">SIMULATE EXAM FINISH (Score 85%)</button>
-        </div>
-    </div>
-
-    <div id="page-admin" class="page">
-        <div class="card">
-            <h3>Admin Dashboard</h3>
-            <p style="font-size: 0.8rem; color: gray;">Student Performance Logs</p>
-            <table id="results-table">
-                <thead>
-                    <tr><th>Name</th><th>Score</th><th>Date</th></tr>
-                </thead>
-                <tbody id="results-body">
-                    </tbody>
-            </table>
-            <button class="btn" style="background:#ff4444; color:white; margin-top:20px;" onclick="clearLogs()">CLEAR ALL LOGS</button>
+            <h3>Admin Records</h3>
+            <div id="admin-results"></div>
+            <button class="btn" style="background:red; color:white;" onclick="localStorage.clear(); location.reload();">Reset System</button>
         </div>
     </div>
 </div>
 
 <nav class="bottom-nav">
     <div class="nav-item active-nav" onclick="switchTab('page-home', this)">HOME</div>
+    <div class="nav-item" onclick="switchTab('page-games', this)">GAMES</div>
     <div class="nav-item" onclick="switchTab('page-cbt', this)">CBT</div>
-    <div class="nav-item" onclick="switchTab('page-admin', this)">ADMIN</div>
+    <div class="nav-item" onclick="switchTab('page-profile', this)">USER</div>
 </nav>
 
-<footer style="background:var(--sot-blue); color:white; text-align:center; padding:15px; font-size:0.7rem;">
-    <b>OLUWAROTIMI SOT</b><br>Elite CBT Engine &copy; 2026
-</footer>
-
 <script>
-    // Hide Splash
-    setTimeout(() => document.getElementById('splash').style.display = 'none', 2500);
+    // Splash logic
+    setTimeout(() => { document.getElementById('splash').style.opacity = '0'; 
+                       setTimeout(()=>document.getElementById('splash').style.display='none', 500); 
+                     }, 3500);
 
     function switchTab(id, el) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active-nav'));
         document.getElementById(id).classList.add('active-page');
         if(el) el.classList.add('active-nav');
-        if(id === 'page-admin') loadResults();
     }
 
-    function showPayment() {
-        const area = document.getElementById('payment-area');
-        area.style.display = area.style.display === 'block' ? 'none' : 'block';
-    }
+    // CBT Subject Logic
+    const deptData = {
+        'Science': ['Mathematics', 'English', 'Physics', 'Chemistry', 'Biology', 'Agric Science', 'Geography'],
+        'Art': ['Mathematics', 'English', 'Government', 'Literature', 'CRS/IRS', 'History', 'Yoruba/Igbo/Hausa'],
+        'Commercial': ['Mathematics', 'English', 'Economics', 'Commerce', 'Financial Accounting', 'Government', 'Marketing']
+    };
 
-    function startSession() {
-        const name = document.getElementById('username').value;
-        if(!name) return alert("Please enter your name");
-        localStorage.setItem('current_user', name);
-        document.getElementById('welcome-msg').innerText = "Welcome, " + name;
-        switchTab('page-cbt');
-    }
-
-    // This function saves the student's result to the "Database" (Admin see this)
-    function submitScore(score) {
-        const name = localStorage.getItem('current_user') || "Unknown";
-        const date = new Date().toLocaleDateString();
-        const results = JSON.parse(localStorage.getItem('exam_results') || "[]");
+    function loadSubjects(dept) {
+        document.getElementById('dept-selection').style.display = 'none';
+        const area = document.getElementById('subject-selection');
+        area.style.display = 'block';
+        document.getElementById('selected-dept').innerText = dept + " Department";
         
-        results.push({ name, score: score + "%", date });
-        localStorage.setItem('exam_results', JSON.stringify(results));
-        
-        alert("Exam Submitted! Your score has been sent to Admin.");
-        switchTab('page-home');
-    }
-
-    function loadResults() {
-        const results = JSON.parse(localStorage.getItem('exam_results') || "[]");
-        const body = document.getElementById('results-body');
-        body.innerHTML = results.map(r => `
-            <tr>
-                <td>${r.name}</td>
-                <td>${r.score}</td>
-                <td>${r.date}</td>
-            </tr>
+        const list = document.getElementById('sub-list');
+        list.innerHTML = deptData[dept].map(sub => `
+            <button class="btn btn-blue" onclick="startExam('${sub}')">${sub} (100 Questions)</button>
         `).join('');
     }
 
-    function clearLogs() {
-        if(confirm("Are you sure you want to delete all student records?")) {
-            localStorage.removeItem('exam_results');
-            loadResults();
+    function startExam(sub) {
+        alert("Loading 100 questions for " + sub + "... Prepare your pen and paper!");
+    }
+
+    function startGame(lvl) {
+        alert("Starting Current Affairs Game: " + lvl.toUpperCase() + " mode. Good luck!");
+    }
+
+    function saveProfile() {
+        const name = document.getElementById('p-name').value;
+        if(name) {
+            localStorage.setItem('user_name', name);
+            alert("Profile Updated, " + name);
         }
     }
 </script>
