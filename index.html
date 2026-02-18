@@ -11,8 +11,16 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070') no-repeat center center fixed; background-size: cover; overflow-x: hidden; }
         
+        #install-bar {
+            position: fixed; top: -100px; left: 0; width: 100%; height: 60px;
+            background: var(--sot-gold); color: #000; z-index: 11000;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px; font-weight: bold; border-bottom: 3px solid #000;
+            transition: top 0.5s ease-in-out; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        #install-bar button { background: #000; color: white; border: none; padding: 8px 15px; border-radius: 5px; font-weight: 800; cursor: pointer; }
+
         #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--sot-blue); z-index: 10000; display: flex; justify-content: center; align-items: center; color: white; }
-        
         #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--sot-blue); z-index: 9999; display: none; flex-direction: column; justify-content: center; align-items: center; color: white; transition: opacity 0.8s ease; }
         .splash-icon { width: 120px; height: 120px; background: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; border: 4px solid var(--sot-gold); }
         .splash-icon img { width: 100%; height: 100%; object-fit: cover; }
@@ -50,6 +58,11 @@
 </head>
 <body>
 
+<div id="install-bar">
+    <span>📲 Experience the full app?</span>
+    <button onclick="installApp()">INSTALL NOW</button>
+</div>
+
 <div id="splash">
     <div class="splash-icon">
         <img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" alt="App Icon">
@@ -61,17 +74,29 @@
 <div id="auth-overlay">
     <div class="card" style="width: 90%; max-width: 400px;">
         <h2 id="auth-title" style="text-align:center; color: var(--sot-blue);">STUDENT LOGIN</h2>
+        
         <div id="login-form">
             <input type="text" id="user-id" placeholder="Username">
             <input type="password" id="user-pass" placeholder="Password">
             <button class="btn btn-blue" onclick="handleAuth('login')">LOGIN</button>
-            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem; margin-top:10px;" onclick="toggleAuth(true)">Don't have an account? Sign Up</p>
+            <p style="text-align:center; cursor:pointer; color: red; font-size: 0.8rem; margin-top:5px;" onclick="showForgot()">Forgot Password?</p>
+            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem; margin-top:10px;" onclick="toggleAuth('signup')">Don't have an account? Sign Up</p>
         </div>
+
         <div id="signup-form" style="display:none;">
             <input type="text" id="reg-user" placeholder="Create Username">
+            <input type="number" id="reg-phone" placeholder="Phone Number">
             <input type="password" id="reg-pass" placeholder="Create Password">
             <button class="btn btn-gold" onclick="handleAuth('signup')">CREATE ACCOUNT</button>
-            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem; margin-top:10px;" onclick="toggleAuth(false)">Back to Login</p>
+            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem; margin-top:10px;" onclick="toggleAuth('login')">Back to Login</p>
+        </div>
+
+        <div id="forgot-form" style="display:none;">
+            <p style="font-size: 0.8rem; margin-bottom: 10px; text-align: center;">Enter details to recover password</p>
+            <input type="text" id="for-user" placeholder="Your Username">
+            <input type="number" id="for-phone" placeholder="Your Phone Number">
+            <button class="btn btn-blue" onclick="recoverPassword()">RECOVER PASSWORD</button>
+            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem; margin-top:10px;" onclick="toggleAuth('login')">Back to Login</p>
         </div>
     </div>
 </div>
@@ -103,7 +128,27 @@
         <div id="page-subs" class="page"><div class="card" style="text-align:center;"><h2 id="dept-title"></h2><div id="sub-list"></div><button class="btn" style="background:#666; color:white;" onclick="goHome()">BACK</button></div></div>
         <div id="page-exam" class="page"><div class="card" style="padding:0; overflow:hidden;"><div style="background:var(--sot-blue); color:white; padding:15px; display:flex; justify-content:space-between;"><span id="label-sub"></span><span id="timer" style="color:var(--sot-gold);">05:00</span></div><div style="padding:20px;"><h3 id="q-text" style="margin-bottom:20px;"></h3><div id="opt-container"></div><div style="display:flex; justify-content: space-between; margin-top:20px;"><button class="btn btn-nav" style="width:30%; background:#eee" onclick="prevQ()">PREV</button><button class="btn btn-nav" style="width:30%; background:red; color:white;" onclick="finishExam()">SUBMIT</button><button class="btn btn-nav" style="width:30%; background:var(--sot-blue); color:white;" onclick="nextQ()">NEXT</button></div></div></div></div>
         <div id="page-result" class="page"><div class="card" style="text-align:center;"><h2>EXAM RESULT</h2><h1 id="score-raw" style="font-size:3.5rem;"></h1><p id="score-percent"></p><button class="btn btn-blue" style="background:var(--sot-green);" onclick="generatePDF()">PRINT RESULT</button><button class="btn btn-blue" onclick="location.reload()">LOGOUT</button></div></div>
-        <div id="page-admin" class="page"><div class="card"><h2>Admin Management</h2><div style="background:#eee; padding:15px; border-radius:10px; margin-bottom:20px;"><h3>Add Question</h3><select id="adm-dept"><option value="Science">Science</option><option value="Art">Art</option><option value="Commercial">Commercial</option></select><input type="text" id="adm-sub" placeholder="Subject Name"><textarea id="adm-q" placeholder="The Question"></textarea><input type="text" id="adm-o1" placeholder="Correct Answer"><input type="text" id="adm-o2" placeholder="Wrong Option 1"><input type="text" id="adm-o3" placeholder="Wrong Option 2"><input type="text" id="adm-o4" placeholder="Wrong Option 3"><button class="btn btn-blue" onclick="saveNewQuestion()">SAVE QUESTION</button></div><button class="btn" style="background:red; color:white;" onclick="clearLogs()">WIPE ALL RECORDS</button><button class="btn" style="background:#666; color:white; margin-top:20px;" onclick="goHome()">BACK TO HOME</button></div></div>
+        
+        <div id="page-admin" class="page">
+            <div class="card">
+                <h2>Admin Management</h2>
+                <div style="background:#eee; padding:15px; border-radius:10px; margin-bottom:20px;">
+                    <h3>Add Question</h3>
+                    <select id="adm-dept"><option value="Science">Science</option><option value="Art">Art</option><option value="Commercial">Commercial</option></select>
+                    <input type="text" id="adm-sub" placeholder="Subject Name">
+                    <textarea id="adm-q" placeholder="The Question"></textarea>
+                    <input type="text" id="adm-o1" placeholder="Correct Answer">
+                    <input type="text" id="adm-o2" placeholder="Wrong Option 1">
+                    <input type="text" id="adm-o3" placeholder="Wrong Option 2">
+                    <input type="text" id="adm-o4" placeholder="Wrong Option 3">
+                    <button class="btn btn-blue" onclick="saveNewQuestion()">SAVE QUESTION</button>
+                </div>
+                <button class="btn btn-blue" onclick="viewUsers()">VIEW REGISTERED USERS</button>
+                <button class="btn" style="background:red; color:white;" onclick="clearLogs()">WIPE ALL RECORDS</button>
+                <button class="btn" style="background:#666; color:white; margin-top:20px;" onclick="goHome()">BACK TO HOME</button>
+            </div>
+        </div>
+        
         <div id="page-games" class="page"><div class="card"><h2 style="text-align:center;">General QUIZ</h2><p id="t-text" style="text-align:center;"></p><div id="t-box"></div><div style="display:flex; gap:10px; margin-top:20px;"><button class="btn btn-gold" onclick="prevQUIZ()">PREV</button><button class="btn btn-blue" onclick="nextQUIZ()">NEXT</button></div></div></div>
     </div>
 
@@ -121,41 +166,78 @@
 <div id="sot-slip" style="display:none; padding:50px; text-align:center; background: white;"><h1>SOT ELITE TUTORIALS</h1><hr><h2 id="slip-name"></h2><h3 id="slip-sub"></h3><h1 id="slip-score" style="font-size: 3rem; color:blue;"></h1><p>Date: 2026</p></div>
 
 <script>
-    let currentUser = null;
-    function toggleAuth(isSignup) {
-        document.getElementById('login-form').style.display = isSignup ? 'none' : 'block';
-        document.getElementById('signup-form').style.display = isSignup ? 'block' : 'none';
-        document.getElementById('auth-title').innerText = isSignup ? 'STUDENT SIGNUP' : 'STUDENT LOGIN';
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault(); deferredPrompt = e;
+        setTimeout(() => { document.getElementById('install-bar').style.top = '0'; }, 5000);
+    });
+
+    function installApp() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choice) => {
+                if (choice.outcome === 'accepted') document.getElementById('install-bar').style.top = '-100px';
+                deferredPrompt = null;
+            });
+        } else { alert("To install: Use browser menu 'Add to Home Screen'"); }
     }
 
+    // AUTH LOGIC
+    let currentUser = null;
+    function toggleAuth(mode) {
+        document.getElementById('login-form').style.display = (mode === 'login') ? 'block' : 'none';
+        document.getElementById('signup-form').style.display = (mode === 'signup') ? 'block' : 'none';
+        document.getElementById('forgot-form').style.display = (mode === 'forgot') ? 'block' : 'none';
+        document.getElementById('auth-title').innerText = (mode === 'signup') ? 'STUDENT SIGNUP' : (mode === 'forgot' ? 'RECOVER ACCOUNT' : 'STUDENT LOGIN');
+    }
+    function showForgot() { toggleAuth('forgot'); }
+
     function handleAuth(type) {
+        let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
         if(type === 'signup') {
             let u = document.getElementById('reg-user').value;
+            let ph = document.getElementById('reg-phone').value;
             let p = document.getElementById('reg-pass').value;
-            if(u && p) {
-                localStorage.setItem(`user_${u}`, p);
+            if(u && ph && p) {
+                users[u] = { pass: p, phone: ph };
+                localStorage.setItem('sot_users', JSON.stringify(users));
                 alert("Account Created! Please Login.");
-                toggleAuth(false);
-            }
+                toggleAuth('login');
+            } else { alert("Please fill all fields"); }
         } else {
             let u = document.getElementById('user-id').value;
             let p = document.getElementById('user-pass').value;
-            if(localStorage.getItem(`user_${u}`) === p) {
+            if(users[u] && users[u].pass === p) {
                 currentUser = u;
                 document.getElementById('welcome-text').innerText = "Active: " + u;
                 document.getElementById('auth-overlay').style.display = 'none';
-                
-                // TRIGGER SPLASH SCREEN AFTER LOGIN
                 const splash = document.getElementById('splash');
                 splash.style.display = 'flex';
-                setTimeout(() => { 
-                    splash.style.opacity = '0'; 
-                    setTimeout(()=>splash.style.display='none', 800); 
-                }, 3000);
+                setTimeout(() => { splash.style.opacity = '0'; setTimeout(()=>splash.style.display='none', 800); }, 3000);
             } else { alert("Invalid Credentials"); }
         }
     }
 
+    function recoverPassword() {
+        let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
+        let u = document.getElementById('for-user').value;
+        let ph = document.getElementById('for-phone').value;
+        if(users[u] && users[u].phone === ph) {
+            alert("SUCCESS! Your Password is: " + users[u].pass);
+            toggleAuth('login');
+        } else { alert("Username and Phone Number do not match our records."); }
+    }
+
+    function viewUsers() {
+        let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
+        let list = "REGISTERED STUDENTS:\n\n";
+        for (let u in users) {
+            list += `User: ${u} | Ph: ${users[u].phone} | Pass: ${users[u].pass}\n`;
+        }
+        alert(list || "No users registered yet.");
+    }
+
+    // EXAM LOGIC
     let qBank = JSON.parse(localStorage.getItem('sot_qbank')) || {
         'Science': {'Biology': [{q:"Study of life?", a:"Biology", o:["Biology","Physics","Law","Art"]}]},
         'Art': {'Government': [{q:"Who is head of state?", a:"President", o:["President","King","Oba","Chief"]}]},
