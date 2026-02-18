@@ -1,11 +1,10 @@
 {
   "name": "SOT JAMB Master",
-  "short_name": "SOT JAMB",
+  "short_name": "SOT Elite",
   "start_url": "./index.html",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#000814",
-  "theme_color": "#00d4ff",
+  "background_color": "#002D62",
+  "theme_color": "#002D62",
   "icons": [
     {
       "src": "https://cdn-icons-png.flaticon.com/512/3407/3407024.png",
