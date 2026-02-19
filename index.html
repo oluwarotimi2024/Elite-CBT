@@ -257,8 +257,7 @@
             toggleAuth('login');
         } else { alert("User details not found."); }
     }
-
-    // NEW ADMIN FUNCTIONS: VIEW, EDIT, DELETE USERS
+// FIXED ADMIN FUNCTIONS: VIEW, EDIT, DELETE USERS
     function refreshUserTable() {
         let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
         let html = "";
@@ -479,5 +478,6 @@ let qBank = JSON.parse(localStorage.getItem('sot_qbank')) || {
 </script>
 </body>
 </html>
+
 
 
