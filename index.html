@@ -11,179 +11,170 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070') no-repeat center center fixed; background-size: cover; overflow-x: hidden; }
         
-        #install-bar {
-            position: fixed; top: -100px; left: 0; width: 100%; height: 70px;
-            background: var(--sot-gold); color: #000; z-index: 11000;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 20px; font-weight: bold; border-bottom: 4px solid #000;
-            transition: top 0.4s ease-out; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        #install-bar span { font-size: 1.1rem; }
-        #install-bar button { background: #000; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-weight: 900; cursor: pointer; font-size: 0.9rem; }
+        #install-bar { position: fixed; top: -100px; left: 0; width: 100%; height: 70px; background: var(--sot-gold); color: #000; z-index: 11000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; font-weight: bold; border-bottom: 4px solid #000; transition: top 0.4s ease-out; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        #install-bar button { background: #000; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-weight: 900; cursor: pointer; }
 
         #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--sot-blue); z-index: 10000; display: flex; justify-content: center; align-items: center; color: white; }
         #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--sot-blue); z-index: 9999; display: none; flex-direction: column; justify-content: center; align-items: center; color: white; transition: opacity 0.8s ease; }
-        .splash-icon { width: 120px; height: 120px; background: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; border: 4px solid var(--sot-gold); }
-        .splash-icon img { width: 100%; height: 100%; object-fit: cover; }
         
         .overlay { background: rgba(0, 11, 24, 0.75); min-height: 100vh; width: 100%; display: flex; flex-direction: column; }
         .app-header { background: rgba(0, 11, 24, 0.95); padding: 20px; text-align: center; border-bottom: 3px solid var(--sot-accent); }
-        .profile-circle { width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--sot-gold); margin: 0 auto 10px; overflow: hidden; background: #fff; }
         
         .container { padding: 20px; max-width: 800px; margin: auto; width: 100%; flex: 1; padding-bottom: 120px; }
         .page { display: none; animation: fadeIn 0.5s; }
         .active-page { display: block; }
         
-        .card { background: var(--glass); padding: 45px 35px; border-radius: 35px; box-shadow: 0 25px 70px rgba(0,0,0,0.7); color: #333; margin-bottom: 20px; }
-        
-        .btn { width: 100%; padding: 20px; margin: 12px 0; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.2s; font-size: 1.1rem; letter-spacing: 1px; }
+        .card { background: var(--glass); padding: 30px; border-radius: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); color: #333; margin-bottom: 20px; }
+        .btn { width: 100%; padding: 18px; margin: 10px 0; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
         .btn-blue { background: linear-gradient(90deg, #001f3f, #0072ff); color: white; }
         .btn-gold { background: var(--sot-gold); color: #000; }
         
-        input, select, textarea { width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #ccc; font-size: 1.1rem; }
+        input, select, textarea { width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #ccc; }
         
-        .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px; }
-        .feature-item { text-align: center; font-size: 0.65rem; font-weight: bold; color: var(--sot-blue); }
-        .feature-item img { width: 35px; height: 35px; margin-bottom: 5px; }
-
-        #calc-box { position: fixed; bottom: 100px; right: 20px; width: 200px; background: #222; padding: 10px; border-radius: 10px; display: none; z-index: 2000; border: 2px solid var(--sot-accent); }
-        #calc-display { width: 100%; background: #000; color: #0f0; border: none; padding: 10px; text-align: right; margin-bottom: 5px; }
+        .option-btn { width: 100%; padding: 15px; margin: 8px 0; border: 2px solid #ddd; border-radius: 10px; cursor: pointer; text-align: left; background: white; font-weight: bold; }
+        
+        #calc-box { position: fixed; bottom: 100px; right: 20px; width: 220px; background: #222; padding: 15px; border-radius: 15px; display: none; z-index: 2000; border: 2px solid var(--sot-accent); }
         .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
-        .cbtn { padding: 8px; background: #444; color: white; border: none; cursor: pointer; border-radius: 4px; font-size: 0.8rem; }
+        .cbtn { padding: 10px; background: #444; color: white; border: none; border-radius: 5px; cursor: pointer; }
 
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 3px solid var(--sot-accent); z-index: 1000; }
-        .nav-item { font-weight: bold; color: #333; cursor: pointer; text-align: center; font-size: 0.8rem; }
-        .option-btn { width: 100%; padding: 15px; margin: 5px 0; border: 1px solid #ddd; border-radius: 10px; cursor: pointer; text-align: left; background: white; transition: 0.3s; }
-        
-        /* ADMIN TABLE STYLES */
-        .admin-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.8rem; }
-        .admin-table th, .admin-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        .admin-table th { background: var(--sot-blue); color: white; }
-        .action-btn { padding: 5px 10px; cursor: pointer; border: none; border-radius: 5px; font-weight: bold; margin-right: 2px; }
-        .edit-btn { background: var(--sot-accent); color: #000; }
-        .del-btn { background: #ff4d4d; color: white; }
+        .nav-item { font-weight: bold; color: #333; cursor: pointer; font-size: 0.8rem; }
 
+        .admin-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        .admin-table th, .admin-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
     </style>
 </head>
 <body onload="showInstallNow()">
 
 <div id="install-bar">
-    <span>📲 Experience ELITE CBT full app?</span>
-    <button onclick="installApp()">INSTALL NOW</button>
+    <span>📲 Install ELITE CBT master app?</span>
+    <button onclick="installApp()">INSTALL</button>
 </div>
 
 <div id="splash">
-    <div class="splash-icon">
-        <img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" alt="App Icon">
-    </div>
-    <h1 style="margin-top: 20px; letter-spacing: 2px; text-align: center;">WELCOME TO CBT ELITE</h1>
-    <p style="color: var(--sot-gold); font-weight: bold; margin-top: 10px;">POWERED BY OLUWAROTIMI</p>
+    <h1 style="letter-spacing: 2px;">WELCOME TO CBT ELITE</h1>
+    <p style="color: var(--sot-gold);">POWERED BY OLUWAROTIMI</p>
 </div>
 
 <div id="auth-overlay">
-    <div class="card" style="width: 95%; max-width: 450px;">
-        <h2 id="auth-title" style="text-align:center; color: var(--sot-blue); margin-bottom: 15px;">STUDENT LOGIN</h2>
-        
+    <div class="card" style="width: 90%; max-width: 400px;">
+        <h2 id="auth-title" style="text-align:center; margin-bottom: 15px;">STUDENT LOGIN</h2>
         <div id="login-form">
             <input type="text" id="user-id" placeholder="Username">
             <input type="password" id="user-pass" placeholder="Password">
             <button class="btn btn-blue" onclick="handleAuth('login')">LOGIN</button>
-            <p style="text-align:center; cursor:pointer; color: red; font-size: 0.9rem; margin-top:8px; font-weight:bold;" onclick="showForgot()">Forgot Password?</p>
-            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.9rem; margin-top:15px;" onclick="toggleAuth('signup')">Don't have an account? Sign Up</p>
+            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem;" onclick="toggleAuth('signup')">New here? Sign Up</p>
         </div>
-
         <div id="signup-form" style="display:none;">
-            <input type="text" id="reg-user" placeholder="Create Username">
+            <input type="text" id="reg-user" placeholder="Username">
             <input type="number" id="reg-phone" placeholder="Phone Number">
-            <input type="password" id="reg-pass" placeholder="Create Password">
-            <button class="btn btn-gold" onclick="handleAuth('signup')">CREATE ACCOUNT</button>
-            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.9rem; margin-top:15px;" onclick="toggleAuth('login')">Back to Login</p>
-        </div>
-
-        <div id="forgot-form" style="display:none;">
-            <p style="font-size: 0.9rem; margin-bottom: 15px; text-align: center; color: #555;">Enter details to recover password</p>
-            <input type="text" id="for-user" placeholder="Your Username">
-            <input type="number" id="for-phone" placeholder="Your Phone Number">
-            <button class="btn btn-blue" onclick="recoverPassword()">RECOVER PASSWORD</button>
-            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.9rem; margin-top:15px;" onclick="toggleAuth('login')">Back to Login</p>
+            <input type="password" id="reg-pass" placeholder="Password">
+            <button class="btn btn-gold" onclick="handleAuth('signup')">REGISTER</button>
+            <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem;" onclick="toggleAuth('login')">Back to Login</p>
         </div>
     </div>
 </div>
 
 <div class="overlay">
     <header class="app-header">
-        <div class="profile-circle"><img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" width="100%"></div>
         <h2 style="color: white;">ELITE CBT MASTER</h2>
         <small style="color: var(--sot-gold);" id="welcome-text"></small>
     </header>
 
     <div class="container">
         <div id="page-home" class="page active-page">
-            <div class="card">
-                <h2 style="text-align: center; color: var(--sot-blue); margin-bottom: 20px;">START CBT EXAMINATION</h2>
+            <div class="card" style="text-align:center;">
+                <h2>EXAM PORTAL</h2>
                 <button class="btn btn-blue" onclick="startPortal()">ENTER PORTAL</button>
                 <button class="btn btn-gold" onclick="openQUIZ()">PRACTICE QUIZ</button>
-                <div class="feature-grid">
-                    <div class="feature-item"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991108.png"><br>SECURE</div>
-                    <div class="feature-item"><img src="https://cdn-icons-png.flaticon.com/512/9356/9356230.png"><br>FAST</div>
-                    <div class="feature-item"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png"><br>ANALYTICS</div>
-                    <div class="feature-item"><img src="https://cdn-icons-png.flaticon.com/512/4433/4433057.png"><br>CERTIFIED</div>
-                </div>
-                <p style="text-align: center; font-size: 0.7rem; margin-top: 20px; color: #888;">© 2026 Oluwarotimi Sunday Temitope</p>
             </div>
         </div>
 
-        <div id="page-dept" class="page"><div class="card"><h2 style="text-align:center; margin-bottom:20px;">SELECT CLASS</h2><button class="btn btn-blue" onclick="loadSubjects('Science')">SCIENCE</button><button class="btn btn-blue" onclick="loadSubjects('Art')">ART</button><button class="btn btn-blue" onclick="loadSubjects('Commercial')">COMMERCIAL</button></div></div>
-        <div id="page-subs" class="page"><div class="card" style="text-align:center;"><h2 id="dept-title"></h2><div id="sub-list"></div><button class="btn" style="background:#666; color:white;" onclick="goHome()">BACK</button></div></div>
-        <div id="page-exam" class="page"><div class="card" style="padding:0; overflow:hidden;"><div style="background:var(--sot-blue); color:white; padding:15px; display:flex; justify-content:space-between;"><span id="label-sub"></span><span id="timer" style="color:var(--sot-gold);">05:00</span></div><div style="padding:20px;"><h3 id="q-text" style="margin-bottom:20px;"></h3><div id="opt-container"></div><div style="display:flex; justify-content: space-between; margin-top:20px;"><button class="btn btn-nav" style="width:30%; background:#eee" onclick="prevQ()">PREV</button><button class="btn btn-nav" style="width:30%; background:red; color:white;" onclick="finishExam()">SUBMIT</button><button class="btn btn-nav" style="width:30%; background:var(--sot-blue); color:white;" onclick="nextQ()">NEXT</button></div></div></div></div>
-        <div id="page-result" class="page"><div class="card" style="text-align:center;"><h2>EXAM RESULT</h2><h1 id="score-raw" style="font-size:3.5rem;"></h1><p id="score-percent"></p><button class="btn btn-blue" style="background:var(--sot-green);" onclick="generatePDF()">PRINT RESULT</button><button class="btn btn-blue" onclick="location.reload()">LOGOUT</button></div></div>
-        
+        <div id="page-dept" class="page">
+            <div class="card">
+                <h2 style="text-align:center;">SELECT CLASS</h2>
+                <button class="btn btn-blue" onclick="loadSubjects('Science')">SCIENCE</button>
+                <button class="btn btn-blue" onclick="loadSubjects('Art')">ART</button>
+                <button class="btn btn-blue" onclick="loadSubjects('Commercial')">COMMERCIAL</button>
+            </div>
+        </div>
+
+        <div id="page-subs" class="page">
+            <div class="card" style="text-align:center;">
+                <h2 id="dept-title"></h2>
+                <div id="sub-list"></div>
+                <button class="btn btn-gold" onclick="switchTab('page-dept')">BACK</button>
+            </div>
+        </div>
+
+        <div id="page-exam" class="page">
+            <div class="card" style="padding:0; overflow:hidden;">
+                <div style="background:var(--sot-blue); color:white; padding:15px; display:flex; justify-content:space-between;">
+                    <span id="label-sub"></span>
+                    <span id="timer" style="color:var(--sot-gold);">05:00</span>
+                </div>
+                <div style="padding:20px;">
+                    <h3 id="q-text" style="margin-bottom:15px;"></h3>
+                    <div id="opt-container"></div>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-blue" style="width:50%;" onclick="prevQ()">PREV</button>
+                        <button class="btn btn-blue" style="width:50%;" onclick="nextQ()">NEXT</button>
+                    </div>
+                    <button class="btn" style="background:red; color:white;" onclick="finishExam()">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-result" class="page">
+            <div class="card" style="text-align:center;">
+                <h2>RESULT</h2>
+                <h1 id="score-raw" style="font-size:3rem; color:var(--sot-blue);"></h1>
+                <button class="btn btn-blue" onclick="generatePDF()">DOWNLOAD RESULT</button>
+                <button class="btn btn-gold" onclick="goHome()">HOME</button>
+            </div>
+        </div>
+
         <div id="page-admin" class="page">
             <div class="card">
-                <h2 style="text-align:center;">Admin Control Center</h2>
-                <hr style="margin: 15px 0;">
-                
-                <div style="background:#f9f9f9; padding:15px; border-radius:10px; margin-bottom:20px;">
-                    <h3>Manage Students</h3>
-                    <div id="user-table-container" style="overflow-x:auto;">
-                        <table class="admin-table" id="admin-user-table">
-                            <thead>
-                                <tr>
-                                    <th>User</th>
-                                    <th>Pass</th>
-                                    <th>Phone</th>
-                                    <th>Date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="user-list-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div style="background:#eee; padding:15px; border-radius:10px; margin-bottom:20px;">
-                    <h3>Add/Edit Question</h3>
-                    <select id="adm-dept"><option value="Science">Science</option><option value="Art">Art</option><option value="Commercial">Commercial</option></select>
-                    <input type="text" id="adm-sub" placeholder="Subject Name">
-                    <textarea id="adm-q" placeholder="The Question"></textarea>
-                    <input type="text" id="adm-o1" placeholder="Correct Answer">
-                    <input type="text" id="adm-o2" placeholder="Wrong Option 1">
-                    <input type="text" id="adm-o3" placeholder="Wrong Option 2">
-                    <input type="text" id="adm-o4" placeholder="Wrong Option 3">
-                    <button class="btn btn-blue" onclick="saveNewQuestion()">SAVE QUESTION</button>
-                </div>
-
-                <button class="btn" style="background:red; color:white;" onclick="clearLogs()">WIPE EXAM RECORDS</button>
-                <button class="btn" style="background:#666; color:white; margin-top:20px;" onclick="goHome()">BACK TO HOME</button>
+                <h2>ADMIN CENTER</h2>
+                <table class="admin-table">
+                    <thead><tr><th>User</th><th>Pass</th><th>Phone</th><th>Action</th></tr></thead>
+                    <tbody id="user-list-body"></tbody>
+                </table>
+                <hr style="margin:20px 0;">
+                <h3>ADD QUESTION</h3>
+                <select id="adm-dept"><option value="Science">Science</option><option value="Art">Art</option><option value="Commercial">Commercial</option></select>
+                <input type="text" id="adm-sub" placeholder="Subject">
+                <textarea id="adm-q" placeholder="Question"></textarea>
+                <input type="text" id="adm-o1" placeholder="Correct Answer">
+                <input type="text" id="adm-o2" placeholder="Wrong 1">
+                <input type="text" id="adm-o3" placeholder="Wrong 2">
+                <input type="text" id="adm-o4" placeholder="Wrong 3">
+                <button class="btn btn-blue" onclick="saveNewQuestion()">SAVE</button>
             </div>
         </div>
-        
-        <div id="page-games" class="page"><div class="card"><h2 style="text-align:center;">General QUIZ</h2><p id="t-text" style="text-align:center;"></p><div id="t-box"></div><div style="display:flex; gap:10px; margin-top:20px;"><button class="btn btn-gold" onclick="prevQUIZ()">PREV</button><button class="btn btn-blue" onclick="nextQUIZ()">NEXT</button></div></div></div>
+
+        <div id="page-games" class="page">
+            <div class="card">
+                <h2 style="text-align:center;">QUIZ</h2>
+                <p id="t-text" style="text-align:center; font-weight:bold; margin:20px 0;"></p>
+                <div id="t-box"></div>
+                <button class="btn btn-gold" onclick="nextQUIZ()">NEXT</button>
+            </div>
+        </div>
     </div>
 
-    <button onclick="toggleCalc()" style="position:fixed; bottom:100px; left:20px; border-radius:50%; width:50px; height:50px; background:var(--sot-gold); border:none; font-weight:bold; z-index:2001; cursor:pointer;">CALC</button>
-    <div id="calc-box"><input type="text" id="calc-display" readonly><div class="calc-grid"><button class="cbtn" onclick="calcIn('7')">7</button><button class="cbtn" onclick="calcIn('8')">8</button><button class="cbtn" onclick="calcIn('9')">9</button><button class="cbtn" onclick="calcIn('/')">/</button><button class="cbtn" onclick="calcIn('4')">4</button><button class="cbtn" onclick="calcIn('5')">5</button><button class="cbtn" onclick="calcIn('6')">6</button><button class="cbtn" onclick="calcIn('*')">*</button><button class="cbtn" onclick="calcIn('1')">1</button><button class="cbtn" onclick="calcIn('2')">2</button><button class="cbtn" onclick="calcIn('3')">3</button><button class="cbtn" onclick="calcIn('-')">-</button><button class="cbtn" onclick="calcIn('0')">0</button><button class="cbtn" onclick="calcClear()">C</button><button class="cbtn" onclick="calcSolve()">=</button><button class="cbtn" onclick="calcIn('+')">+</button></div></div>
+    <button onclick="toggleCalc()" style="position:fixed; bottom:100px; left:20px; border-radius:50%; width:50px; height:50px; background:var(--sot-gold); z-index:2001;">CALC</button>
+    <div id="calc-box">
+        <input type="text" id="calc-display" style="color:lime; background:black; text-align:right;">
+        <div class="calc-grid">
+            <button class="cbtn" onclick="calcIn('7')">7</button><button class="cbtn" onclick="calcIn('8')">8</button><button class="cbtn" onclick="calcIn('9')">9</button><button class="cbtn" onclick="calcIn('/')">/</button>
+            <button class="cbtn" onclick="calcIn('4')">4</button><button class="cbtn" onclick="calcIn('5')">5</button><button class="cbtn" onclick="calcIn('6')">6</button><button class="cbtn" onclick="calcIn('*')">*</button>
+            <button class="cbtn" onclick="calcIn('1')">1</button><button class="cbtn" onclick="calcIn('2')">2</button><button class="cbtn" onclick="calcIn('3')">3</button><button class="cbtn" onclick="calcIn('-')">-</button>
+            <button class="cbtn" onclick="calcClear()">C</button><button class="cbtn" onclick="calcIn('0')">0</button><button class="cbtn" onclick="calcSolve()">=</button><button class="cbtn" onclick="calcIn('+')">+</button>
+        </div>
+    </div>
 
     <nav class="bottom-nav">
         <div class="nav-item" onclick="goHome()">HOME</div>
@@ -193,310 +184,170 @@
     </nav>
 </div>
 
-<div id="sot-slip" style="display:none; padding:50px; text-align:center; background: white;"><h1>SOT ELITE TUTORIALS</h1><hr><h2 id="slip-name"></h2><h3 id="slip-sub"></h3><h1 id="slip-score" style="font-size: 3rem; color:blue;"></h1><p>Date: 2026</p></div>
+<div id="sot-slip" style="display:none; padding:40px; text-align:center; background:white;">
+    <h1>SOT ELITE TUTORIALS</h1>
+    <h2 id="slip-name"></h2>
+    <h3 id="slip-sub"></h3>
+    <h1 id="slip-score" style="font-size:3rem; color:blue;"></h1>
+</div>
 
 <script>
+    let currentUser = null;
+    let currentDept='', currentSub='', currentIdx=0, score=0, tIdx=0, timeLeft=300, timerInterval;
+
+    let qBank = {
+        'Science': {
+            'Physics': [
+                {q:"Unit of Force?", a:"Newton", o:["Newton","Joule","Watt","Volt"]},
+                {q:"Range of projectile is max at?", a:"45°", o:["30°","45°","60°","90°"]},
+                {q:"Device converting AC to DC?", a:"Rectifier", o:["Motor","Inverter","Rectifier","Fuse"]}
+            ],
+            'Biology': [
+                {q:"Powerhouse of cell?", a:"Mitochondria", o:["Nucleus","Mitochondria","Ribosome","Cortex"]}
+            ]
+        },
+        'Art': { 'Government': [{q:"Rule of law means?", a:"Supremacy of law", o:["Police power","Supremacy of law","Military rule","Anarchy"]}] },
+        'Commercial': { 'Economics': [{q:"Reward for Labor?", a:"Wages", o:["Profit","Rent","Wages","Interest"]}] }
+    };
+
+    let QUIZBank = [{q:"Who is the developer?", a:"SOT", o:["SOT","Bot","AI","User"]}];
+
     function showInstallNow() { document.getElementById('install-bar').style.top = '0'; }
+    function installApp() { alert("Install feature requires HTTPS/PWA setup."); }
 
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
-
-    function installApp() {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choice) => {
-                if (choice.outcome === 'accepted') document.getElementById('install-bar').style.top = '-100px';
-                deferredPrompt = null;
-            });
-        } else { alert("To install: Use browser menu 'Add to Home Screen'"); }
+    function switchTab(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        document.getElementById(id).classList.add('active-page');
     }
 
-    // AUTH LOGIC WITH DATE STORAGE
-    let currentUser = null;
     function toggleAuth(mode) {
         document.getElementById('login-form').style.display = (mode === 'login') ? 'block' : 'none';
         document.getElementById('signup-form').style.display = (mode === 'signup') ? 'block' : 'none';
-        document.getElementById('forgot-form').style.display = (mode === 'forgot') ? 'block' : 'none';
-        document.getElementById('auth-title').innerText = (mode === 'signup') ? 'STUDENT SIGNUP' : (mode === 'forgot' ? 'RECOVER ACCOUNT' : 'STUDENT LOGIN');
+        document.getElementById('auth-title').innerText = (mode === 'signup') ? 'STUDENT SIGNUP' : 'STUDENT LOGIN';
     }
 
     function handleAuth(type) {
-    let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
-    if(type === 'signup') {
-        let u = document.getElementById('reg-user').value;
-        let ph = document.getElementById('reg-phone').value;
-        let p = document.getElementById('reg-pass').value;
-        let d = new Date().toLocaleDateString();
-        
-        if(u && ph && p) {
-            users[u] = { pass: p, phone: ph, date: d };
-            localStorage.setItem('sot_users', JSON.stringify(users));
-            alert("Account Created! Please Login.");
-            toggleAuth('login');
-        } else { alert("Please fill all fields"); }
-    } else {
-        let u = document.getElementById('user-id').value;
-        let p = document.getElementById('user-pass').value;
-        
-        if(users[u] && users[u].pass === p) {
-            currentUser = u;
-            // 1. Update UI
-            document.getElementById('welcome-text').innerText = "Active: " + u;
-            
-            // 2. Hide Auth Overlay
-            document.getElementById('auth-overlay').style.display = 'none';
-            document.getElementById('install-bar').style.top = '-100px';
-            
-            // 3. Show Splash Screen
-            const splash = document.getElementById('splash');
-            splash.style.display = 'flex';
-            splash.style.opacity = '1';
-
-            // 4. Transition to Home Page
-            setTimeout(() => { 
-                splash.style.opacity = '0'; 
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                    showPage('page-home'); // This line is crucial!
-                }, 800); 
-            }, 3000);
-        } else { 
-            alert("Invalid Credentials. Make sure you signed up first!"); 
-        }
-    }
-}
-
-    function recoverPassword() {
         let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
-        let u = document.getElementById('for-user').value;
-        let ph = document.getElementById('for-phone').value;
-        if(users[u] && users[u].phone === ph) {
-            alert("SUCCESS! Your Password is: " + users[u].pass);
-            toggleAuth('login');
-        } else { alert("User details not found."); }
-    }
-// FIXED ADMIN FUNCTIONS: VIEW, EDIT, DELETE USERS
-    function refreshUserTable() {
-        let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
-        let html = "";
-        for (let u in users) {
-            html += `<tr>
-                <td>${u}</td>
-                <td>${users[u].pass}</td>
-                <td>${users[u].phone}</td>
-                <td>${users[u].date || 'N/A'}</td>
-                <td>
-                    <button class="action-btn edit-btn" onclick="editUser('${u}')">Edit</button>
-                    <button class="action-btn del-btn" onclick="deleteUser('${u}')">Del</button>
-                </td>
-            </tr>`;
-        }
-        document.getElementById('user-list-body').innerHTML = html;
-    }
-
-    function deleteUser(username) {
-        if(confirm("Delete student: " + username + "?")) {
-            let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
-            delete users[username];
-            localStorage.setItem('sot_users', JSON.stringify(users));
-            refreshUserTable();
+        if(type === 'signup') {
+            let u = document.getElementById('reg-user').value;
+            let p = document.getElementById('reg-pass').value;
+            let ph = document.getElementById('reg-phone').value;
+            if(u && p) {
+                users[u] = {pass: p, phone: ph, date: new Date().toLocaleDateString()};
+                localStorage.setItem('sot_users', JSON.stringify(users));
+                alert("Success! Login now."); toggleAuth('login');
+            }
+        } else {
+            let u = document.getElementById('user-id').value;
+            let p = document.getElementById('user-pass').value;
+            if(users[u] && users[u].pass === p) {
+                currentUser = u;
+                document.getElementById('welcome-text').innerText = "Logged in: " + u;
+                document.getElementById('auth-overlay').style.display = 'none';
+                document.getElementById('splash').style.display = 'flex';
+                setTimeout(() => { document.getElementById('splash').style.display = 'none'; switchTab('page-home'); }, 2000);
+            } else { alert("Invalid login!"); }
         }
     }
 
-    function editUser(username) {
-        let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
-        let newPass = prompt("Enter new password for " + username, users[username].pass);
-        let newPh = prompt("Enter new phone for " + username, users[username].phone);
-        if(newPass && newPh) {
-            users[username].pass = newPass;
-            users[username].phone = newPh;
-            localStorage.setItem('sot_users', JSON.stringify(users));
-            refreshUserTable();
-            alert("Student record updated!");
-        }
-    }
-
-    function checkAdmin() { 
-        if(prompt("ADMIN PIN:") === "2026") {
-            switchTab('page-admin');
-            refreshUserTable();
-        } 
-    }
-
-    // EXAM LOGIC REMAINS UNTOUCHED
-let qBank = JSON.parse(localStorage.getItem('sot_qbank')) || {
-    'Science': {
-        'Physics': [
-            {q:"Which of the following is a fundamental unit?", a:"Kelvin", o:["Newton","Joule","Kelvin","Watt"]},
-            {q:"The area under a velocity-time graph represents?", a:"Displacement", o:["Acceleration","Moment","Displacement","Impulse"]},
-            {q:"At what angle is the range of a projectile maximum?", a:"45°", o:["30°","45°","60°","90°"]},
-            {q:"The unit of electric current is?", a:"Ampere", o:["Volt","Ohm","Ampere","Watt"]},
-            {q:"Sound travels fastest in?", a:"Solids", o:["Air","Liquids","Solids","Vacuum"]},
-            {q:"The power of a lens is measured in?", a:"Dioptres", o:["Watts","Joules","Dioptres","Metres"]},
-            {q:"Which of these is a vector quantity?", a:"Force", o:["Mass","Time","Force","Distance"]},
-            {q:"Device that converts AC to DC?", a:"Rectifier", o:["Transformer","Rectifier","Inverter","Motor"]},
-            {q:"The density of water is maximum at?", a:"4°C", o:["0°C","4°C","100°C","-4°C"]},
-            {q:"Hooke's law relates force and what?", a:"Extension", o:["Mass","Velocity","Extension","Time"]}
-            // Add these to your 'Physics' array
-{q:"What is the unit of power?", a:"Watt", o:["Joule","Watt","Newton","Pascal"]},
-{q:"The process of heat transfer in solids is?", a:"Conduction", o:["Convection","Radiation","Conduction","Evaporation"]},
-{q:"Which mirror is used as a driving mirror?", a:"Convex mirror", o:["Concave mirror","Plane mirror","Convex mirror","Parabolic mirror"]},
-{q:"The speed of light is?", a:"3 x 10^8 m/s", o:["3 x 10^6 m/s","3 x 10^8 m/s","3 x 10^10 m/s","3 x 10^5 m/s"]},
-{q:"The instrument used to measure atmospheric pressure is?", a:"Barometer", o:["Thermometer","Hygrometer","Barometer","Hydrometer"]},
-{q:"A machine with 100% efficiency is called?", a:"Ideal machine", o:["Simple machine","Complex machine","Ideal machine","Engine"]},
-{q:"The frequency of a wave is measured in?", a:"Hertz", o:["Seconds","Metres","Hertz","Joules"]},
-{q:"Which of the following is a primary color of light?", a:"Blue", o:["Yellow","Green","Blue","Red"]},
-{q:"The property of a material to return to its original shape is?", a:"Elasticity", o:["Plasticity","Elasticity","Brittleness","Malleability"]},
-{q:"Energy due to position is called?", a:"Potential energy", o:["Kinetic energy","Potential energy","Thermal energy","Chemical energy"]},
-{q:"The vector product of force and distance is?", a:"Work", o:["Power","Work","Momentum","Impulse"]},
-{q:"Which particle is negatively charged?", a:"Electron", o:["Proton","Neutron","Electron","Positron"]},
-{q:"Resistance is inversely proportional to?", a:"Area", o:["Length","Area","Temperature","Voltage"]},
-{q:"The boiling point of water in Fahrenheit is?", a:"212°F", o:["100°F","212°F","32°F","373°F"]},
-{q:"Which law states that V is proportional to I?", a:"Ohm's Law", o:["Newton's Law","Ohm's Law","Boyle's Law","Hooke's Law"]},
-{q:"The clinical thermometer is cleaned using?", a:"Methylated spirit", o:["Boiling water","Methylated spirit","Ice","Soap"]},
-{q:"What type of wave is light?", a:"Transverse", o:["Longitudinal","Transverse","Mechanical","Stationary"]},
-{q:"The center of gravity of a uniform rod is at?", a:"Its midpoint", o:["Its end","Its midpoint","One-third length","The top"]},
-{q:"What is the escape velocity of the earth?", a:"11.2 km/s", o:["9.8 km/s","11.2 km/s","5.0 km/s","15.0 km/s"]},
-{q:"Which of these materials is a semiconductor?", a:"Germanium", o:["Copper","Gold","Germanium","Iron"]}
-        ],
-        'Biology': [
-            {q:"The 'Powerhouse' of the cell is?", a:"Mitochondria", o:["Nucleus","Ribosome","Mitochondria","Vacuole"]},
-            {q:"Which blood group is the universal donor?", a:"O", o:["A","B","AB","O"]},
-            {q:"The process of making food in plants?", a:"Photosynthesis", o:["Respiration","Transpiration","Photosynthesis","Digestion"]},
-            {q:"Part of the brain for balance?", a:"Cerebellum", o:["Cerebrum","Medulla","Cerebellum","Thalamus"]},
-            {q:"The unit of the kidney is?", a:"Nephron", o:["Neuron","Nephron","Alveoli","Villi"]},
-            {q:"Movement of water through a semi-permeable membrane?", a:"Osmosis", o:["Diffusion","Osmosis","Active transport","Plasmolysis"]},
-            {q:"Father of Genetics?", a:"Gregor Mendel", o:["Charles Darwin","Gregor Mendel","Louis Pasteur","Lamarck"]},
-            {q:"Deficiency of Vitamin C causes?", a:"Scurvy", o:["Rickets","Beriberi","Scurvy","Night blindness"]},
-            {q:"The smallest unit of life?", a:"Cell", o:["Tissue","Organ","Cell","System"]},
-            {q:"Male part of a flower?", a:"Stamen", o:["Carpel","Stamen","Petal","Sepal"]}
-           // Add these to your 'Biology' array
-{q:"The green pigment in plants is?", a:"Chlorophyll", o:["Hemoglobin","Chlorophyll","Melanin","Xanthophyll"]},
-{q:"Which vitamin is produced in the skin by sunlight?", a:"Vitamin D", o:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"]},
-{q:"The largest organ in the human body is?", a:"Skin", o:["Liver","Heart","Skin","Lungs"]},
-{q:"What is the main waste product of respiration?", a:"Carbon dioxide", o:["Oxygen","Carbon dioxide","Nitrogen","Water vapour"]},
-{q:"The movement of plant parts towards light is?", a:"Phototropism", o:["Hydrotropism","Phototropism","Geotropism","Chemotropism"]},
-{q:"The carry-all vessel of the heart that takes blood to the body?", a:"Aorta", o:["Vena Cava","Pulmonary Artery","Aorta","Capillary"]},
-{q:"Which insect transmits malaria?", a:"Anopheles mosquito", o:["Housefly","Tsetse fly","Anopheles mosquito","Cockroach"]},
-{q:"The study of heredity is?", a:"Genetics", o:["Ecology","Genetics","Cytology","Anatomy"]},
-{q:"A group of similar cells performing a function is a?", a:"Tissue", o:["Organ","System","Tissue","Organism"]},
-{q:"The exchange of gases in fish occurs in the?", a:"Gills", o:["Lungs","Trachea","Gills","Skin"]},
-{q:"Which of these is a flightless bird?", a:"Ostrich", o:["Eagle","Hawk","Ostrich","Parrot"]},
-{q:"The mineral needed for strong bones is?", a:"Calcium", o:["Iron","Calcium","Iodine","Sodium"]},
-{q:"Plants that grow in deserts are called?", a:"Xerophytes", o:["Hydrophytes","Mesophytes","Xerophytes","Epiphytes"]},
-{q:"The part of the eye that controls light entry is?", a:"Iris", o:["Retina","Cornea","Iris","Lens"]},
-{q:"What is the function of red blood cells?", a:"Transport oxygen", o:["Fight germs","Clot blood","Transport oxygen","Produce hormones"]},
-{q:"The male sex hormone is?", a:"Testosterone", o:["Estrogen","Progesterone","Testosterone","Insulin"]},
-{q:"The simplest form of sugar is?", a:"Glucose", o:["Starch","Glucose","Sucrose","Cellulose"]},
-{q:"Which part of the plant absorbs water?", a:"Root hairs", o:["Stem","Leaves","Root hairs","Flowers"]},
-{q:"The scientist who discovered cells was?", a:"Robert Hooke", o:["Charles Darwin","Robert Hooke","Louis Pasteur","Isaac Newton"]},
-{q:"The habitat of an organism is its?", a:"Home", o:["Food source","Home","Predator","Climate"]} 
-        ]
-    },
-    'Art': {
-        'Government': [
-            {q:"Who is the head of the Judiciary?", a:"Chief Justice", o:["President","Speaker","Chief Justice","Governor"]},
-            {q:"A system with a single central authority?", a:"Unitary", o:["Federal","Unitary","Confederal","Monarchy"]},
-            {q:"The first constitution in Nigeria?", a:"Clifford", o:["Clifford","Richards","Macpherson","Lyttleton"]},
-            {q:"Main function of the Legislature?", a:"Law making", o:["Law making","Law execution","Law interpretation","Taxing"]},
-            {q:"Right to vote is called?", a:"Franchise", o:["Liberty","Franchise","Plebiscite","Mandate"]},
-            {q:"Headquarters of ECOWAS?", a:"Abuja", o:["Accra","Lagos","Abuja","Lome"]},
-            {q:"Rule of law means?", a:"Supremacy of law", o:["Power of police","Supremacy of law","Military rule","Dictatorship"]},
-            {q:"Oldest political party in Nigeria?", a:"NNDP", o:["NNDP","NPC","NCNC","AG"]},
-            {q:"The UNO was formed in?", a:"1945", o:["1914","1945","1960","1999"]},
-            {q:"Upper house of the legislature in Nigeria?", a:"Senate", o:["House of Reps","Senate","Judiciary","Cabinet"]}
-            // Append these to your 'Government' array
-{q:"The ultimate power of the state to make and enforce laws is?", a:"Sovereignty", o:["Authority","Sovereignty","Legitimacy","Influence"]},
-{q:"A government headed by a king or queen is a?", a:"Monarchy", o:["Republic","Monarchy","Oligarchy","Theocracy"]},
-{q:"The process of taking over a private industry by the state is?", a:"Nationalization", o:["Privatization","Nationalization","Commercialization","Indigenization"]},
-{q:"The organ of government responsible for policy implementation is?", a:"Executive", o:["Legislature","Judiciary","Executive","Electoral Commission"]},
-{q:"A major feature of a cabinet system of government is?", a:"Collective responsibility", o:["Separation of powers","Collective responsibility","Checks and balances","Fixed tenure"]},
-{q:"The first Governor-General of colonial Nigeria was?", a:"Lord Lugard", o:["Sir Arthur Richards","Lord Lugard","Sir John Macpherson","Sir James Robertson"]},
-{q:"A written constitution is often described as?", a:"Rigid", o:["Flexible","Rigid","Unwritten","Unitary"]},
-{q:"The primary function of the civil service is?", a:"Policy implementation", o:["Law making","Policy implementation","Judging cases","Conducting elections"]},
-{q:"The basic unit of traditional political organization in Igboland was?", a:"The Village", o:["The Empire","The Village","The Kingdom","The Caliphate"]},
-{q:"Delegated legislation is made by?", a:"Non-legislative bodies", o:["The Senate","The Parliament","Non-legislative bodies","The Judiciary"]},
-{q:"A bicameral legislature is one that has?", a:"Two chambers", o:["One chamber","Two chambers","Three chambers","Four chambers"]},
-{q:"The 1979 Constitution of Nigeria introduced the?", a:"Presidential system", o:["Parliamentary system","Presidential system","Unitary system","Confederal system"]},
-{q:"The voting age in Nigeria is currently?", a:"18 years", o:["16 years","18 years","21 years","25 years"]},
-{q:"Which international body replaced the League of Nations?", a:"United Nations", o:["African Union","United Nations","Commonwealth","OPEC"]},
-{q:"The indirect rule system was introduced in Nigeria by?", a:"Lord Lugard", o:["Donald Cameron","Lord Lugard","Hugh Clifford","Bernard Bourdillon"]},
-{q:"The fundamental rights of citizens are usually found in?", a:"The Constitution", o:["The Court Room","The Constitution","The Police Station","The Hansard"]},
-{q:"Which of these is a pressure group?", a:"ASUU", o:["APC","PDP","ASUU","LP"]},
-{q:"The power of the president to refuse to sign a bill into law is?", a:"Veto power", o:["Judicial review","Veto power","Executive order","Injunction"]},
-{q:"Local government in Nigeria is the?", a:"Third tier of government", o:["First tier","Second tier","Third tier","Fourth tier"]},
-{q:"Who was the first ceremonial President of Nigeria?", a:"Nnamdi Azikiwe", o:["Tafawa Balewa","Nnamdi Azikiwe","Obafemi Awolowo","Ahmadu Bello"]}
-        ]
-        
-    },
-    'Commercial': {
-        'Economics': [
-            {q:"The basic problem in Economics is?", a:"Scarcity", o:["Money","Scarcity","Inflation","Tax"]},
-            {q:"Utility means?", a:"Satisfaction", o:["Profit","Satisfaction","Cost","Value"]},
-            {q:"A market with one seller?", a:"Monopoly", o:["Monopoly","Duopoly","Oligopoly","Perfect Market"]},
-            {q:"Formula for Elasticity?", a:"%ΔQ / %ΔP", o:["P/Q","Q/P","%ΔQ / %ΔP","ΔP/ΔQ"]},
-            {q:"Reward for Labor?", a:"Wages", o:["Profit","Rent","Interest","Wages"]}
-
-                                           // Append these to your 'Economics' array
-{q:"A table showing the relationship between price and quantity demanded is?", a:"Demand schedule", o:["Demand curve","Demand schedule","Supply table","Market list"]},
-{q:"The law of demand states that when price rises, demand?", a:"Falls", o:["Rises","Falls","Stays constant","Doubles"]},
-{q:"Goods that are consumed together are called?", a:"Complementary goods", o:["Substitute goods","Complementary goods","Giffen goods","Inferior goods"]},
-{q:"The total value of all goods produced within a country is?", a:"GDP", o:["GNP","GDP","NDP","Per Capita Income"]},
-{q:"The population of a country divided by its land area is?", a:"Population density", o:["Birth rate","Population density","Census","Migration rate"]},
-{q:"The central bank's major tool for controlling money supply is?", a:"Interest rate", o:["Taxation","Interest rate","Directing banks","Printing more money"]},
-{q:"A market with many buyers and many sellers is?", a:"Perfect competition", o:["Monopoly","Perfect competition","Oligopoly","Monopsony"]},
-{q:"Inflation caused by an increase in production costs is?", a:"Cost-push inflation", o:["Demand-pull inflation","Cost-push inflation","Hyperinflation","Deflation"]},
-{q:"The reward for entrepreneurship is?", a:"Profit", o:["Interest","Rent","Wages","Profit"]},
-{q:"The type of money that is backed by law is?", a:"Legal tender", o:["Commodity money","Legal tender","Token money","Bank notes"]},
-{q:"A budget where estimated expenditure exceeds revenue is?", a:"Deficit budget", o:["Surplus budget","Deficit budget","Balanced budget","National budget"]},
-{q:"The main objective of a private firm is?", a:"Profit maximization", o:["Public service","Profit maximization","Creating jobs","Paying taxes"]},
-{q:"Specialization of labor usually leads to?", a:"Increased productivity", o:["Boredom","Increased productivity","Lower wages","Higher prices"]},
-{q:"A sustained rise in the general price level is?", a:"Inflation", o:["Deflation","Inflation","Depression","Recession"]},
-{q:"The tax system where the rich pay a higher percentage is?", a:"Progressive tax", o:["Regressive tax","Proportional tax","Progressive tax","Value added tax"]},
-{q:"The stock exchange is a market for?", a:"Shares and stocks", o:["Consumer goods","Shares and stocks","Foreign exchange","Raw materials"]},
-{q:"Which of these is a primary sector activity?", a:"Farming", o:["Banking","Farming","Teaching","Manufacturing"]},
-{q:"The point where supply and demand curves intersect is?", a:"Equilibrium", o:["Surplus","Shortage","Equilibrium","Elasticity"]},
-{q:"International trade between two countries is?", a:"Bilateral trade", o:["Multilateral trade","Bilateral trade","Local trade","Domestic trade"]},
-{q:"The formula for calculating Per Capita Income is?", a:"Total Income / Total Population", o:["Total Income x Total Population","Total Income / Total Population","Revenue - Cost","Output / Input"]}
-        ]
-    }
-};
-    };
-    let QUIZBank = [{q:"Who created this app?", a:"SOT", o:["SOT","Anon","Robot","Alien"]}];
-    let currentDept='', currentSub='', currentIdx=0, score=0, tIdx=0, timeLeft=300, timerInterval;
-
-    function switchTab(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page')); document.getElementById(id).classList.add('active-page'); }
     function goHome() { clearInterval(timerInterval); switchTab('page-home'); }
     function startPortal() { switchTab('page-dept'); }
+    
     function loadSubjects(dept) {
-        currentDept = dept; document.getElementById('dept-title').innerText = dept;
+        currentDept = dept; document.getElementById('dept-title').innerText = dept + " SUBJECTS";
         let html = '';
-        for(let sub in qBank[dept]) { html += `<button class="btn btn-blue" onclick="startExam('${sub}')">${sub}</button>`; }
+        for(let sub in qBank[dept]) {
+            html += `<button class="btn btn-blue" onclick="startExam('${sub}')">${sub}</button>`;
+        }
         document.getElementById('sub-list').innerHTML = html;
         switchTab('page-subs');
     }
-    function startExam(sub) { currentSub = sub; currentIdx = 0; score = 0; timeLeft = 300; document.getElementById('label-sub').innerText = sub; switchTab('page-exam'); startTimer(); showQuestion(); }
-    function startTimer() { clearInterval(timerInterval); timerInterval = setInterval(() => { timeLeft--; let m = Math.floor(timeLeft/60), s = timeLeft%60; document.getElementById('timer').innerText = `${m}:${s<10?'0':''}${s}`; if(timeLeft <= 0) finishExam(); }, 1000); }
-    function showQuestion() { let q = qBank[currentDept][currentSub][currentIdx]; document.getElementById('q-text').innerText = (currentIdx+1) + ". " + q.q; document.getElementById('opt-container').innerHTML = q.o.map(opt => `<button class="option-btn" onclick="checkAns('${opt}', this)">${opt}</button>`).join(''); }
-    function checkAns(ans, btn) { document.querySelectorAll('.option-btn').forEach(b => b.style.background = 'white'); btn.style.background = 'var(--sot-gold)'; btn.dataset.selected = ans; }
-    function nextQ() { let sel = document.querySelector('.option-btn[style*="rgb(255, 215, 0)"]'); if(sel && sel.innerText === qBank[currentDept][currentSub][currentIdx].a) score++; if(currentIdx < qBank[currentDept][currentSub].length - 1) { currentIdx++; showQuestion(); } }
+
+    function startExam(sub) {
+        currentSub = sub; currentIdx = 0; score = 0; timeLeft = 300;
+        document.getElementById('label-sub').innerText = sub;
+        switchTab('page-exam'); startTimer(); showQuestion();
+    }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            let m = Math.floor(timeLeft/60), s = timeLeft%60;
+            document.getElementById('timer').innerText = `${m}:${s<10?'0':''}${s}`;
+            if(timeLeft <= 0) finishExam();
+        }, 1000);
+    }
+
+    function showQuestion() {
+        let q = qBank[currentDept][currentSub][currentIdx];
+        document.getElementById('q-text').innerText = (currentIdx+1) + ". " + q.q;
+        document.getElementById('opt-container').innerHTML = q.o.map(opt => `<button class="option-btn" onclick="checkAns('${opt}', this)">${opt}</button>`).join('');
+    }
+
+    function checkAns(ans, btn) {
+        document.querySelectorAll('.option-btn').forEach(b => b.style.border = '2px solid #ddd');
+        btn.style.border = '3px solid var(--sot-gold)';
+        btn.dataset.selected = ans;
+    }
+
+    function nextQ() {
+        let sel = document.querySelector('.option-btn[style*="gold"]');
+        if(sel && sel.innerText === qBank[currentDept][currentSub][currentIdx].a) score++;
+        if(currentIdx < qBank[currentDept][currentSub].length - 1) { currentIdx++; showQuestion(); } else { finishExam(); }
+    }
+    
     function prevQ() { if(currentIdx > 0) { currentIdx--; showQuestion(); } }
-    function finishExam() { clearInterval(timerInterval); document.getElementById('score-raw').innerText = score + "/" + qBank[currentDept][currentSub].length; let logs = JSON.parse(localStorage.getItem('sot_final_logs') || "[]"); logs.push({name: currentUser, sub: currentSub, score: score}); localStorage.setItem('sot_final_logs', JSON.stringify(logs)); switchTab('page-result'); }
-    function saveNewQuestion() { const d = document.getElementById('adm-dept').value; const s = document.getElementById('adm-sub').value; const q = document.getElementById('adm-q').value; const a = document.getElementById('adm-o1').value; const opts = [a, document.getElementById('adm-o2').value, document.getElementById('adm-o3').value, document.getElementById('adm-o4').value]; if(!s || !q || !a) return alert("Missing data"); if(!qBank[d][s]) qBank[d][s] = []; qBank[d][s].push({q, a, o: opts}); localStorage.setItem('sot_qbank', JSON.stringify(qBank)); alert("Question Added!"); }
-    function clearLogs() { if(confirm("Delete all exam records?")) localStorage.removeItem('sot_final_logs'); }
+
+    function finishExam() {
+        clearInterval(timerInterval);
+        document.getElementById('score-raw').innerText = score + "/" + qBank[currentDept][currentSub].length;
+        switchTab('page-result');
+    }
+
+    function checkAdmin() { if(prompt("ADMIN PIN:") === "2026") { switchTab('page-admin'); refreshUserTable(); } }
+
+    function refreshUserTable() {
+        let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
+        let html = '';
+        for(let u in users) { html += `<tr><td>${u}</td><td>${users[u].pass}</td><td>${users[u].phone}</td><td><button onclick="deleteUser('${u}')">Del</button></td></tr>`; }
+        document.getElementById('user-list-body').innerHTML = html;
+    }
+
+    function deleteUser(u) {
+        let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
+        delete users[u]; localStorage.setItem('sot_users', JSON.stringify(users)); refreshUserTable();
+    }
+
+    function saveNewQuestion() {
+        const d = document.getElementById('adm-dept').value, s = document.getElementById('adm-sub').value;
+        const q = document.getElementById('adm-q').value, a = document.getElementById('adm-o1').value;
+        const opts = [a, document.getElementById('adm-o2').value, document.getElementById('adm-o3').value, document.getElementById('adm-o4').value];
+        if(!qBank[d][s]) qBank[d][s] = [];
+        qBank[d][s].push({q, a, o: opts});
+        alert("Saved!");
+    }
+
     function openQUIZ() { tIdx=0; switchTab('page-games'); renderQUIZ(); }
-    function renderQUIZ() { document.getElementById('t-text').innerText = QUIZBank[tIdx].q; document.getElementById('t-box').innerHTML = QUIZBank[tIdx].o.map(o => `<button class="option-btn" onclick="this.style.background='var(--sot-gold)'">${o}</button>`).join(''); }
-    function nextQUIZ() { if(tIdx < QUIZBank.length-1) { tIdx++; renderQUIZ(); } }
-    function prevQUIZ() { if(tIdx > 0) { tIdx--; renderQUIZ(); } }
+    function renderQUIZ() { 
+        document.getElementById('t-text').innerText = QUIZBank[tIdx].q;
+        document.getElementById('t-box').innerHTML = QUIZBank[tIdx].o.map(o => `<button class="option-btn" onclick="this.style.background='gold'">${o}</button>`).join('');
+    }
+    function nextQUIZ() { if(tIdx < QUIZBank.length-1) { tIdx++; renderQUIZ(); } else { alert("Quiz Finished!"); goHome(); } }
+
     function toggleCalc() { let c = document.getElementById('calc-box'); c.style.display = (c.style.display==='block')?'none':'block'; }
     function calcIn(v) { document.getElementById('calc-display').value += v; }
     function calcClear() { document.getElementById('calc-display').value = ''; }
     function calcSolve() { try { let d = document.getElementById('calc-display'); d.value = eval(d.value); } catch(e) { alert("Error"); } }
-    function generatePDF() { document.getElementById('slip-name').innerText = "Student: " + currentUser; document.getElementById('slip-sub').innerText = "Subject: " + currentSub; document.getElementById('slip-score').innerText = score; const el = document.getElementById('sot-slip'); el.style.display = 'block'; html2pdf().from(el).save().then(()=>el.style.display='none'); }
+
+    function generatePDF() {
+        document.getElementById('slip-name').innerText = "Student: " + currentUser;
+        document.getElementById('slip-sub').innerText = "Subject: " + currentSub;
+        document.getElementById('slip-score').innerText = score;
+        const el = document.getElementById('sot-slip');
+        el.style.display = 'block';
+        html2pdf().from(el).save().then(()=>el.style.display='none');
+    }
 </script>
 </body>
 </html>
-
-
-
-
