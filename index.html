@@ -221,32 +221,50 @@
     }
 
     function handleAuth(type) {
-        let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
-        if(type === 'signup') {
-            let u = document.getElementById('reg-user').value;
-            let ph = document.getElementById('reg-phone').value;
-            let p = document.getElementById('reg-pass').value;
-            let d = new Date().toLocaleDateString();
-            if(u && ph && p) {
-                users[u] = { pass: p, phone: ph, date: d };
-                localStorage.setItem('sot_users', JSON.stringify(users));
-                alert("Account Created! Please Login.");
-                toggleAuth('login');
-            } else { alert("Please fill all fields"); }
-        } else {
-            let u = document.getElementById('user-id').value;
-            let p = document.getElementById('user-pass').value;
-            if(users[u] && users[u].pass === p) {
-                currentUser = u;
-                document.getElementById('welcome-text').innerText = "Active: " + u;
-                document.getElementById('auth-overlay').style.display = 'none';
-                document.getElementById('install-bar').style.top = '-100px';
-                const splash = document.getElementById('splash');
-                splash.style.display = 'flex';
-                setTimeout(() => { splash.style.opacity = '0'; setTimeout(()=>splash.style.display='none', 800); }, 3000);
-            } else { alert("Invalid Credentials"); }
+    let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
+    if(type === 'signup') {
+        let u = document.getElementById('reg-user').value;
+        let ph = document.getElementById('reg-phone').value;
+        let p = document.getElementById('reg-pass').value;
+        let d = new Date().toLocaleDateString();
+        
+        if(u && ph && p) {
+            users[u] = { pass: p, phone: ph, date: d };
+            localStorage.setItem('sot_users', JSON.stringify(users));
+            alert("Account Created! Please Login.");
+            toggleAuth('login');
+        } else { alert("Please fill all fields"); }
+    } else {
+        let u = document.getElementById('user-id').value;
+        let p = document.getElementById('user-pass').value;
+        
+        if(users[u] && users[u].pass === p) {
+            currentUser = u;
+            // 1. Update UI
+            document.getElementById('welcome-text').innerText = "Active: " + u;
+            
+            // 2. Hide Auth Overlay
+            document.getElementById('auth-overlay').style.display = 'none';
+            document.getElementById('install-bar').style.top = '-100px';
+            
+            // 3. Show Splash Screen
+            const splash = document.getElementById('splash');
+            splash.style.display = 'flex';
+            splash.style.opacity = '1';
+
+            // 4. Transition to Home Page
+            setTimeout(() => { 
+                splash.style.opacity = '0'; 
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    showPage('page-home'); // This line is crucial!
+                }, 800); 
+            }, 3000);
+        } else { 
+            alert("Invalid Credentials. Make sure you signed up first!"); 
         }
     }
+}
 
     function recoverPassword() {
         let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
@@ -478,6 +496,7 @@ let qBank = JSON.parse(localStorage.getItem('sot_qbank')) || {
 </script>
 </body>
 </html>
+
 
 
 
