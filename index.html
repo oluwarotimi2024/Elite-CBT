@@ -307,10 +307,57 @@
     }
 
     // EXAM LOGIC REMAINS UNTOUCHED
-    let qBank = JSON.parse(localStorage.getItem('sot_qbank')) || {
-        'Science': {'Biology': [{q:"Study of life?", a:"Biology", o:["Biology","Physics","Law","Art"]}]},
-        'Art': {'Government': [{q:"Who is head of state?", a:"President", o:["President","King","Oba","Chief"]}]},
-        'Commercial': {'Economics': [{q:"What is demand?", a:"Willingness to buy", o:["Willingness to buy","Selling","Storing","Crying"]}]}
+let qBank = JSON.parse(localStorage.getItem('sot_qbank')) || {
+    'Science': {
+        'Physics': [
+            {q:"Which of the following is a fundamental unit?", a:"Kelvin", o:["Newton","Joule","Kelvin","Watt"]},
+            {q:"The area under a velocity-time graph represents?", a:"Displacement", o:["Acceleration","Moment","Displacement","Impulse"]},
+            {q:"At what angle is the range of a projectile maximum?", a:"45°", o:["30°","45°","60°","90°"]},
+            {q:"The unit of electric current is?", a:"Ampere", o:["Volt","Ohm","Ampere","Watt"]},
+            {q:"Sound travels fastest in?", a:"Solids", o:["Air","Liquids","Solids","Vacuum"]},
+            {q:"The power of a lens is measured in?", a:"Dioptres", o:["Watts","Joules","Dioptres","Metres"]},
+            {q:"Which of these is a vector quantity?", a:"Force", o:["Mass","Time","Force","Distance"]},
+            {q:"Device that converts AC to DC?", a:"Rectifier", o:["Transformer","Rectifier","Inverter","Motor"]},
+            {q:"The density of water is maximum at?", a:"4°C", o:["0°C","4°C","100°C","-4°C"]},
+            {q:"Hooke's law relates force and what?", a:"Extension", o:["Mass","Velocity","Extension","Time"]}
+        ],
+        'Biology': [
+            {q:"The 'Powerhouse' of the cell is?", a:"Mitochondria", o:["Nucleus","Ribosome","Mitochondria","Vacuole"]},
+            {q:"Which blood group is the universal donor?", a:"O", o:["A","B","AB","O"]},
+            {q:"The process of making food in plants?", a:"Photosynthesis", o:["Respiration","Transpiration","Photosynthesis","Digestion"]},
+            {q:"Part of the brain for balance?", a:"Cerebellum", o:["Cerebrum","Medulla","Cerebellum","Thalamus"]},
+            {q:"The unit of the kidney is?", a:"Nephron", o:["Neuron","Nephron","Alveoli","Villi"]},
+            {q:"Movement of water through a semi-permeable membrane?", a:"Osmosis", o:["Diffusion","Osmosis","Active transport","Plasmolysis"]},
+            {q:"Father of Genetics?", a:"Gregor Mendel", o:["Charles Darwin","Gregor Mendel","Louis Pasteur","Lamarck"]},
+            {q:"Deficiency of Vitamin C causes?", a:"Scurvy", o:["Rickets","Beriberi","Scurvy","Night blindness"]},
+            {q:"The smallest unit of life?", a:"Cell", o:["Tissue","Organ","Cell","System"]},
+            {q:"Male part of a flower?", a:"Stamen", o:["Carpel","Stamen","Petal","Sepal"]}
+        ]
+    },
+    'Art': {
+        'Government': [
+            {q:"Who is the head of the Judiciary?", a:"Chief Justice", o:["President","Speaker","Chief Justice","Governor"]},
+            {q:"A system with a single central authority?", a:"Unitary", o:["Federal","Unitary","Confederal","Monarchy"]},
+            {q:"The first constitution in Nigeria?", a:"Clifford", o:["Clifford","Richards","Macpherson","Lyttleton"]},
+            {q:"Main function of the Legislature?", a:"Law making", o:["Law making","Law execution","Law interpretation","Taxing"]},
+            {q:"Right to vote is called?", a:"Franchise", o:["Liberty","Franchise","Plebiscite","Mandate"]},
+            {q:"Headquarters of ECOWAS?", a:"Abuja", o:["Accra","Lagos","Abuja","Lome"]},
+            {q:"Rule of law means?", a:"Supremacy of law", o:["Power of police","Supremacy of law","Military rule","Dictatorship"]},
+            {q:"Oldest political party in Nigeria?", a:"NNDP", o:["NNDP","NPC","NCNC","AG"]},
+            {q:"The UNO was formed in?", a:"1945", o:["1914","1945","1960","1999"]},
+            {q:"Upper house of the legislature in Nigeria?", a:"Senate", o:["House of Reps","Senate","Judiciary","Cabinet"]}
+        ]
+    },
+    'Commercial': {
+        'Economics': [
+            {q:"The basic problem in Economics is?", a:"Scarcity", o:["Money","Scarcity","Inflation","Tax"]},
+            {q:"Utility means?", a:"Satisfaction", o:["Profit","Satisfaction","Cost","Value"]},
+            {q:"A market with one seller?", a:"Monopoly", o:["Monopoly","Duopoly","Oligopoly","Perfect Market"]},
+            {q:"Formula for Elasticity?", a:"%ΔQ / %ΔP", o:["P/Q","Q/P","%ΔQ / %ΔP","ΔP/ΔQ"]},
+            {q:"Reward for Labor?", a:"Wages", o:["Profit","Rent","Interest","Wages"]}
+        ]
+    }
+};
     };
     let QUIZBank = [{q:"Who created this app?", a:"SOT", o:["SOT","Anon","Robot","Alien"]}];
     let currentDept='', currentSub='', currentIdx=0, score=0, tIdx=0, timeLeft=300, timerInterval;
@@ -346,3 +393,4 @@
 </script>
 </body>
 </html>
+
