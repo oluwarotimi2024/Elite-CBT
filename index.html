@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +44,6 @@
         .admin-table th, .admin-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
 
-        /* NEW CUSTOM STYLES */
         .landing-logo { display: block; margin: 10px auto; width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--sot-gold); }
         .course-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 15px 0; }
         .course-card { background: #f0f0f0; padding: 8px; border-radius: 8px; border-left: 4px solid var(--sot-blue); font-size: 0.7rem; font-weight: bold; text-align: left; }
@@ -82,11 +80,11 @@
             <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem;" onclick="toggleAuth('login')">Back to Login</p>
         </div>
         <div id="forgot-form" style="display:none;">
-    <input type="text" id="fp-user" placeholder="Username">
-    <input type="number" id="fp-phone" placeholder="Phone Number">
-    <input type="password" id="fp-newpass" placeholder="New Password (min 8 characters)">
-    <button class="btn btn-blue" onclick="recoverPassword()">RESET PASSWORD</button>
-    <p style="text-align:center; cursor:pointer; color:blue; font-size:0.8rem;" onclick="toggleAuth('login')">Back to Login</p>
+            <input type="text" id="fp-user" placeholder="Username">
+            <input type="number" id="fp-phone" placeholder="Phone Number">
+            <input type="password" id="fp-newpass" placeholder="New Password">
+            <button class="btn btn-blue" onclick="recoverPassword()">RESET PASSWORD</button>
+            <p style="text-align:center; cursor:pointer; color:blue; font-size:0.8rem;" onclick="toggleAuth('login')">Back to Login</p>
         </div>
     </div>
 </div>
@@ -95,11 +93,10 @@
     <div class="card" style="width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto;">
         <h2 style="color: red; text-align:center;">TERMS & CONDITIONS</h2>
         <div style="text-align: left; font-size: 0.85rem; line-height: 1.6; margin: 15px 0;">
-            <p>1. <strong>Integrity:</strong> Cheating is strictly forbidden.</p>
-            <p>2. <strong>Suspension:</strong> Rule violations result in a <strong>24-hour suspension</strong>.</p>
-            <p>3. <strong>Access:</strong> Account sharing is prohibited.</p>
+            <p>1. Integrity: Cheating is strictly forbidden.</p>
+            <p>2. Suspension: Violations result in suspension.</p>
         </div>
-        <button class="btn btn-blue" onclick="confirmSignup()">I AGREE & CREATE ACCOUNT</button>
+        <button class="btn btn-blue" onclick="confirmSignup()">I AGREE</button>
     </div>
 </div>
 
@@ -113,25 +110,14 @@
         <div id="page-home" class="page active-page">
             <div class="card" style="text-align:center;">
                 <img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" class="landing-logo">
-                <h2 style="color: var(--sot-blue);">OUR VISION</h2>
-                <p style="font-style: italic; color: #666; font-size: 0.8rem;">"Empowering students through technology-driven excellence."</p>
-                
-                <h3 style="margin-top:15px;">TECH ACADEMY COURSES</h3>
-                <div class="course-grid">
-                    <div class="course-card">1. Web Design</div><div class="course-card">2. App Dev</div>
-                    <div class="course-card">3. UI/UX Design</div><div class="course-card">4. Python</div>
-                    <div class="course-card">5. Data Science</div><div class="course-card">6. Cyber Security</div>
-                    <div class="course-card">7. Cloud Computing</div><div class="course-card">8. Graphics</div>
-                    <div class="course-card">9. Digital Marketing</div><div class="course-card">10. Backend</div>
-                </div>
+                <h2>OUR VISION</h2>
                 <button class="btn btn-blue" onclick="startPortal()">ENTER CBT PORTAL</button>
-                <button class="btn btn-gold" onclick="openQUIZ()">PRACTICE QUIZ</button>
             </div>
         </div>
 
         <div id="page-dept" class="page">
             <div class="card">
-                <h2 style="text-align:center;">SELECT CLASS</h2>
+                <h2 style="text-align:center;">SELECT DEPARTMENT</h2>
                 <button class="btn btn-blue" onclick="loadSubjects('Science')">SCIENCE</button>
                 <button class="btn btn-blue" onclick="loadSubjects('Art')">ART</button>
                 <button class="btn btn-blue" onclick="loadSubjects('Commercial')">COMMERCIAL</button>
@@ -172,226 +158,141 @@
                 <button class="btn btn-gold" onclick="goHome()">HOME</button>
             </div>
         </div>
-
-        <div id="page-admin" class="page">
-            <div class="card">
-                <h2>ADMIN CENTER</h2>
-                <table class="admin-table">
-                    <thead><tr><th>User</th><th>Pass</th><th>Action</th></tr></thead>
-                    <tbody id="user-list-body"></tbody>
-                </table>
-                <hr style="margin:20px 0;">
-                <h3>ADD QUESTION</h3>
-                <select id="adm-dept"><option value="Science">Science</option><option value="Art">Art</option><option value="Commercial">Commercial</option></select>
-                <input type="text" id="adm-sub" placeholder="Subject">
-                <textarea id="adm-q" placeholder="Question"></textarea>
-                <input type="text" id="adm-o1" placeholder="Correct Answer">
-                <input type="text" id="adm-o2" placeholder="Wrong 1">
-                <input type="text" id="adm-o3" placeholder="Wrong 2">
-                <input type="text" id="adm-o4" placeholder="Wrong 3">
-                <button class="btn btn-blue" onclick="saveNewQuestion()">SAVE</button>
-            </div>
-        </div>
-
-        <div id="page-games" class="page">
-            <div class="card">
-                <h2 style="text-align:center;">QUIZ</h2>
-                <p id="t-text" style="text-align:center; font-weight:bold; margin:20px 0;"></p>
-                <div id="t-box"></div>
-                <button class="btn btn-gold" onclick="nextQUIZ()">NEXT</button>
-            </div>
-        </div>
-    </div>
-
-    <button onclick="toggleCalc()" style="position:fixed; bottom:100px; left:20px; border-radius:50%; width:50px; height:50px; background:var(--sot-gold); z-index:2001;">CALC</button>
-    <div id="calc-box">
-        <input type="text" id="calc-display" style="color:lime; background:black; text-align:right;">
-        <div class="calc-grid">
-            <button class="cbtn" onclick="calcIn('7')">7</button><button class="cbtn" onclick="calcIn('8')">8</button><button class="cbtn" onclick="calcIn('9')">9</button><button class="cbtn" onclick="calcIn('/')">/</button>
-            <button class="cbtn" onclick="calcIn('4')">4</button><button class="cbtn" onclick="calcIn('5')">5</button><button class="cbtn" onclick="calcIn('6')">6</button><button class="cbtn" onclick="calcIn('*')">*</button>
-            <button class="cbtn" onclick="calcIn('1')">1</button><button class="cbtn" onclick="calcIn('2')">2</button><button class="cbtn" onclick="calcIn('3')">3</button><button class="cbtn" onclick="calcIn('-')">-</button>
-            <button class="cbtn" onclick="calcClear()">C</button><button class="cbtn" onclick="calcIn('0')">0</button><button class="cbtn" onclick="calcSolve()">=</button><button class="cbtn" onclick="calcIn('+')">+</button>
-        </div>
     </div>
 
     <nav class="bottom-nav">
         <div class="nav-item" onclick="goHome()">HOME</div>
-        <div class="nav-item" onclick="openQUIZ()">QUIZ</div>
         <div class="nav-item" onclick="checkAdmin()">ADMIN</div>
         <div class="nav-item" onclick="location.reload()" style="color:red;">LOGOUT</div>
     </nav>
 </div>
 
-<div id="sot-slip" style="display:none; width: 800px; padding: 50px; background: #fff; border: 15px solid #000b18;">
-    <div style="text-align: center; border-bottom: 3px double #000b18; padding-bottom: 20px;">
-        <h1 style="margin:0;">SOT ELITE TUTORIALS</h1>
-        <p>Performance Statement</p>
-    </div>
-    <div style="margin: 30px 0;">
-        <p><strong>STUDENT:</strong> <span id="slip-name"></span></p>
-        <p><strong>SUBJECT:</strong> <span id="slip-sub"></span></p>
-    </div>
-    <div style="text-align: center; padding: 40px; background: #f9f9f9; border: 2px dashed #000;">
-        <p>SCORE ATTAINED</p>
-        <h1 id="slip-score" style="font-size: 4rem; color: #0072ff;"></h1>
-    </div>
-    <div style="margin-top: 60px; display: flex; justify-content: flex-end;">
-        <div style="text-align: center; border-top: 2px solid #000; width: 220px;">
-            <p style="font-family: 'Brush Script MT', cursive; font-size: 1.5rem; margin:0;">Oluwarotimi Sunday</p>
-            <p style="font-size: 0.8rem;"><b>COORDINATOR SIGNATURE</b></p>
-        </div>
-    </div>
+<div id="sot-slip" style="display:none; width: 600px; padding: 40px; background: #fff; border: 10px solid #000b18;">
+    <h1 style="text-align:center;">SOT ELITE RESULT</h1>
+    <p>Student: <span id="slip-name"></span></p>
+    <p>Subject: <span id="slip-sub"></span></p>
+    <h1 id="slip-score" style="text-align:center; font-size:3rem;"></h1>
 </div>
 
 <script>
     let currentUser = null, pendingUser = null;
-    let currentDept='', currentSub='', currentIdx=0, score=0, tIdx=0, timeLeft=300, timerInterval;
+    let currentDept='', currentSub='', currentIdx=0, score=0, timeLeft=300, timerInterval;
 
-    
-};
-    let QUIZBank = [{q:"Who is the developer?", a:"SOT", o:["SOT","Bot","AI","User"]}];
-
-    function showInstallNow() { document.getElementById('install-bar').style.top = '0'; }
-    function installApp() { alert("Install feature active for Chrome/Android."); }
-    function switchTab(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page')); document.getElementById(id).classList.add('active-page'); }
-    
-    function toggleAuth(mode) {
-    document.getElementById('login-form').style.display = (mode === 'login') ? 'block' : 'none';
-    document.getElementById('signup-form').style.display = (mode === 'signup') ? 'block' : 'none';
-    document.getElementById('forgot-form').style.display = 'none';
-}
-
-function showForgot() {
-    document.getElementById('login-form').style.display = 'none';
-    document.getElementById('signup-form').style.display = 'none';
-    document.getElementById('forgot-form').style.display = 'block';
-}
-
-function handleAuth(type) {
-    let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
-
-    if(type === 'signup') {
-
-        let u = document.getElementById('reg-user').value.trim();
-        let p = document.getElementById('reg-pass').value.trim();
-        let ph = document.getElementById('reg-phone').value.trim();
-
-        if(!u || !p || !ph) {
-            alert("All fields required!");
-            return;
+    let qBank = {
+        'Science': { 
+            'Physics': [{q:"Unit of Force?", a:"Newton", o:["Newton","Joule","Watt","Volt"]}],
+            'Biology': [{q:"Powerhouse of cell?", a:"Mitochondria", o:["Nucleus","Mitochondria","Ribosome","Cortex"]}]
+        },
+        'Art': { 
+            'Government': [{q:"Rule of law means?", a:"Supremacy of law", o:["Police power","Supremacy of law","Military rule","Anarchy"]}] 
+        },
+        'Commercial': { 
+            'Economics': [{q:"Reward for Labor?", a:"Wages", o:["Profit","Rent","Wages","Interest"]}] 
         }
-
-        if(p.length < 8) {
-            alert("Password must be at least 8 characters!");
-            return;
-        }
-
-        if(users[u]) {
-            alert("Username already exists!");
-            return;
-        }
-
-        pendingUser = {u, p, ph};
-        document.getElementById('terms-overlay').style.display = 'flex';
-
-    } else {
-
-        let u = document.getElementById('user-id').value.trim();
-        let p = document.getElementById('user-pass').value.trim();
-
-        if(!users[u]) {
-            alert("User not found!");
-            return;
-        }
-
-        if(users[u].pass !== p) {
-            alert("Wrong password!");
-            return;
-        }
-
-        currentUser = u;
-
-        document.getElementById('welcome-text').innerHTML =
-            `<img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" style="width:30px; vertical-align:middle;"> 
-             Welcome, <b>Oluwarotimi Sunday</b>`;
-
-        document.getElementById('auth-overlay').style.display = 'none';
-        switchTab('page-home');
-    }
-
-
-function confirmSignup() {
-    let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
-
-    users[pendingUser.u] = {
-        pass: pendingUser.p,
-        phone: pendingUser.ph,
-        date: new Date().toLocaleDateString()
     };
 
-    localStorage.setItem('sot_users', JSON.stringify(users));
+    function showInstallNow() { document.getElementById('install-bar').style.top = '0'; }
+    function installApp() { alert("Install feature active."); }
+    function switchTab(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page')); document.getElementById(id).classList.add('active-page'); }
 
-    document.getElementById('terms-overlay').style.display = 'none';
-    alert("Account Created Successfully!");
-    toggleAuth('login');
-}  // ✅ only this closing brace
-
-function handleAuth(type) {
-    let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
-
-    if(type === 'signup') {
-        let u = document.getElementById('reg-user').value.trim();
-        let p = document.getElementById('reg-pass').value.trim();
-        let ph = document.getElementById('reg-phone').value.trim();
-
-        if(!u || !p || !ph) {
-            alert("All fields required!");
-            return;
-        }
-
-        if(p.length < 8) {
-            alert("Password must be at least 8 characters!");
-            return;
-        }
-
-        if(users[u]) {
-            alert("Username already exists!");
-            return;
-        }
-
-        pendingUser = {u, p, ph};
-        document.getElementById('terms-overlay').style.display = 'flex';
-
-    } else {
-        let u = document.getElementById('user-id').value.trim();
-        let p = document.getElementById('user-pass').value.trim();
-
-        if(!users[u]) {
-            alert("User not found!");
-            return;
-        }
-
-        if(users[u].pass !== p) {
-            alert("Wrong password!");
-            return;
-        }
-
-        currentUser = u;
-
-        document.getElementById('welcome-text').innerHTML =
-            `<img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" style="width:30px; vertical-align:middle;"> 
-             Welcome, <b>${u}</b>`; // Changed hardcoded name to the actual user name
-
-        document.getElementById('auth-overlay').style.display = 'none';
-        switchTab('page-home');
+    function toggleAuth(mode) {
+        document.getElementById('login-form').style.display = (mode === 'login') ? 'block' : 'none';
+        document.getElementById('signup-form').style.display = (mode === 'signup') ? 'block' : 'none';
+        document.getElementById('forgot-form').style.display = 'none';
     }
-} // <--- THIS BRACE WAS MISSING
+
+    function handleAuth(type) {
+        let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
+        if(type === 'signup') {
+            let u = document.getElementById('reg-user').value.trim();
+            let p = document.getElementById('reg-pass').value.trim();
+            let ph = document.getElementById('reg-phone').value.trim();
+            if(!u || !p || !ph) { alert("Fields required!"); return; }
+            pendingUser = {u, p, ph};
+            document.getElementById('terms-overlay').style.display = 'flex';
+        } else {
+            let u = document.getElementById('user-id').value.trim();
+            let p = document.getElementById('user-pass').value.trim();
+            if(users[u] && users[u].pass === p) {
+                currentUser = u;
+                document.getElementById('welcome-text').innerText = "Welcome, " + u;
+                document.getElementById('auth-overlay').style.display = 'none';
+                switchTab('page-home');
+            } else { alert("Invalid credentials"); }
+        }
+    }
+
+    function confirmSignup() {
+        let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
+        users[pendingUser.u] = { pass: pendingUser.p, phone: pendingUser.ph };
+        localStorage.setItem('sot_users', JSON.stringify(users));
+        document.getElementById('terms-overlay').style.display = 'none';
+        alert("Success!"); toggleAuth('login');
+    }
+
+    function startPortal() { switchTab('page-dept'); }
+    function loadSubjects(dept) {
+        currentDept = dept;
+        document.getElementById('dept-title').innerText = dept + " SUBJECTS";
+        let html = '';
+        for(let sub in qBank[dept]) {
+            html += `<button class="btn btn-blue" onclick="startExam('${sub}')">${sub}</button>`;
+        }
+        document.getElementById('sub-list').innerHTML = html;
+        switchTab('page-subs');
+    }
+
+    function startExam(sub) {
+        currentSub = sub; currentIdx = 0; score = 0; timeLeft = 300;
+        document.getElementById('label-sub').innerText = sub;
+        switchTab('page-exam');
+        startTimer();
+        showQuestion();
+    }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            let m = Math.floor(timeLeft/60), s = timeLeft%60;
+            document.getElementById('timer').innerText = `${m}:${s<10?'0':''}${s}`;
+            if(timeLeft <= 0) finishExam();
+        }, 1000);
+    }
+
+    function showQuestion() {
+        let q = qBank[currentDept][currentSub][currentIdx];
+        document.getElementById('q-text').innerText = (currentIdx+1) + ". " + q.q;
+        document.getElementById('opt-container').innerHTML = q.o.map(opt => `<button class="option-btn" onclick="selectOpt('${opt}', this)">${opt}</button>`).join('');
+    }
+
+    function selectOpt(ans, btn) {
+        document.querySelectorAll('.option-btn').forEach(b => b.style.border = '2px solid #ddd');
+        btn.style.border = '3px solid var(--sot-gold)';
+        btn.dataset.selected = ans;
+    }
+
+    function nextQ() {
+        let sel = document.querySelector('.option-btn[style*="rgb(255, 215, 0)"]');
+        if(sel && sel.innerText === qBank[currentDept][currentSub][currentIdx].a) score++;
+        if(currentIdx < qBank[currentDept][currentSub].length - 1) {
+            currentIdx++; showQuestion();
+        } else { finishExam(); }
+    }
+
+    function prevQ() { if(currentIdx > 0) { currentIdx--; showQuestion(); } }
+    function finishExam() { clearInterval(timerInterval); document.getElementById('score-raw').innerText = score + "/" + qBank[currentDept][currentSub].length; switchTab('page-result'); }
+    function goHome() { clearInterval(timerInterval); switchTab('page-home'); }
+    function checkAdmin() { if(prompt("PIN:") === "2026") alert("Admin Access Granted"); }
+
+    function generatePDF() {
+        document.getElementById('slip-name').innerText = currentUser;
+        document.getElementById('slip-sub').innerText = currentSub;
+        document.getElementById('slip-score').innerText = score + "/" + qBank[currentDept][currentSub].length;
+        const el = document.getElementById('sot-slip');
+        el.style.display = 'block';
+        html2pdf().from(el).save().then(()=> el.style.display='none');
+    }
+</script>
 </body>
-</html>
-
-
-
-
-
-
-
+    </html>
