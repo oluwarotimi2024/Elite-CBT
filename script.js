@@ -1,18 +1,27 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 
-<script src="script.js"></script>
+<script>
+
 let currentUser = null;
 
+/* ------------------ SWITCH PAGE ------------------ */
 function switchPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+    document.querySelectorAll('.page').forEach(p =>
+        p.classList.remove('active-page')
+    );
+
     document.getElementById(pageId).classList.add('active-page');
-    if(pageId === 'page-forum') renderForum();
+
+    if (pageId === 'page-forum') {
+        renderForum();
+    }
 }
 
-// --- FIREBASE CONFIG (Paste your keys here) ---
+/* ------------------ FIREBASE CONFIG ------------------ */
+/* ⚠️ REPLACE WITH YOUR REAL KEYS */
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
+  apiKey: "PASTE_REAL_KEY",
   authDomain: "sot-academy.firebaseapp.com",
   databaseURL: "https://sot-academy-default-rtdb.firebaseio.com",
   projectId: "sot-academy",
@@ -21,134 +30,110 @@ const firebaseConfig = {
   appId: "1:123456789:web:abcdef"
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// --- GLOBAL STUDENT FORUM ---
+/* ------------------ START APP ------------------ */
+function startApp() {
+    let nameInput = document.getElementById('user-id').value.trim();
+
+    if (!nameInput) {
+        alert("Please enter your name!");
+        return;
+    }
+
+    currentUser = nameInput;
+    document.getElementById('welcome-user').innerText =
+        "Hello, " + nameInput;
+
+    switchPage('page-home');
+}
+
+/* ------------------ INIT ------------------ */
+function initApp() {
+    console.log("App Initialized");
+}
+
+/* ------------------ FORUM SEND ------------------ */
 function sendForumMsg() {
     let input = document.getElementById('forum-input');
-    if(!input.value || !currentUser) return;
 
-    // This sends the message to the Cloud
+    if (!input.value || !currentUser) return;
+
     database.ref('forum_messages').push({
         user: currentUser,
         text: input.value,
         timestamp: Date.now(),
-        timeStr: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+        timeStr: new Date().toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+        })
     });
 
     input.value = "";
 }
 
-// --- REAL-TIME LISTENER ---
-// This "listens" for messages globally. When Student A types, 
-// Google pushes the message to Student B automatically.
+/* ------------------ REAL TIME LISTENER ------------------ */
 database.ref('forum_messages').on('value', (snapshot) => {
+
     let box = document.getElementById('forum-box');
-    if(!box) return;
-    
+    if (!box) return;
+
     let data = snapshot.val();
+    if (!data) return;
+
     let html = "";
-    
-    for(let id in data) {
+
+    for (let id in data) {
         let msg = data[id];
         let isMe = msg.user === currentUser;
-        html += `<div class="${isMe ? 'msg-mine' : 'msg-other'}">
-            <small style="font-size:0.6rem; font-weight:bold; display:block;">${isMe ? 'Me' : msg.user}</small>
+
+        html += `
+        <div class="${isMe ? 'msg-mine' : 'msg-other'}">
+            <small style="font-size:0.6rem;font-weight:bold;display:block;">
+                ${isMe ? 'Me' : msg.user}
+            </small>
             ${msg.text}
-            <small style="display:block; font-size:0.5rem; opacity:0.5; text-align:right;">${msg.timeStr}</small>
+            <small style="display:block;font-size:0.5rem;opacity:0.5;text-align:right;">
+                ${msg.timeStr}
+            </small>
         </div>`;
     }
-    
+
     box.innerHTML = html;
     box.scrollTop = box.scrollHeight;
 });
 
-function renderForum() {
-    let box = document.getElementById('forum-box');
-    if(!box) return;
-    let chats = JSON.parse(localStorage.getItem('sot_forum') || "[]");
-    box.innerHTML = chats.map(c => {
-        let isMe = c.user === currentUser;
-        return `<div class="${isMe ? 'msg-mine' : 'msg-other'}">
-            <small style="font-size:0.6rem; font-weight:bold; display:block;">${isMe ? 'Me' : c.user}</small>
-            ${c.text}
-        </div>`;
-    }).join('');
-    box.scrollTop = box.scrollHeight;
-}
-function initApp() {
-    // Show the "Enter" button after 3 seconds of animation
-    setTimeout(() => {
-        document.getElementById('quick-access').style.display = 'block';
-    }, 3000);
-}
-
-function startApp() {
-    let u = document.getElementById('user-id').value.trim();
-    if(!u) {
-        alert("Please enter your name to personalize your experience!");
-        return;
-    }
-    
-    // Set the global user
-    currentUser = u;
-    document.getElementById('welcome-user').innerText = "Hello, " + u;
-    
-    // Switch to Dashboard
-    switchPage('page-home');
-}
-// AUTO-REFRESH FORUM
-setInterval(() => {
-    if(document.getElementById('page-forum').classList.contains('active-page')) renderForum();
-}, 3000);
-
-// --- AI LOGIC (Fixed) ---
+/* ------------------ AI LOGIC ------------------ */
 function askGiantAI() {
     let input = document.getElementById('ai-input');
     let box = document.getElementById('ai-chat-box');
-    if(!input.value) return;
+
+    if (!input.value) return;
 
     box.innerHTML += `<div class="msg-mine">${input.value}</div>`;
     let q = input.value;
     input.value = "";
+
     box.scrollTop = box.scrollHeight;
 
     setTimeout(() => {
-        let res = `I've analyzed "<b>${q}</b>". Click below for the SOT global academic research: <br><br> <button class="btn btn-gold" style="font-size:0.7rem; padding:5px;" onclick="window.open('https://www.google.com/search?q=${q}+academic+answer')">REVEAL ANSWER</button>`;
-        box.innerHTML += `<div class="msg-other"><b>SOT AI:</b> ${res}</div>`;
+
+        let res = `
+        I've analyzed "<b>${q}</b>". 
+        <br><br>
+        <button class="btn btn-gold" 
+        style="font-size:0.7rem;padding:5px;"
+        onclick="window.open('https://www.google.com/search?q=${q}+academic+answer')">
+        REVEAL ANSWER
+        </button>`;
+
+        box.innerHTML +=
+        `<div class="msg-other"><b>SOT AI:</b> ${res}</div>`;
+
         box.scrollTop = box.scrollHeight;
-        window.speechSynthesis.speak(new SpeechSynthesisUtterance("Analyzing request"));
+
     }, 1000);
 }
-function initApp() {
-    // This makes the "Enter" button appear 2 seconds after the icon starts pulsing
-    setTimeout(() => {
-        const btnArea = document.getElementById('quick-access');
-        if(btnArea) btnArea.style.display = 'block';
-    }, 2500);
-}
 
-function startApp() {
-    let nameInput = document.getElementById('user-id').value.trim();
-    
-    if(!nameInput) {
-        alert("Please enter your name so the SOT AI can recognize you!");
-        return;
-    }
-    
-    // Set the user globally for the Forum and AI
-    currentUser = nameInput;
-    document.getElementById('welcome-user').innerText = "Hello, " + nameInput;
-    
-    // Switch to the Main Dashboard
-    switchPage('page-home');
-}
-
-function toggleAuth(m) {
-    document.getElementById('login-form').style.display = m==='login'?'block':'none';
-    document.getElementById('signup-form').style.display = m==='signup'?'block':'none';
-}
-
-function initApp() {}
+</script>
