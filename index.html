@@ -318,7 +318,7 @@ function handleAuth(type) {
         document.getElementById('auth-overlay').style.display = 'none';
         switchTab('page-home');
     }
-}
+
 
 function confirmSignup() {
     let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
@@ -335,7 +335,7 @@ function confirmSignup() {
     alert("Account Created Successfully!");
     toggleAuth('login');
         }
-    }
+    
     function recoverPassword() {
     let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
 
@@ -363,8 +363,8 @@ function confirmSignup() {
 
     alert("Password Reset Successful!");
     toggleAuth('login');
-          }
     }
+
 
     function goHome() { clearInterval(timerInterval); switchTab('page-home'); }
     function startPortal() { switchTab('page-dept'); }
@@ -419,6 +419,7 @@ function confirmSignup() {
 </script>
 </body>
 </html>
+
 
 
 
