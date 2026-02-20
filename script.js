@@ -1,6 +1,3 @@
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
-
 <script>
 
 let currentUser = null;
@@ -18,24 +15,9 @@ function switchPage(pageId) {
     }
 }
 
-/* ------------------ FIREBASE CONFIG ------------------ */
-/* ⚠️ REPLACE WITH YOUR REAL KEYS */
-const firebaseConfig = {
-  apiKey: "PASTE_REAL_KEY",
-  authDomain: "sot-academy.firebaseapp.com",
-  databaseURL: "https://sot-academy-default-rtdb.firebaseio.com",
-  projectId: "sot-academy",
-  storageBucket: "sot-academy.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcdef"
-};
-
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-
 /* ------------------ START APP ------------------ */
 function startApp() {
-    let nameInput = document.getElementById('user-id').value.trim();
+    let nameInput = document.getElementById('user-id')?.value?.trim();
 
     if (!nameInput) {
         alert("Please enter your name!");
@@ -54,7 +36,7 @@ function initApp() {
     // Create automatic guest user
     currentUser = "Guest_" + Math.floor(Math.random() * 1000);
 
-    // Set welcome name
+    // Set welcome name after splash
     setTimeout(() => {
 
         document.getElementById('welcome-user').innerText =
@@ -62,42 +44,46 @@ function initApp() {
 
         switchPage('page-home');
 
-    }, 5000); // 5 seconds splash
+    }, 5000);
 }
 
 
-/* ------------------ FORUM SEND ------------------ */
+/* ------------------ FORUM SEND (OFFLINE) ------------------ */
 function sendForumMsg() {
     let input = document.getElementById('forum-input');
 
     if (!input.value || !currentUser) return;
 
-    database.ref('forum_messages').push({
+    let messages = JSON.parse(localStorage.getItem("forum_messages")) || [];
+
+    messages.push({
         user: currentUser,
         text: input.value,
-        timestamp: Date.now(),
         timeStr: new Date().toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit'
         })
     });
 
+    localStorage.setItem("forum_messages", JSON.stringify(messages));
+
     input.value = "";
+
+    renderForum();
 }
 
-/* ------------------ REAL TIME LISTENER ------------------ */
-database.ref('forum_messages').on('value', (snapshot) => {
+
+/* ------------------ RENDER FORUM ------------------ */
+function renderForum() {
 
     let box = document.getElementById('forum-box');
     if (!box) return;
 
-    let data = snapshot.val();
-    if (!data) return;
+    let messages = JSON.parse(localStorage.getItem("forum_messages")) || [];
 
     let html = "";
 
-    for (let id in data) {
-        let msg = data[id];
+    messages.forEach(msg => {
         let isMe = msg.user === currentUser;
 
         html += `
@@ -110,11 +96,12 @@ database.ref('forum_messages').on('value', (snapshot) => {
                 ${msg.timeStr}
             </small>
         </div>`;
-    }
+    });
 
     box.innerHTML = html;
     box.scrollTop = box.scrollHeight;
-});
+}
+
 
 /* ------------------ AI LOGIC ------------------ */
 function askGiantAI() {
