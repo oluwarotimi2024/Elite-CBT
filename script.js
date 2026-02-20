@@ -78,7 +78,27 @@ function renderForum() {
     }).join('');
     box.scrollTop = box.scrollHeight;
 }
+function initApp() {
+    // Show the "Enter" button after 3 seconds of animation
+    setTimeout(() => {
+        document.getElementById('quick-access').style.display = 'block';
+    }, 3000);
+}
 
+function startApp() {
+    let u = document.getElementById('user-id').value.trim();
+    if(!u) {
+        alert("Please enter your name to personalize your experience!");
+        return;
+    }
+    
+    // Set the global user
+    currentUser = u;
+    document.getElementById('welcome-user').innerText = "Hello, " + u;
+    
+    // Switch to Dashboard
+    switchPage('page-home');
+}
 // AUTO-REFRESH FORUM
 setInterval(() => {
     if(document.getElementById('page-forum').classList.contains('active-page')) renderForum();
