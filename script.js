@@ -122,25 +122,28 @@ function askGiantAI() {
         window.speechSynthesis.speak(new SpeechSynthesisUtterance("Analyzing request"));
     }, 1000);
 }
+function initApp() {
+    // This makes the "Enter" button appear 2 seconds after the icon starts pulsing
+    setTimeout(() => {
+        const btnArea = document.getElementById('quick-access');
+        if(btnArea) btnArea.style.display = 'block';
+    }, 2500);
+}
 
-// --- AUTH ---
-function handleAuth(type) {
-    let u = document.getElementById(type==='login'?'user-id':'reg-user').value.trim();
-    let p = document.getElementById(type==='login'?'user-pass':'reg-pass').value.trim();
-    let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
-
-    if(!u || !p) return alert("Fill all fields");
-    if(type === 'signup') {
-        users[u] = {pass:p, library:false};
-        localStorage.setItem('sot_users', JSON.stringify(users));
-        alert("Account Created!"); toggleAuth('login');
-    } else {
-        if(users[u] && users[u].pass === p) {
-            currentUser = u;
-            document.getElementById('welcome-user').innerText = "Hello, " + u;
-            switchPage('page-home');
-        } else alert("Invalid Login");
+function startApp() {
+    let nameInput = document.getElementById('user-id').value.trim();
+    
+    if(!nameInput) {
+        alert("Please enter your name so the SOT AI can recognize you!");
+        return;
     }
+    
+    // Set the user globally for the Forum and AI
+    currentUser = nameInput;
+    document.getElementById('welcome-user').innerText = "Hello, " + nameInput;
+    
+    // Switch to the Main Dashboard
+    switchPage('page-home');
 }
 
 function toggleAuth(m) {
