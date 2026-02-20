@@ -11,91 +11,60 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070') no-repeat center center fixed; background-size: cover; overflow-x: hidden; }
         
-        #install-bar { position: fixed; top: -100px; left: 0; width: 100%; height: 70px; background: var(--sot-gold); color: #000; z-index: 11000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; font-weight: bold; border-bottom: 4px solid #000; transition: top 0.4s ease-out; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        #install-bar button { background: #000; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-weight: 900; cursor: pointer; }
-
+        #install-bar { position: fixed; top: -100px; left: 0; width: 100%; height: 70px; background: var(--sot-gold); color: #000; z-index: 11000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; font-weight: bold; transition: top 0.4s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--sot-blue); z-index: 10000; display: flex; justify-content: center; align-items: center; color: white; }
-        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--sot-blue); z-index: 9999; display: none; flex-direction: column; justify-content: center; align-items: center; color: white; transition: opacity 0.8s ease; }
-        
-        .overlay { background: rgba(0, 11, 24, 0.75); min-height: 100vh; width: 100%; display: flex; flex-direction: column; }
+        .overlay { background: rgba(0, 11, 24, 0.8); min-height: 100vh; width: 100%; display: flex; flex-direction: column; }
         .app-header { background: rgba(0, 11, 24, 0.95); padding: 20px; text-align: center; border-bottom: 3px solid var(--sot-accent); }
-        
         .container { padding: 20px; max-width: 800px; margin: auto; width: 100%; flex: 1; padding-bottom: 120px; }
         .page { display: none; animation: fadeIn 0.5s; }
         .active-page { display: block; }
-        
-        .card { background: var(--glass); padding: 30px; border-radius: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); color: #333; margin-bottom: 20px; }
-        .btn { width: 100%; padding: 18px; margin: 10px 0; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
+        .card { background: var(--glass); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); color: #333; margin-bottom: 20px; }
+        .btn { width: 100%; padding: 15px; margin: 10px 0; border: none; border-radius: 10px; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
         .btn-blue { background: linear-gradient(90deg, #001f3f, #0072ff); color: white; }
         .btn-gold { background: var(--sot-gold); color: #000; }
-        
-        input, select, textarea { width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #ccc; }
-        
-        .option-btn { width: 100%; padding: 15px; margin: 8px 0; border: 2px solid #ddd; border-radius: 10px; cursor: pointer; text-align: left; background: white; font-weight: bold; }
-        
+        input, select, textarea { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ccc; }
+        .option-btn { width: 100%; padding: 12px; margin: 5px 0; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; text-align: left; background: white; font-weight: bold; }
         #calc-box { position: fixed; bottom: 100px; right: 20px; width: 220px; background: #222; padding: 15px; border-radius: 15px; display: none; z-index: 2000; border: 2px solid var(--sot-accent); }
         .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
         .cbtn { padding: 10px; background: #444; color: white; border: none; border-radius: 5px; cursor: pointer; }
-
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 3px solid var(--sot-accent); z-index: 1000; }
-        .nav-item { font-weight: bold; color: #333; cursor: pointer; font-size: 0.8rem; }
-
-        .admin-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        .nav-item { font-weight: bold; color: #333; cursor: pointer; font-size: 0.75rem; text-align: center; }
+        .admin-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; margin-top: 10px; }
         .admin-table th, .admin-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .invoice-card { background: #fff; border: 2px dashed var(--sot-blue); padding: 15px; border-radius: 10px; margin: 15px 0; border-top: 8px solid var(--sot-gold); }
         @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-
-        .landing-logo { display: block; margin: 10px auto; width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--sot-gold); }
-        .course-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 15px 0; }
-        .course-card { background: #f0f0f0; padding: 8px; border-radius: 8px; border-left: 4px solid var(--sot-blue); font-size: 0.7rem; font-weight: bold; text-align: left; }
-        #terms-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 12000; display: none; justify-content: center; align-items: center; }
     </style>
 </head>
 <body onload="showInstallNow()">
 
 <div id="install-bar">
     <span>📲 Install ELITE CBT Master?</span>
-    <button onclick="installApp()">INSTALL</button>
-</div>
-
-<div id="splash">
-    <h1 style="letter-spacing: 2px;">WELCOME TO CBT ELITE</h1>
-    <p style="color: var(--sot-gold);">POWERED BY OLUWAROTIMI</p>
+    <button onclick="this.parentElement.style.top='-100px'" style="background:#000; color:#fff; border:none; padding:8px 15px; border-radius:5px;">LATER</button>
 </div>
 
 <div id="auth-overlay">
     <div class="card" style="width: 90%; max-width: 400px;">
-        <h2 id="auth-title" style="text-align:center; margin-bottom: 15px;">STUDENT LOGIN</h2>
+        <h2 id="auth-title" style="text-align:center;">STUDENT LOGIN</h2>
         <div id="login-form">
             <input type="text" id="user-id" placeholder="Username">
             <input type="password" id="user-pass" placeholder="Password">
             <button class="btn btn-blue" onclick="handleAuth('login')">LOGIN</button>
-            <p style="text-align:center; cursor:pointer; color:red; font-size:0.8rem;" onclick="showForgot()">Forgot Password?</p>
             <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem;" onclick="toggleAuth('signup')">New here? Sign Up</p>
         </div>
         <div id="signup-form" style="display:none;">
             <input type="text" id="reg-user" placeholder="Username">
             <input type="number" id="reg-phone" placeholder="Phone Number">
-            <input type="password" id="reg-pass" placeholder="Password">
-            <button class="btn btn-gold" onclick="handleAuth('signup')">REGISTER</button>
+            <input type="password" id="reg-pass" placeholder="Password (Min 8)">
+            <button class="btn btn-gold" onclick="handleAuth('signup')">CREATE ACCOUNT</button>
             <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem;" onclick="toggleAuth('login')">Back to Login</p>
-        </div>
-        <div id="forgot-form" style="display:none;">
-            <input type="text" id="fp-user" placeholder="Username">
-            <input type="number" id="fp-phone" placeholder="Phone Number">
-            <input type="password" id="fp-newpass" placeholder="New Password">
-            <button class="btn btn-blue" onclick="recoverPassword()">RESET PASSWORD</button>
-            <p style="text-align:center; cursor:pointer; color:blue; font-size:0.8rem;" onclick="toggleAuth('login')">Back to Login</p>
         </div>
     </div>
 </div>
 
-<div id="terms-overlay">
-    <div class="card" style="width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto;">
-        <h2 style="color: red; text-align:center;">TERMS & CONDITIONS</h2>
-        <div style="text-align: left; font-size: 0.85rem; line-height: 1.6; margin: 15px 0;">
-            <p>1. Integrity: Cheating is strictly forbidden.</p>
-            <p>2. Suspension: Violations result in suspension.</p>
-        </div>
+<div id="terms-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:12000; display:none; justify-content:center; align-items:center;">
+    <div class="card" style="width:90%; max-width:400px;">
+        <h3 style="color:red;">REGISTRATION TERMS</h3>
+        <p style="font-size:0.8rem; margin:15px 0;">By joining ELITE CBT, you agree to uphold academic integrity. Account sharing is prohibited.</p>
         <button class="btn btn-blue" onclick="confirmSignup()">I AGREE</button>
     </div>
 </div>
@@ -109,15 +78,16 @@
     <div class="container">
         <div id="page-home" class="page active-page">
             <div class="card" style="text-align:center;">
-                <img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" class="landing-logo">
-                <h2>OUR VISION</h2>
-                <button class="btn btn-blue" onclick="startPortal()">ENTER CBT PORTAL</button>
+                <img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" style="width:80px; margin-bottom:10px;">
+                <h2 style="color:var(--sot-blue);">EXCELLENCE DRIVEN</h2>
+                <button class="btn btn-blue" onclick="switchTab('page-dept')">START CBT EXAM</button>
+                <button class="btn btn-gold" onclick="openLibrary()">PREMIUM LIBRARY</button>
             </div>
         </div>
 
         <div id="page-dept" class="page">
             <div class="card">
-                <h2 style="text-align:center;">SELECT DEPARTMENT</h2>
+                <h2 style="text-align:center;">DEPARTMENTS</h2>
                 <button class="btn btn-blue" onclick="loadSubjects('Science')">SCIENCE</button>
                 <button class="btn btn-blue" onclick="loadSubjects('Art')">ART</button>
                 <button class="btn btn-blue" onclick="loadSubjects('Commercial')">COMMERCIAL</button>
@@ -136,7 +106,7 @@
             <div class="card" style="padding:0; overflow:hidden;">
                 <div style="background:var(--sot-blue); color:white; padding:15px; display:flex; justify-content:space-between;">
                     <span id="label-sub"></span>
-                    <span id="timer" style="color:var(--sot-gold);">05:00</span>
+                    <span id="timer" style="color:var(--sot-gold); font-weight:bold;">05:00</span>
                 </div>
                 <div style="padding:20px;">
                     <h3 id="q-text" style="margin-bottom:15px;"></h3>
@@ -150,55 +120,115 @@
             </div>
         </div>
 
+        <div id="page-library" class="page">
+            <div id="lib-lock" class="card">
+                <h2 style="text-align:center;">📚 PREMIUM E-LIBRARY</h2>
+                <p style="text-align:center; font-size:0.85rem; margin:10px 0;">Pay <b>₦700</b> for lifetime access to millions of free PDF books and summaries.</p>
+                <div class="invoice-card">
+                    <p><b>Bank:</b> OPAY</p>
+                    <p><b>Acct Name:</b> Sunday Oluwarotimi</p>
+                    <p><b>Acct No:</b> <span style="font-size:1.2rem; color:blue;">0123456789</span></p>
+                    <p><b>Amount:</b> ₦700</p>
+                    <p><b>Invoice Ref:</b> <span id="pay-ref" style="font-weight:bold; color:red;"></span></p>
+                </div>
+                <p style="font-size:0.75rem;">Step 2: Upload Screenshot of Proof</p>
+                <input type="file" id="pay-file" accept="image/*">
+                <button class="btn btn-blue" onclick="submitPay()">I HAVE MADE PAYMENT</button>
+            </div>
+            
+            <div id="lib-content" class="card" style="display:none;">
+                <h2 style="text-align:center;">GLOBAL BOOK SEARCH</h2>
+                <input type="text" id="lib-search" onkeyup="globalSearch()" placeholder="Type book name (e.g. Physics)...">
+                <div id="lib-results"></div>
+                <button class="btn btn-blue" onclick="externalSearch()">SEARCH GLOBALLY</button>
+            </div>
+        </div>
+
+        <div id="page-admin" class="page">
+            <div class="card">
+                <h2>ADMIN PANEL</h2>
+                <p>Pending Library Approvals:</p>
+                <div id="admin-pay-list"></div>
+                <hr style="margin:20px 0;">
+                <p>Registered Students:</p>
+                <div id="admin-user-list"></div>
+            </div>
+        </div>
+
         <div id="page-result" class="page">
             <div class="card" style="text-align:center;">
-                <h2>RESULT</h2>
-                <h1 id="score-raw" style="font-size:3rem; color:var(--sot-blue);">0/0</h1>
+                <h2>YOUR SCORE</h2>
+                <h1 id="score-raw" style="font-size:4rem; color:var(--sot-blue);">0/0</h1>
+                <p id="remark" style="font-weight:bold; margin-bottom:20px;"></p>
                 <button class="btn btn-blue" onclick="generatePDF()">DOWNLOAD RESULT</button>
                 <button class="btn btn-gold" onclick="goHome()">HOME</button>
             </div>
         </div>
     </div>
 
+    <button onclick="toggleCalc()" style="position:fixed; bottom:90px; left:20px; border-radius:50%; width:50px; height:50px; background:var(--sot-gold); z-index:2001; border:none; font-weight:bold; cursor:pointer;">CALC</button>
+    <div id="calc-box">
+        <input type="text" id="calc-display" style="color:lime; background:black; text-align:right;" readonly>
+        <div class="calc-grid">
+            <button class="cbtn" onclick="calcIn('7')">7</button><button class="cbtn" onclick="calcIn('8')">8</button><button class="cbtn" onclick="calcIn('9')">9</button><button class="cbtn" onclick="calcIn('/')">/</button>
+            <button class="cbtn" onclick="calcIn('4')">4</button><button class="cbtn" onclick="calcIn('5')">5</button><button class="cbtn" onclick="calcIn('6')">6</button><button class="cbtn" onclick="calcIn('*')">*</button>
+            <button class="cbtn" onclick="calcIn('1')">1</button><button class="cbtn" onclick="calcIn('2')">2</button><button class="cbtn" onclick="calcIn('3')">3</button><button class="cbtn" onclick="calcIn('-')">-</button>
+            <button class="cbtn" onclick="calcClear()">C</button><button class="cbtn" onclick="calcIn('0')">0</button><button class="cbtn" onclick="calcSolve()">=</button><button class="cbtn" onclick="calcIn('+')">+</button>
+        </div>
+    </div>
+
     <nav class="bottom-nav">
         <div class="nav-item" onclick="goHome()">HOME</div>
+        <div class="nav-item" onclick="openLibrary()">LIBRARY</div>
         <div class="nav-item" onclick="checkAdmin()">ADMIN</div>
         <div class="nav-item" onclick="location.reload()" style="color:red;">LOGOUT</div>
     </nav>
 </div>
 
-<div id="sot-slip" style="display:none; width: 600px; padding: 40px; background: #fff; border: 10px solid #000b18;">
-    <h1 style="text-align:center;">SOT ELITE RESULT</h1>
-    <p>Student: <span id="slip-name"></span></p>
-    <p>Subject: <span id="slip-sub"></span></p>
-    <h1 id="slip-score" style="text-align:center; font-size:3rem;"></h1>
+<div id="sot-slip" style="display:none; width: 600px; padding: 40px; background: #fff; border: 15px solid #000b18; font-family: serif;">
+    <div style="text-align: center; border-bottom: 3px double #000b18; padding-bottom: 10px;">
+        <h1 style="margin:0;">SOT ELITE TUTORIALS</h1>
+        <p>Official Performance Statement</p>
+    </div>
+    <div style="margin: 20px 0;">
+        <p><b>STUDENT:</b> <span id="slip-name"></span></p>
+        <p><b>SUBJECT:</b> <span id="slip-sub"></span></p>
+        <p><b>DATE:</b> <span id="slip-date"></span></p>
+    </div>
+    <div style="text-align: center; padding: 30px; background: #f4f4f4; border: 2px dashed #000;">
+        <p>TOTAL SCORE</p>
+        <h1 id="slip-score" style="font-size: 5rem; color: #0072ff; margin:0;"></h1>
+    </div>
+    <div style="margin-top: 40px; text-align: right;">
+        <p style="font-family: cursive; font-size: 1.2rem;">Oluwarotimi Sunday</p>
+        <p><b>COORDINATOR SIGNATURE</b></p>
+    </div>
 </div>
 
 <script>
     let currentUser = null, pendingUser = null;
     let currentDept='', currentSub='', currentIdx=0, score=0, timeLeft=300, timerInterval;
 
-    let qBank = {
+    const qBank = {
         'Science': { 
-            'Physics': [{q:"Unit of Force?", a:"Newton", o:["Newton","Joule","Watt","Volt"]}],
-            'Biology': [{q:"Powerhouse of cell?", a:"Mitochondria", o:["Nucleus","Mitochondria","Ribosome","Cortex"]}]
+            'Physics': [{q:"Unit of Resistance?", a:"Ohm", o:["Volt","Ohm","Watt","Ampere"]}],
+            'Biology': [{q:"Part of cell for energy?", a:"Mitochondria", o:["Nucleus","Mitochondria","Ribosome","Cortex"]}]
         },
         'Art': { 
-            'Government': [{q:"Rule of law means?", a:"Supremacy of law", o:["Police power","Supremacy of law","Military rule","Anarchy"]}] 
+            'Government': [{q:"Father of Nationalism in Nigeria?", a:"Herbert Macaulay", o:["Nnamdi Azikiwe","Herbert Macaulay","Obafemi Awolowo","Sardauna"]}] 
         },
         'Commercial': { 
-            'Economics': [{q:"Reward for Labor?", a:"Wages", o:["Profit","Rent","Wages","Interest"]}] 
+            'Economics': [{q:"Reward for Capital?", a:"Interest", o:["Profit","Rent","Interest","Wages"]}] 
         }
     };
 
     function showInstallNow() { document.getElementById('install-bar').style.top = '0'; }
-    function installApp() { alert("Install feature active."); }
     function switchTab(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page')); document.getElementById(id).classList.add('active-page'); }
 
+    // AUTH
     function toggleAuth(mode) {
         document.getElementById('login-form').style.display = (mode === 'login') ? 'block' : 'none';
         document.getElementById('signup-form').style.display = (mode === 'signup') ? 'block' : 'none';
-        document.getElementById('forgot-form').style.display = 'none';
     }
 
     function handleAuth(type) {
@@ -207,7 +237,7 @@
             let u = document.getElementById('reg-user').value.trim();
             let p = document.getElementById('reg-pass').value.trim();
             let ph = document.getElementById('reg-phone').value.trim();
-            if(!u || !p || !ph) { alert("Fields required!"); return; }
+            if(!u || p.length < 8 || !ph) { alert("Please fill correctly (Password min 8)"); return; }
             pendingUser = {u, p, ph};
             document.getElementById('terms-overlay').style.display = 'flex';
         } else {
@@ -218,19 +248,19 @@
                 document.getElementById('welcome-text').innerText = "Welcome, " + u;
                 document.getElementById('auth-overlay').style.display = 'none';
                 switchTab('page-home');
-            } else { alert("Invalid credentials"); }
+            } else { alert("Wrong Login Details"); }
         }
     }
 
     function confirmSignup() {
         let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
-        users[pendingUser.u] = { pass: pendingUser.p, phone: pendingUser.ph };
+        users[pendingUser.u] = { pass: pendingUser.p, phone: pendingUser.ph, library: false };
         localStorage.setItem('sot_users', JSON.stringify(users));
         document.getElementById('terms-overlay').style.display = 'none';
-        alert("Success!"); toggleAuth('login');
+        alert("Account Created!"); toggleAuth('login');
     }
 
-    function startPortal() { switchTab('page-dept'); }
+    // EXAM LOGIC
     function loadSubjects(dept) {
         currentDept = dept;
         document.getElementById('dept-title').innerText = dept + " SUBJECTS";
@@ -273,7 +303,7 @@
     }
 
     function nextQ() {
-        let sel = document.querySelector('.option-btn[style*="rgb(255, 215, 0)"]');
+        let sel = document.querySelector('.option-btn[style*="gold"]');
         if(sel && sel.innerText === qBank[currentDept][currentSub][currentIdx].a) score++;
         if(currentIdx < qBank[currentDept][currentSub].length - 1) {
             currentIdx++; showQuestion();
@@ -281,18 +311,94 @@
     }
 
     function prevQ() { if(currentIdx > 0) { currentIdx--; showQuestion(); } }
-    function finishExam() { clearInterval(timerInterval); document.getElementById('score-raw').innerText = score + "/" + qBank[currentDept][currentSub].length; switchTab('page-result'); }
+
+    function finishExam() {
+        clearInterval(timerInterval);
+        document.getElementById('score-raw').innerText = score + "/" + qBank[currentDept][currentSub].length;
+        let p = (score/qBank[currentDept][currentSub].length)*100;
+        document.getElementById('remark').innerText = p >= 70 ? "EXCELLENT PERFORMANCE!" : "KEEP PRACTICING!";
+        switchTab('page-result');
+    }
+
+    // LIBRARY & PAYMENT
+    function openLibrary() {
+        let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
+        if(users[currentUser].library) {
+            document.getElementById('lib-lock').style.display = 'none';
+            document.getElementById('lib-content').style.display = 'block';
+        } else {
+            document.getElementById('pay-ref').innerText = "SOT-" + Math.floor(Math.random()*9999);
+        }
+        switchTab('page-library');
+    }
+
+    function submitPay() {
+        if(!document.getElementById('pay-file').files[0]) { alert("Upload Proof!"); return; }
+        let payList = JSON.parse(localStorage.getItem('sot_pending_pay') || "[]");
+        payList.push({ user: currentUser, ref: document.getElementById('pay-ref').innerText });
+        localStorage.setItem('sot_pending_pay', JSON.stringify(payList));
+        alert("Payment Submitted! Admin will verify soon.");
+        switchTab('page-home');
+    }
+
+    function globalSearch() {
+        let q = document.getElementById('lib-search').value;
+        document.getElementById('lib-results').innerHTML = `<p style='font-size:0.8rem;'>Searching for: <b>${q}</b></p>`;
+    }
+
+    function externalSearch() {
+        let q = document.getElementById('lib-search').value;
+        if(!q) return alert("Enter book name");
+        window.open(`https://www.pdfdrive.com/search?q=${q}`, '_blank');
+    }
+
+    // ADMIN
+    function checkAdmin() {
+        if(prompt("ADMIN PIN:") === "2026") {
+            switchTab('page-admin');
+            let pList = JSON.parse(localStorage.getItem('sot_pending_pay') || "[]");
+            let uList = JSON.parse(localStorage.getItem('sot_users') || "{}");
+            
+            document.getElementById('admin-pay-list').innerHTML = pList.map((p, i) => `
+                <div class="card" style="font-size:0.8rem;">
+                    User: ${p.user} | Ref: ${p.ref} 
+                    <button onclick="verifyUser('${p.user}', ${i})">Approve</button>
+                </div>
+            `).join('');
+            
+            document.getElementById('admin-user-list').innerHTML = Object.keys(uList).map(u => `<li>${u}</li>`).join('');
+        }
+    }
+
+    function verifyUser(user, index) {
+        let uList = JSON.parse(localStorage.getItem('sot_users') || "{}");
+        uList[user].library = true;
+        localStorage.setItem('sot_users', JSON.stringify(uList));
+        
+        let pList = JSON.parse(localStorage.getItem('sot_pending_pay') || "[]");
+        pList.splice(index, 1);
+        localStorage.setItem('sot_pending_pay', JSON.stringify(pList));
+        alert("Verified!");
+        checkAdmin();
+    }
+
+    // CALCULATOR
+    function toggleCalc() { let b = document.getElementById('calc-box'); b.style.display = b.style.display==='block'?'none':'block'; }
+    function calcIn(v) { document.getElementById('calc-display').value += v; }
+    function calcClear() { document.getElementById('calc-display').value = ''; }
+    function calcSolve() { try { document.getElementById('calc-display').value = eval(document.getElementById('calc-display').value); } catch(e) { alert("Error"); } }
+
     function goHome() { clearInterval(timerInterval); switchTab('page-home'); }
-    function checkAdmin() { if(prompt("PIN:") === "2026") alert("Admin Access Granted"); }
 
     function generatePDF() {
         document.getElementById('slip-name').innerText = currentUser;
         document.getElementById('slip-sub').innerText = currentSub;
+        document.getElementById('slip-date').innerText = new Date().toLocaleDateString();
         document.getElementById('slip-score').innerText = score + "/" + qBank[currentDept][currentSub].length;
         const el = document.getElementById('sot-slip');
         el.style.display = 'block';
-        html2pdf().from(el).save().then(()=> el.style.display='none');
+        html2pdf().from(el).save().then(()=>el.style.display='none');
     }
 </script>
 </body>
-    </html>
+</html>
