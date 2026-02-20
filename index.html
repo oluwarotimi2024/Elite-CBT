@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,6 +71,7 @@
             <input type="text" id="user-id" placeholder="Username">
             <input type="password" id="user-pass" placeholder="Password">
             <button class="btn btn-blue" onclick="handleAuth('login')">LOGIN</button>
+            <p style="text-align:center; cursor:pointer; color:red; font-size:0.8rem;" onclick="showForgot()">Forgot Password?</p>
             <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem;" onclick="toggleAuth('signup')">New here? Sign Up</p>
         </div>
         <div id="signup-form" style="display:none;">
@@ -78,6 +80,13 @@
             <input type="password" id="reg-pass" placeholder="Password">
             <button class="btn btn-gold" onclick="handleAuth('signup')">REGISTER</button>
             <p style="text-align:center; cursor:pointer; color: blue; font-size: 0.8rem;" onclick="toggleAuth('login')">Back to Login</p>
+        </div>
+        <div id="forgot-form" style="display:none;">
+    <input type="text" id="fp-user" placeholder="Username">
+    <input type="number" id="fp-phone" placeholder="Phone Number">
+    <input type="password" id="fp-newpass" placeholder="New Password (min 8 characters)">
+    <button class="btn btn-blue" onclick="recoverPassword()">RESET PASSWORD</button>
+    <p style="text-align:center; cursor:pointer; color:blue; font-size:0.8rem;" onclick="toggleAuth('login')">Back to Login</p>
         </div>
     </div>
 </div>
@@ -247,40 +256,85 @@
     function switchTab(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page')); document.getElementById(id).classList.add('active-page'); }
     
     function toggleAuth(mode) {
-        document.getElementById('login-form').style.display = (mode === 'login') ? 'block' : 'none';
-        document.getElementById('signup-form').style.display = (mode === 'signup') ? 'block' : 'none';
-    }
+    document.getElementById('login-form').style.display = (mode === 'login') ? 'block' : 'none';
+    document.getElementById('signup-form').style.display = (mode === 'signup') ? 'block' : 'none';
+    document.getElementById('forgot-form').style.display = 'none';
+}
 
-    function handleAuth(type) {
-        let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
-        if(type === 'signup') {
-            let u = document.getElementById('reg-user').value;
-            let p = document.getElementById('reg-pass').value;
-            let ph = document.getElementById('reg-phone').value;
-            if(u && p) { pendingUser = {u, p, ph}; document.getElementById('terms-overlay').style.display = 'flex'; }
-        } else {
-            let u = document.getElementById('user-id').value;
-            let p = document.getElementById('user-pass').value;
-            if(users[u]) {
-                if (users[u].suspendedUntil && users[u].suspendedUntil > Date.now()) {
-                    alert("ACCOUNT SUSPENDED: Try again later."); return;
-                }
-                if(users[u].pass === p) {
-                    currentUser = u;
-                    document.getElementById('auth-overlay').style.display = 'none';
-                    document.getElementById('splash').style.display = 'flex';
-                    setTimeout(() => { document.getElementById('splash').style.display = 'none'; switchTab('page-home'); }, 2000);
-                } else { alert("Wrong password!"); }
-            } else { alert("User not found!"); }
+function showForgot() {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('signup-form').style.display = 'none';
+    document.getElementById('forgot-form').style.display = 'block';
+}
+
+function handleAuth(type) {
+    let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
+
+    if(type === 'signup') {
+
+        let u = document.getElementById('reg-user').value.trim();
+        let p = document.getElementById('reg-pass').value.trim();
+        let ph = document.getElementById('reg-phone').value.trim();
+
+        if(!u || !p || !ph) {
+            alert("All fields required!");
+            return;
         }
-    }
 
-    function confirmSignup() {
-        let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
-        users[pendingUser.u] = {pass: pendingUser.p, phone: pendingUser.ph, date: new Date().toLocaleDateString()};
-        localStorage.setItem('sot_users', JSON.stringify(users));
-        document.getElementById('terms-overlay').style.display = 'none';
-        alert("ACCOUNT CREATED!"); toggleAuth('login');
+        if(p.length < 8) {
+            alert("Password must be at least 8 characters!");
+            return;
+        }
+
+        if(users[u]) {
+            alert("Username already exists!");
+            return;
+        }
+
+        pendingUser = {u, p, ph};
+        document.getElementById('terms-overlay').style.display = 'flex';
+
+    } else {
+
+        let u = document.getElementById('user-id').value.trim();
+        let p = document.getElementById('user-pass').value.trim();
+
+        if(!users[u]) {
+            alert("User not found!");
+            return;
+        }
+
+        if(users[u].pass !== p) {
+            alert("Wrong password!");
+            return;
+        }
+
+        currentUser = u;
+
+        document.getElementById('welcome-text').innerHTML =
+            `<img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" style="width:30px; vertical-align:middle;"> 
+             Welcome, <b>Oluwarotimi Sunday</b>`;
+
+        document.getElementById('auth-overlay').style.display = 'none';
+        switchTab('page-home');
+    }
+}
+
+function confirmSignup() {
+    let users = JSON.parse(localStorage.getItem('sot_users') || "{}");
+
+    users[pendingUser.u] = {
+        pass: pendingUser.p,
+        phone: pendingUser.ph,
+        date: new Date().toLocaleDateString()
+    };
+
+    localStorage.setItem('sot_users', JSON.stringify(users));
+
+    document.getElementById('terms-overlay').style.display = 'none';
+    alert("Account Created Successfully!");
+    toggleAuth('login');
+        }
     }
 
     function goHome() { clearInterval(timerInterval); switchTab('page-home'); }
@@ -336,5 +390,6 @@
 </script>
 </body>
 </html>
+
 
 
