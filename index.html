@@ -1,82 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOT ACADEMY | ELITE EDITION</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOT ACADEMY | ELITE EDITION</title>
+
+<style>
+:root { 
+    --blue: #001529;
+    --gold: #FFD700; 
+    --glass: rgba(255, 255, 255, 0.85);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+
+body { 
+    background: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=2000&auto=format&fit=crop') no-repeat center center fixed; 
+    background-size: cover;
+    height: 100vh; 
+    overflow: hidden; 
+}
+
+/* Splash */
+.splash-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 21, 41, 0.9);
+    text-align: center;
+}
+
+.sot-logo-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--gold);
+    padding: 5px;
+    box-shadow: 0 0 20px var(--gold);
+    margin-bottom: 20px;
+}
+
+.sot-icon-anim {
+    width: 100%;
+    border-radius: 50%;
+    animation: rotatePulse 3s infinite ease-in-out;
+}
+
+.sot-name-anim {
+    color: white;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    animation: textGlow 2s infinite alternate;
+}
+
+.sot-tagline {
+    color: var(--gold);
+    font-size: 0.9rem;
+    margin-top: 5px;
+    opacity: 0.8;
+}
+
+@keyframes rotatePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes textGlow {
+    from { text-shadow: 0 0 5px #fff; }
+    to { text-shadow: 0 0 15px var(--gold); }
+}
+
+.glass {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.page { display: none; height: 100vh; width: 100%; flex-direction: column; }
+.active-page { display: flex; }
+
+.main-header { color: var(--blue); padding: 30px; text-align: center; }
+
+.grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+
+.menu-item { 
+    padding: 25px; 
+    text-align: center; 
+    font-weight: bold; 
+    cursor: pointer; 
+}
+
+.chat-window { flex: 1; margin: 10px; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: rgba(0,0,0,0.05); }
+
+.msg-mine { align-self: flex-end; background: var(--blue); color: white; padding: 10px; border-radius: 15px 15px 0 15px; max-width: 80%; }
+.msg-other { align-self: flex-start; background: white; padding: 10px; border-radius: 15px 15px 15px 0; max-width: 80%; }
+
+.chat-bar { display: flex; gap: 5px; padding: 10px; }
+.chat-bar input { flex: 1; padding: 8px; }
+.chat-bar button { padding: 8px; background: var(--gold); border: none; cursor: pointer; }
+
+.btn { padding: 12px; margin: 10px; background: var(--gold); border: none; cursor: pointer; }
+
+</style>
 </head>
+
 <body onload="initApp()">
 
-<!-- AUTH PAGE -->
+<!-- SPLASH -->
 <div id="page-auth" class="page active-page">
     <div class="splash-container">
         <div class="sot-logo-wrapper">
-            <img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png"
-                 class="sot-icon-anim"
-                 alt="SOT Logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" class="sot-icon-anim">
         </div>
-
         <h1 class="sot-name-anim">SUNDAY OLUWAROTIMI</h1>
         <p class="sot-tagline">Excellence Driven • ELITE CBT PRACTICE</p>
     </div>
 </div>
 
-<!-- HOME PAGE -->
+<!-- HOME -->
 <div id="page-home" class="page">
-    <header class="main-header glass">
-        <div id="quote-ticker">
-            <marquee id="quote-text">
-                🔥 Excellence Driven - ELITE CBT PRACTICE 2026
-            </marquee>
-        </div>
-        <h2 id="welcome-user">Welcome, Student</h2>
-    </header>
-    
-    <div class="grid-container">
-        <div class="menu-item glass" onclick="switchPage('page-dept')">📋<br>CBT EXAM</div>
-        <div class="menu-item glass" onclick="switchPage('page-ai')">🤖<br>GIANT AI</div>
-        <div class="menu-item glass" onclick="openLibrary()">📚<br>LIBRARY</div>
-        <div class="menu-item glass" onclick="switchPage('page-forum')">💬<br>FORUM</div>
+    <div class="main-header glass">
+        <h2 id="welcome-user">Welcome</h2>
     </div>
 
-    <button class="btn-live pulse" onclick="switchPage('page-live')">
-        🔴 JOIN LIVE CLASS
-    </button>
-
-    <div class="vision-card glass">
-        <h3>SOT VISION</h3>
-        <p>"Empowering every student with digital excellence."</p>
-        <small>WhatsApp Admin: 09024301199</small>
+    <div class="grid-container">
+        <div class="menu-item glass" onclick="switchPage('page-ai')">🤖 GIANT AI</div>
+        <div class="menu-item glass" onclick="switchPage('page-forum')">💬 FORUM</div>
     </div>
 </div>
 
-<!-- AI PAGE -->
+<!-- AI -->
 <div id="page-ai" class="page">
-    <div class="chat-header glass">🤖 SOT GIANT AI</div>
+    <div class="glass">🤖 SOT GIANT AI</div>
     <div id="ai-chat-box" class="chat-window"></div>
-    <div class="chat-bar glass">
-        <input type="text" id="ai-input" placeholder="Ask a question...">
+    <div class="chat-bar">
+        <input type="text" id="ai-input">
         <button onclick="askGiantAI()">ASK</button>
     </div>
-    <button class="btn btn-gold" onclick="switchPage('page-home')">
-        BACK HOME
-    </button>
+    <button class="btn" onclick="switchPage('page-home')">BACK</button>
 </div>
 
-<!-- FORUM PAGE -->
+<!-- FORUM -->
 <div id="page-forum" class="page">
-    <div class="chat-header glass">💬 STUDENT FORUM</div>
+    <div class="glass">💬 STUDENT FORUM</div>
     <div id="forum-box" class="chat-window"></div>
-    <div class="chat-bar glass">
-        <input type="text" id="forum-input" placeholder="Message group...">
+    <div class="chat-bar">
+        <input type="text" id="forum-input">
         <button onclick="sendForumMsg()">SEND</button>
     </div>
-    <button class="btn btn-gold" onclick="switchPage('page-home')">
-        BACK HOME
-    </button>
+    <button class="btn" onclick="switchPage('page-home')">BACK</button>
 </div>
 
-<script src="script.js"></script>
+<script>
+
+let currentUser = null;
+
+function switchPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+    document.getElementById(pageId).classList.add('active-page');
+
+    if (pageId === 'page-forum') renderForum();
+}
+
+function initApp() {
+    currentUser = "Guest_" + Math.floor(Math.random() * 1000);
+
+    setTimeout(() => {
+        document.getElementById('welcome-user').innerText = "Hello, " + currentUser;
+        switchPage('page-home');
+    }, 5000);
+}
+
+/* FORUM OFFLINE */
+function sendForumMsg() {
+    let input = document.getElementById('forum-input');
+    if (!input.value) return;
+
+    let messages = JSON.parse(localStorage.getItem("forum_messages")) || [];
+
+    messages.push({
+        user: currentUser,
+        text: input.value,
+        time: new Date().toLocaleTimeString()
+    });
+
+    localStorage.setItem("forum_messages", JSON.stringify(messages));
+    input.value = "";
+    renderForum();
+}
+
+function renderForum() {
+    let box = document.getElementById('forum-box');
+    let messages = JSON.parse(localStorage.getItem("forum_messages")) || [];
+
+    box.innerHTML = "";
+
+    messages.forEach(msg => {
+        let div = document.createElement("div");
+        div.className = msg.user === currentUser ? "msg-mine" : "msg-other";
+        div.innerHTML = `<b>${msg.user}</b><br>${msg.text}<br><small>${msg.time}</small>`;
+        box.appendChild(div);
+    });
+
+    box.scrollTop = box.scrollHeight;
+}
+
+/* AI */
+function askGiantAI() {
+    let input = document.getElementById('ai-input');
+    let box = document.getElementById('ai-chat-box');
+    if (!input.value) return;
+
+    box.innerHTML += `<div class="msg-mine">${input.value}</div>`;
+    let q = input.value;
+    input.value = "";
+
+    setTimeout(() => {
+        box.innerHTML += `<div class="msg-other">Search result for: ${q}</div>`;
+        box.scrollTop = box.scrollHeight;
+    }, 800);
+}
+
+</script>
+
 </body>
 </html>
